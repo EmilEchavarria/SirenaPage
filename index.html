@@ -510,141 +510,265 @@
     </div>
 </section>
 
-<script>
-    function scrollToSection(sectionId) {
-        document.getElementById(sectionId)?.scrollIntoView({ 
-            behavior: 'smooth' 
-        });
-    }
-</script>
 
-    <!-- Story Section -->
-    <section id="story" class="py-20 lg:py-32">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
-                    Nuestra Historia
-                </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Todo comenzó con una simple pregunta: ¿Por qué hacer las compras tiene que ser tan complicado?
-                </p>
+<section id="story" class="py-20 lg:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-20">
+            <div class="inline-flex items-center bg-[#FFD100]/10 text-gray-800 px-6 py-3 rounded-full font-semibold text-sm mb-6">
+                <i class="fas fa-code mr-2 text-[#02B0D5]"></i>
+                Hackathon Grupo Ramos 2025 - Equipo ShelfHackers
             </div>
-            
-            <div class="grid lg:grid-cols-2 gap-16 items-center mb-20">
-                <div class="space-y-8">
-                    <div class="flex items-start space-x-4">
-                        <div class="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="text-white font-bold text-lg">1</span>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">El Problema Real</h3>
-                            <p class="text-gray-600">Millones de personas pierden tiempo y se frustran navegando por supermercados sin orientación clara.</p>
-                        </div>
+            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                De la Idea al 
+                <span class="bg-gradient-to-r from-[#02B0D5] to-[#FFD100] bg-clip-text text-transparent">Prototipo Funcional</span>
+            </h2>
+            <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                En 30 días intensos, transformamos una problemática real del retail dominicano en una solución 
+                tecnológica innovadora que revoluciona la experiencia de compra en supermercados.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+            <div class="bg-white rounded-2xl p-6 text-center relative overflow-hidden shadow-md">
+                <div class="absolute top-0 left-0 right-0 h-1 bg-[#02B0D5]"></div>
+                <div class="text-3xl font-bold mb-2 text-gray-900">30</div>
+                <div class="text-sm opacity-90 text-gray-600">Días de desarrollo</div>
+            </div>
+            <div class="bg-white rounded-2xl p-6 text-center relative overflow-hidden shadow-md">
+                <div class="absolute top-0 left-0 right-0 h-1 bg-[#FFD100]"></div>
+                <div class="text-3xl font-bold mb-2 text-gray-900">4</div>
+                <div class="text-sm opacity-90 text-gray-600">Desarrolladores</div>
+            </div>
+            <div class="bg-white rounded-2xl p-6 text-center relative overflow-hidden shadow-md">
+                <div class="absolute top-0 left-0 right-0 h-1 bg-[#02B0D5]"></div>
+                <div class="text-3xl font-bold mb-2 text-gray-900">100%</div>
+                <div class="text-sm opacity-90 text-gray-600">Funcional y demo</div>
+            </div>
+            <div class="bg-white rounded-2xl p-6 text-center relative overflow-hidden shadow-md">
+                <div class="absolute top-0 left-0 right-0 h-1 bg-[#FFD100]"></div>
+                <div class="text-3xl font-bold mb-2 text-gray-900">1°</div>
+                <div class="text-sm opacity-90 text-gray-600">En innovación</div>
+            </div>
+        </div>
+        
+        <div class="grid lg:grid-cols-2 gap-16 items-start mb-20">
+            <div class="space-y-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-8">Nuestro Journey en el Hackathon</h3>
+                
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-[#02B0D5]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#02B0D5]">
+                        <span class="font-bold text-lg">1</span>
                     </div>
-                    
-                    <div class="flex items-start space-x-4">
-                        <div class="w-12 h-12 bg-gradient-accent rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="text-gray-900 font-bold text-lg">2</span>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">La Inspiración</h3>
-                            <p class="text-gray-600">En el Hackathon de Grupo Ramos 2025, imaginamos un GPS específico para supermercados.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start space-x-4">
-                        <div class="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0">
-                            <span class="text-white font-bold text-lg">3</span>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">La Solución</h3>
-                            <p class="text-gray-600">SirenaMap nació: navegación inteligente, ubicación precisa y experiencia personalizada.</p>
-                        </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">Identificación del Problema</h4>
+                        <p class="text-gray-600">Detectamos que los clientes de Grupo Ramos pierden 30+ minutos navegando sin orientación clara en sus supermercados.</p>
                     </div>
                 </div>
                 
-                <div class="relative">
-                    <div class="bg-gradient-to-br from-blue-50 to-yellow-50 rounded-2xl p-8">
-                        <div class="text-center">
-                            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                                <i class="fas fa-lightbulb text-3xl text-yellow-500"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-gray-900 mb-4">30 Días de Innovación</h3>
-                            <p class="text-gray-600 mb-6">Creamos SirenaMap en un hackathon intenso, combinando tecnología avanzada con diseño centrado en el usuario.</p>
-                            <div class="grid grid-cols-2 gap-4 text-center">
-                                <div class="bg-white rounded-lg p-4">
-                                    <div class="text-2xl font-bold text-blue-600">4</div>
-                                    <div class="text-sm text-gray-600">Desarrolladores</div>
-                                </div>
-                                <div class="bg-white rounded-lg p-4">
-                                    <div class="text-2xl font-bold text-yellow-600">30 Días</div>
-                                    <div class="text-sm text-gray-600">Intensos</div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-[#FFD100]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#FFD100]">
+                        <span class="font-bold text-lg">2</span>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">Conceptualización de la Solución</h4>
+                        <p class="text-gray-600">Diseñamos SirenaMap: el primer GPS indoor específico para supermercados con navegación paso a paso y recomendaciones inteligentes.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-[#02B0D5]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#02B0D5]">
+                        <span class="font-bold text-lg">3</span>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">Desarrollo y Prototipado</h4>
+                        <p class="text-gray-600">Implementamos una aplicación móvil completa con mapeo indoor, sistema de rutas optimizadas y integración con inventario en tiempo real.</p>
+                    </div>
+                </div>
+
+                <div class="flex items-start space-x-4">
+                    <div class="w-12 h-12 bg-[#FFD100]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#FFD100]">
+                        <span class="font-bold text-lg">4</span>
+                    </div>
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">Validación y Demo</h4>
+                        <p class="text-gray-600">Creamos un prototipo funcional con demo completo que demuestra el potencial de transformación del retail dominicano.</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Problem vs Solution -->
-            <div class="grid lg:grid-cols-2 gap-8">
-                <div class="card bg-red-50 border-l-4 border-red-400">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                            <i class="fas fa-frown text-red-600 text-xl"></i>
+            <div class="relative">
+                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-200">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg border-4 border-blue-100 relative overflow-hidden rocket-container">
+                            <i class="fas fa-rocket text-3xl text-blue-600 animate-rocket-launch"></i>
+                            
+                            <div class="sparkle sparkle-1"></div>
+                            <div class="sparkle sparkle-2"></div>
+                            <div class="sparkle sparkle-3"></div>
+                            <div class="sparkle sparkle-4"></div>
+                            <div class="sparkle sparkle-5"></div>
+                            <div class="sparkle sparkle-6"></div>
+                            <div class="sparkle sparkle-7"></div>
+                            <div class="sparkle sparkle-8"></div>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900">Antes: La Frustración</h3>
-                    </div>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700">30+ minutos buscando productos</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700">Preguntar constantemente a empleados</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700">Olvidar productos de la lista</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700">Experiencia estresante</span>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="card bg-green-50 border-l-4 border-green-400">
-                    <div class="flex items-center mb-6">
-                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
-                            <i class="fas fa-smile text-green-600 text-xl"></i>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Impacto Proyectado</h3>
+                        <p class="text-gray-600 mb-6">SirenaMap está diseñado para implementarse en toda la red de Grupo Ramos, beneficiando a millones de clientes dominicanos.</p>
+                        
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="bg-white rounded-lg p-4 shadow-sm">
+                                <div class="text-2xl font-bold text-blue-600">74%</div>
+                                <div class="text-sm text-gray-600">Tiempo ahorrado</div>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 shadow-sm">
+                                <div class="text-2xl font-bold text-emerald-600">2M+</div>
+                                <div class="text-sm text-gray-600">Usuarios objetivo</div>
+                            </div>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900">Ahora: La Solución</h3>
+                        
+                        <div class="mt-6 p-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg text-white">
+                            <p class="font-semibold text-sm">
+                                "Una solución que posiciona a Grupo Ramos como líder en innovación retail"
+                            </p>
+                        </div>
                     </div>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700">Navegación directa a cada producto</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700">Autonomía total sin ayuda</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700">Listas inteligentes y recordatorios</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700">Experiencia placentera y eficiente</span>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
-    </section>
+        
+        <div class="grid lg:grid-cols-2 gap-8">
+            <div class="bg-white border-l-4 border-red-400 rounded-lg p-8 shadow-md">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">El Desafío Identificado</h3>
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
+                        <span class="text-gray-700"><strong>Ineficiencia operacional:</strong> Clientes perdidos generan carga en personal</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
+                        <span class="text-gray-700"><strong>Experiencia deficiente:</strong> Frustración y tiempo perdido en cada visita</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
+                        <span class="text-gray-700"><strong>Oportunidad perdida:</strong> Falta de datos sobre comportamiento del cliente</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
+                        <span class="text-gray-700"><strong>Competitividad:</strong> Supermercados sin diferenciación tecnológica</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="bg-white border-l-4 border-[#02B0D5] rounded-lg p-8 shadow-md">
+                <div class="flex items-center mb-6">
+                    <div class="w-12 h-12 bg-[#02B0D5]/20 rounded-full flex items-center justify-center mr-4 text-[#02B0D5]">
+                        <i class="fas fa-lightbulb text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Nuestra Solución Innovadora</h3>
+                </div>
+                <ul class="space-y-4">
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-[#FFD100] mr-3 mt-1 flex-shrink-0"></i>
+                        <span class="text-gray-700"><strong>GPS Indoor:</strong> Navegación precisa paso a paso dentro del supermercado</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-[#02B0D5] mr-3 mt-1 flex-shrink-0"></i>
+                        <span class="text-gray-700"><strong>IA Predictiva:</strong> Recomendaciones personalizadas y rutas optimizadas</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-[#FFD100] mr-3 mt-1 flex-shrink-0"></i>
+                        <span class="text-gray-700"><strong>Analytics avanzado:</strong> Insights valiosos sobre patrones de compra</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fas fa-check text-[#02B0D5] mr-3 mt-1 flex-shrink-0"></i>
+                        <span class="text-gray-700"><strong>Ventaja competitiva:</strong> Primer supermercado inteligente del país</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
 
+
+<style>
+/* Animación de micro-movimiento del cohete */
+@keyframes rocket-launch {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px); 
+    }
+}
+
+.animate-rocket-launch {
+    animation: rocket-launch 1.5s ease-in-out infinite;
+    transform-origin: bottom; 
+    z-index: 10; 
+}
+
+/* Animaciones de las chispas realistas: Más lentas y dispersas */
+@keyframes fire-sparkle {
+    0% {
+        transform: translate(0, 0) scale(1); 
+        opacity: 1;
+        filter: blur(0px);
+    }
+    30% {
+        opacity: 0.8;
+        filter: blur(2px);
+    }
+    100% {
+        /* Distancia de movimiento aumentada a 55px para dar espacio al movimiento lento */
+        transform: translate(var(--sparkle-drift), 55px) scale(0.1); 
+        opacity: 0;
+        filter: blur(8px); 
+    }
+}
+
+.rocket-container {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sparkle {
+    position: absolute;
+    top: 55%; 
+    
+    width: 6px; 
+    height: 12px; 
+    
+    /* Mismo estilo de plasma y resplandor azul */
+    background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 1) 0%, rgba(2, 176, 213, 0.9) 30%, rgba(2, 176, 213, 0.5) 70%, rgba(2, 176, 213, 0) 100%); 
+    box-shadow: 0 0 5px 2px rgba(2, 176, 213, 0.7); 
+    border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+    
+    opacity: 0;
+    z-index: 5;
+    
+    --sparkle-drift: 0px; 
+    
+    /* Duración base AUMENTADA para ralentizar el movimiento */
+    animation: fire-sparkle 1.2s cubic-bezier(0.1, 0.8, 0.5, 0.95) infinite; 
+    filter: blur(0px); 
+}
+
+/* Variaciones con duraciones individuales aumentadas */
+.sparkle-1 { left: 45%; animation-delay: 0s; width: 5px; height: 10px; --sparkle-drift: -10px; animation-duration: 1.1s; }
+.sparkle-2 { left: 30%; animation-delay: 0.1s; width: 7px; height: 14px; animation-duration: 1.5s; --sparkle-drift: -20px; }
+.sparkle-3 { left: 60%; animation-delay: 0.2s; width: 6px; height: 12px; animation-duration: 1.3s; --sparkle-drift: 15px; }
+.sparkle-4 { left: 38%; animation-delay: 0.3s; width: 8px; height: 16px; animation-duration: 1.4s; --sparkle-drift: 5px; }
+.sparkle-5 { left: 52%; animation-delay: 0.4s; width: 5px; height: 10px; animation-duration: 1.6s; --sparkle-drift: -7px; }
+.sparkle-6 { left: 20%; animation-delay: 0.5s; width: 9px; height: 18px; animation-duration: 1.8s; --sparkle-drift: -25px; }
+.sparkle-7 { left: 70%; animation-delay: 0.6s; width: 6px; height: 13px; animation-duration: 1.3s; --sparkle-drift: 20px; }
+.sparkle-8 { left: 48%; animation-delay: 0.7s; width: 7px; height: 15px; animation-duration: 1.0s; --sparkle-drift: 3px; }
+</style>
     <!-- Features Section -->
     <section id="features" class="py-20 lg:py-32 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
