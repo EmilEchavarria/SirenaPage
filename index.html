@@ -1,51 +1,823 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Hola Mundo - RÁPIDO</title>
-  <style>
-    /* CSS rápido y limpio */
-    :root{--bg:#0f172a;--card:#0b1220;--accent:#7dd3fc}
-    html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
-    body{display:grid;place-items:center;background:linear-gradient(180deg,var(--bg),#071024);color:#e6eef8}
-    .card{background:var(--card);padding:2.5rem 3rem;border-radius:16px;box-shadow:0 8px 30px rgba(2,6,23,.6);text-align:center}
-    h1{margin:0;font-size:3rem;letter-spacing:0.02em}
-    p{margin:.6rem 0 1rem;color:rgba(230,238,248,.8)}
-    button{appearance:none;border:0;padding:.6rem 1rem;border-radius:10px;background:linear-gradient(90deg,var(--accent),#60a5fa);cursor:pointer;font-weight:600}
-    /* peppy quick animation */
-    .fade-in{opacity:0;transform:translateY(6px);animation:in .35s ease-out forwards}
-    @keyframes in{to{opacity:1;transform:none}}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShelfHackers - SirenaMap | Hackathon 2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=More+Sugar&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .font-sugar { font-family: 'More Sugar', cursive; }
+        .text-gradient { background: linear-gradient(45deg, #02B0D5, #FFD100); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-primary { background: linear-gradient(135deg, #02B0D5, #0284c7); color: white; padding: 16px 32px; border-radius: 50px; font-weight: 600; transition: all 0.3s; box-shadow: 0 10px 30px rgba(2, 176, 213, 0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(2, 176, 213, 0.4); }
+        .btn-secondary { background: white; color: #02B0D5; padding: 16px 32px; border-radius: 50px; font-weight: 600; border: 2px solid #02B0D5; transition: all 0.3s; }
+        .btn-secondary:hover { background: #02B0D5; color: white; transform: translateY(-2px); }
+        .floating-arrow { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); } 40% { transform: translateX(-50%) translateY(-10px); } 60% { transform: translateX(-50%) translateY(-5px); } }
+        .feature-card { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); transition: all 0.3s; border: 1px solid #f1f5f9; }
+        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+        .mockup-container { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 2rem; position: relative; overflow: hidden; }
+        .mockup-container::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>'); opacity: 0.3; }
+        .phone-mockup { width: 300px; height: 600px; background: #000; border-radius: 40px; padding: 20px; position: relative; margin: 0 auto; }
+        .phone-screen { width: 100%; height: 100%; background: linear-gradient(135deg, #02B0D5, #0284c7); border-radius: 30px; position: relative; overflow: hidden; }
+        .video-container { background: #1a1a1a; border-radius: 15px; overflow: hidden; aspect-ratio: 16/9; position: relative; }
+        .video-placeholder { display: flex; flex-col; items-center; justify-content: center; height: 100%; color: white; cursor: pointer; transition: all 0.3s; }
+        .video-placeholder:hover { background: rgba(255,255,255,0.1); }
+        .impact-number { font-size: 3rem; font-weight: 800; background: linear-gradient(45deg, #02B0D5, #FFD100); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .story-step { display: flex; align-items: start; gap: 1rem; margin-bottom: 2rem; }
+        .step-number { width: 40px; height: 40px; background: linear-gradient(135deg, #02B0D5, #0284c7); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
+    </style>
 </head>
-<body>
-  <div class="card fade-in" id="card">
-    <h1 id="greet">—</h1>
-    <p>Archivo demo con HTML, CSS y JavaScript. Rápido y simple.</p>
-    <div>
-      <button id="showBtn">Mostrar "Hola Mundo" ahora</button>
-    </div>
-  </div>
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 bg-white/95 backdrop-blur-md border-b border-gray-100 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="text-2xl font-bold font-sugar text-gradient">
+                        SirenaMap
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-1">
+                        <a href="#hero" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">Inicio</a>
+                        <a href="#story" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">Historia</a>
+                        <a href="#preview" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">Vista Previa</a>
+                        <a href="#how-it-works" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">Cómo Funciona</a>
+                        <a href="#videos" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">Videos</a>
+                        <a href="#impact" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">Impacto</a>
+                        <a href="#team" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">Equipo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-  <script>
-    // JavaScript mínimo: muestra "Hola Mundo" al cargar y al pulsar el botón
-    const greetEl = document.getElementById('greet');
-    const btn = document.getElementById('showBtn');
+    <!-- Hero Section -->
+    <section id="hero" class="pt-16 pb-20 relative overflow-hidden bg-gradient-to-br from-blue-50 to-cyan-50">
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+            <div class="text-center">
+                <h1 class="text-6xl md:text-8xl font-bold mb-8 font-sugar text-gradient">
+                    SirenaMap
+                </h1>
+                <p class="text-2xl md:text-3xl text-gray-700 mb-6 max-w-4xl mx-auto font-medium">
+                    ¡Nunca más te pierdas en el supermercado! 🛒✨
+                </p>
+                <p class="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
+                    Imagínate llegar al supermercado, abrir tu teléfono y que te lleve directo a cada producto de tu lista. 
+                    Eso es SirenaMap: tu GPS personal para hacer las compras más rápidas y divertidas.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="document.getElementById('preview').scrollIntoView()" class="btn-primary">
+                        <i class="fas fa-play mr-2"></i>Ver en Acción
+                    </button>
+                    <button onclick="document.getElementById('story').scrollIntoView()" class="btn-secondary">
+                        <i class="fas fa-heart mr-2"></i>Conoce la Historia
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="floating-arrow">
+            <i class="fas fa-chevron-down text-2xl text-gray-400"></i>
+        </div>
+    </section>
 
-    function sayHola() {
-      greetEl.textContent = '¡Hola Mundo!';
-      // pequeño efecto: añadir clase para animar si vuelve a presionar
-      greetEl.classList.remove('fade-in');
-      void greetEl.offsetWidth; // reflow para reiniciar la animación
-      greetEl.classList.add('fade-in');
-    }
+    <!-- Story Section -->
+    <section id="story" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6 text-gray-900 font-sugar">
+                    Nuestra Historia 📖
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Todo comenzó con una simple pregunta: ¿Por qué hacer las compras tiene que ser tan complicado?
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="story-step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">El Problema que Todos Conocemos 😤</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            ¿Te ha pasado que entras al supermercado con una lista y terminas dando vueltas por todos los pasillos? 
+                            ¿O que preguntas 5 veces dónde está algo y nadie sabe exactamente? Nosotros también lo vivimos.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="story-step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">La Idea Brillante 💡</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            En el Hackathon de Grupo Ramos 2025, dijimos: "¿Y si el supermercado tuviera GPS como Google Maps?" 
+                            Así nació SirenaMap: tu guía personal que te lleva de la mano hasta cada producto.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="story-step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">La Magia que Creamos ✨</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            Combinamos mapas súper fáciles de usar, tecnología que sabe exactamente dónde estás, 
+                            y una app que te habla para guiarte sin que tengas que mirar el teléfono todo el tiempo.
+                        </p>
+                    </div>
+                </div>
+            </div>
 
-    // Mostrar rápido al cargar
-    window.addEventListener('load', () => {
-      sayHola();
-    });
+            <!-- Problem & Solution Cards -->
+            <div class="grid lg:grid-cols-2 gap-12 mt-20">
+                <div class="bg-red-50 p-8 rounded-2xl border-l-4 border-red-400">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-frown text-3xl text-red-500 mr-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-900">Antes (El Drama)</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><i class="fas fa-times text-red-500 mr-3 mt-1"></i>30 minutos buscando cosas</li>
+                        <li class="flex items-start"><i class="fas fa-times text-red-500 mr-3 mt-1"></i>Preguntar a 5 empleados diferentes</li>
+                        <li class="flex items-start"><i class="fas fa-times text-red-500 mr-3 mt-1"></i>Olvidar la mitad de la lista</li>
+                        <li class="flex items-start"><i class="fas fa-times text-red-500 mr-3 mt-1"></i>Frustrarse y querer irse</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-50 p-8 rounded-2xl border-l-4 border-green-400">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-smile text-3xl text-green-500 mr-4"></i>
+                        <h3 class="text-2xl font-bold text-gray-900">Ahora (La Alegría)</h3>
+                    </div>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i>Llegar directo a cada producto</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i>Compras en la mitad del tiempo</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i>Ver ofertas en el camino</li>
+                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1"></i>Salir feliz y relajado</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    btn.addEventListener('click', sayHola);
-  </script>
+    <!-- Preview/Mockups Section -->
+    <section id="preview" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6 text-gray-900 font-sugar">
+                    Así se Ve SirenaMap 📱
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Dale un vistazo a nuestra app. Es tan fácil de usar que hasta tu abuela la amaría.
+                </p>
+            </div>
+            
+            <!-- App Mockups -->
+            <div class="grid lg:grid-cols-3 gap-8 mb-16">
+                <!-- Mockup 1: Home Screen -->
+                <div class="mockup-container">
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold text-white mb-4 text-center">Pantalla Principal</h3>
+                        <div class="phone-mockup">
+                            <div class="phone-screen p-6 flex flex-col">
+                                <div class="bg-white/20 rounded-2xl p-4 mb-4">
+                                    <div class="text-white text-lg font-bold mb-2">¡Hola Maria! 👋</div>
+                                    <div class="text-white/80 text-sm">¿Qué vas a comprar hoy?</div>
+                                </div>
+                                <div class="bg-white/20 rounded-xl p-3 mb-3">
+                                    <div class="text-white text-sm">🛒 Mi Lista de Compras</div>
+                                </div>
+                                <div class="bg-white/20 rounded-xl p-3 mb-3">
+                                    <div class="text-white text-sm">📍 Encontrar Productos</div>
+                                </div>
+                                <div class="bg-white/20 rounded-xl p-3">
+                                    <div class="text-white text-sm">🎯 Ver Ofertas Cerca</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 2: Map View -->
+                <div class="mockup-container">
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold text-white mb-4 text-center">Mapa del Supermercado</h3>
+                        <div class="phone-mockup">
+                            <div class="phone-screen p-6 flex flex-col">
+                                <div class="bg-white rounded-2xl p-4 flex-1 relative overflow-hidden">
+                                    <div class="text-gray-800 text-sm font-bold mb-2">Supermercado Nacional</div>
+                                    <!-- Simplified map representation -->
+                                    <div class="absolute inset-4 bg-gradient-to-br from-blue-100 to-green-100 rounded-xl">
+                                        <div class="absolute top-4 left-4 w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                                        <div class="absolute top-12 right-6 w-2 h-2 bg-blue-500 rounded-full"></div>
+                                        <div class="absolute bottom-8 left-8 w-2 h-2 bg-green-500 rounded-full"></div>
+                                        <div class="absolute bottom-4 right-4 text-xs text-gray-600">🎯 Leche</div>
+                                    </div>
+                                </div>
+                                <div class="bg-white/20 rounded-xl p-3 mt-3">
+                                    <div class="text-white text-sm">📍 Ir a Productos Lácteos</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mockup 3: Navigation -->
+                <div class="mockup-container">
+                    <div class="relative z-10">
+                        <h3 class="text-xl font-bold text-white mb-4 text-center">Navegación Activa</h3>
+                        <div class="phone-mockup">
+                            <div class="phone-screen p-6 flex flex-col">
+                                <div class="bg-white rounded-2xl p-4 mb-4">
+                                    <div class="text-gray-800 text-lg font-bold mb-2">🎯 Buscando: Leche</div>
+                                    <div class="text-gray-600 text-sm mb-3">Distancia: 15 metros</div>
+                                    <div class="bg-blue-100 rounded-lg p-3">
+                                        <div class="text-blue-800 text-sm font-bold">👆 Sigue recto 10 pasos</div>
+                                        <div class="text-blue-600 text-xs">Luego gira a la derecha</div>
+                                    </div>
+                                </div>
+                                <div class="bg-white/20 rounded-xl p-3 mb-3">
+                                    <div class="text-white text-sm">🔊 Guía por Voz: ON</div>
+                                </div>
+                                <div class="bg-white/20 rounded-xl p-3">
+                                    <div class="text-white text-sm">✅ Producto Encontrado</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Preview -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="feature-card text-center">
+                    <div class="text-4xl mb-4">🗺️</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Mapas Súper Claros</h3>
+                    <p class="text-gray-600 text-sm">Como Google Maps, pero para supermercados</p>
+                </div>
+                
+                <div class="feature-card text-center">
+                    <div class="text-4xl mb-4">📍</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Te Encuentra Solito</h3>
+                    <p class="text-gray-600 text-sm">Siempre sabe exactamente dónde estás parado</p>
+                </div>
+                
+                <div class="feature-card text-center">
+                    <div class="text-4xl mb-4">🗣️</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Te Habla y Te Guía</h3>
+                    <p class="text-gray-600 text-sm">Como un amigo que conoce todo el lugar</p>
+                </div>
+                
+                <div class="feature-card text-center">
+                    <div class="text-4xl mb-4">💰</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Te Muestra Ofertas</h3>
+                    <p class="text-gray-600 text-sm">Descuentos justo cuando pasas por ahí</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6 text-gray-900 font-sugar">
+                    ¿Cómo Funciona? 🤔
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Es tan fácil como 1-2-3. No necesitas ser un genio de la tecnología.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">1</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Abres la App 📱</h3>
+                    <p class="text-gray-600 text-lg">Escribes lo que necesitas comprar o escaneas tu lista de papel. ¡Así de simple!</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">2</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">Te Guía Paso a Paso 🚶‍♀️</h3>
+                    <p class="text-gray-600 text-lg">Como si fuera tu GPS del carro, pero caminando por los pasillos del super.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">3</div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4">¡Listo! 🎉</h3>
+                    <p class="text-gray-600 text-lg">Sales feliz con todo lo que necesitabas y en la mitad del tiempo.</p>
+                </div>
+            </div>
+
+            <!-- Journey Visualization -->
+            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-8">
+                <h3 class="text-2xl font-bold text-center text-gray-900 mb-8">Tu Viaje de Compras con SirenaMap</h3>
+                <div class="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="text-4xl mb-2">🏠</div>
+                        <div class="font-bold text-gray-900">En Casa</div>
+                        <div class="text-sm text-gray-600">Haces tu lista</div>
+                    </div>
+                    <div class="hidden md:block text-2xl text-gray-400">→</div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="text-4xl mb-2">🛒</div>
+                        <div class="font-bold text-gray-900">En el Super</div>
+                        <div class="text-sm text-gray-600">Abres SirenaMap</div>
+                    </div>
+                    <div class="hidden md:block text-2xl text-gray-400">→</div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="text-4xl mb-2">🗺️</div>
+                        <div class="font-bold text-gray-900">Navegando</div>
+                        <div class="text-sm text-gray-600">Te guía producto por producto</div>
+                    </div>
+                    <div class="hidden md:block text-2xl text-gray-400">→</div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="text-4xl mb-2">😊</div>
+                        <div class="font-bold text-gray-900">Feliz</div>
+                        <div class="text-sm text-gray-600">Misión cumplida</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Videos Section -->
+    <section id="videos" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6 text-gray-900 font-sugar">
+                    Videos del Proyecto 🎥
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Mira SirenaMap en acción y conoce más sobre nuestro proceso creativo
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+                <!-- Main Demo Video -->
+                <div class="space-y-4">
+                    <div class="video-container">
+                        <div class="video-placeholder" onclick="playVideo('demo')">
+                            <i class="fas fa-play-circle text-6xl mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Demo Principal de SirenaMap</h3>
+                            <p class="text-gray-300 text-center">Ve cómo funciona nuestra app paso a paso</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Process Video -->
+                <div class="space-y-4">
+                    <div class="video-container">
+                        <div class="video-placeholder" onclick="playVideo('process')">
+                            <i class="fas fa-cogs text-6xl mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Proceso de Desarrollo</h3>
+                            <p class="text-gray-300 text-center">Conoce cómo creamos SirenaMap en el hackathon</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Videos Grid -->
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl p-6 text-center">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fab fa-youtube text-red-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Presentación Final</h3>
+                    <p class="text-gray-600 text-sm mb-4">Nuestra presentación ante los jueces del hackathon</p>
+                    <button class="text-blue-600 font-medium hover:underline">Ver Video →</button>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mobile-alt text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Tutorial de Uso</h3>
+                    <p class="text-gray-600 text-sm mb-4">Aprende a usar SirenaMap como un profesional</p>
+                    <button class="text-blue-600 font-medium hover:underline">Ver Tutorial →</button>
+                </div>
+                
+                <div class="bg-white rounded-xl p-6 text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-users text-green-500 text-2xl"></i>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">Testimonios</h3>
+                    <p class="text-gray-600 text-sm mb-4">Lo que dice la gente que probó nuestra app</p>
+                    <button class="text-blue-600 font-medium hover:underline">Ver Testimonios →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6 text-gray-900 font-sugar">
+                    El Impacto que Queremos Lograr 🌟
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    No es solo una app, es cambiar la vida de las personas que van al supermercado
+                </p>
+            </div>
+            
+            <!-- Impact Numbers -->
+            <div class="grid md:grid-cols-4 gap-8 mb-16">
+                <div class="text-center">
+                    <div class="impact-number">15min</div>
+                    <div class="text-gray-600 font-medium">Menos tiempo comprando</div>
+                    <div class="text-sm text-gray-500 mt-2">Más tiempo para lo que importa</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="impact-number">90%</div>
+                    <div class="text-gray-600 font-medium">Clientes más felices</div>
+                    <div class="text-sm text-gray-500 mt-2">Adiós frustración</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="impact-number">100%</div>
+                    <div class="text-gray-600 font-medium">De los productos encontrados</div>
+                    <div class="text-sm text-gray-500 mt-2">Nunca más "no lo encuentro"</div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="impact-number">5⭐</div>
+                    <div class="text-gray-600 font-medium">Experiencia de compra</div>
+                    <div class="text-sm text-gray-500 mt-2">De estresante a placentera</div>
+                </div>
+            </div>
+
+            <!-- Benefits for Different Users -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-blue-50 p-8 rounded-2xl">
+                    <div class="text-center mb-6">
+                        <div class="text-5xl mb-4">👩‍💼</div>
+                        <h3 class="text-2xl font-bold text-gray-900">Para Ti (Cliente)</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-clock text-blue-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Compras súper rápidas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-smile text-blue-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Cero estrés y frustración</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-money-bill text-blue-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Descubres ofertas en el camino</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-heart text-blue-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Experiencia que realmente disfrutas</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-green-50 p-8 rounded-2xl">
+                    <div class="text-center mb-6">
+                        <div class="text-5xl mb-4">🏪</div>
+                        <h3 class="text-2xl font-bold text-gray-900">Para el Supermercado</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-users text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Clientes más satisfechos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-chart-up text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Más ventas por cliente</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-headset text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Empleados menos ocupados ayudando</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-trophy text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Diferenciación competitiva</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-purple-50 p-8 rounded-2xl">
+                    <div class="text-center mb-6">
+                        <div class="text-5xl mb-4">🌍</div>
+                        <h3 class="text-2xl font-bold text-gray-900">Para el Mundo</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-leaf text-purple-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Menos tiempo en transporte</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-recycle text-purple-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Menos desperdicio de comida</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-universal-access text-purple-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Accesible para todos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-handshake text-purple-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Comunidades más conectadas</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6 text-gray-900 font-sugar">
+                    Los ShelfHackers 👥
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    El equipo que hizo realidad este sueño en el Hackathon de Grupo Ramos 2025
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-code text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Emil Echavarria</h3>
+                    <p class="text-blue-600 font-medium mb-3">El Mago del Código 🧙‍♂️</p>
+                    <p class="text-gray-600 text-sm mb-4">Hace que la magia tecnológica funcione sin que nadie se dé cuenta</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-palette text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Luis Alburquerque</h3>
+                    <p class="text-purple-600 font-medium mb-3">El Artista Digital 🎨</p>
+                    <p class="text-gray-600 text-sm mb-4">Hace que todo se vea hermoso y sea súper fácil de usar</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-purple-500 transition-colors">
+                            <i class="fab fa-figma text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-purple-500 transition-colors">
+                            <i class="fab fa-dribbble text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-pencil-ruler text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Israel Gomez</h3>
+                    <p class="text-green-600 font-medium mb-3">El Arquitecto de Experiencias ✨</p>
+                    <p class="text-gray-600 text-sm mb-4">Diseña cada detalle para que te enamores de la app</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-green-500 transition-colors">
+                            <i class="fab fa-figma text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-green-500 transition-colors">
+                            <i class="fab fa-behance text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div class="w-20 h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-brain text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Alan Tubert</h3>
+                    <p class="text-orange-600 font-medium mb-3">El Genio de la IA 🤖</p>
+                    <p class="text-gray-600 text-sm mb-4">Hace que la app sea inteligente y aprenda de ti</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors">
+                            <i class="fab fa-kaggle text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Story -->
+            <div class="bg-white rounded-2xl p-8 text-center">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">Nuestra Historia Como Equipo</h3>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    Éramos cuatro desconocidos que se conocieron en el Hackathon de Grupo Ramos 2025. 
+                    En 48 horas intensas, no solo creamos SirenaMap, sino que nos convertimos en un equipo 
+                    que realmente cree en hacer la vida más fácil para las personas. Cada uno aportó su 
+                    superpoder y juntos creamos algo increíble. 🚀
+                </p>
+                <div class="flex justify-center mt-8 space-x-8 text-4xl">
+                    <span>💻</span><span>🎨</span><span>✨</span><span>🧠</span><span>=</span><span>🏆</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Resources Section -->
+    <section id="contact" class="py-24 bg-gradient-to-br from-blue-50 to-cyan-50">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-5xl md:text-6xl font-bold mb-6 text-gray-900 font-sugar">
+                ¡Hablemos! 💬
+            </h2>
+            <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+                ¿Te gustó SirenaMap? ¿Tienes ideas? ¿Quieres saber más? ¡Nos encanta conversar!
+            </p>
+            
+            <!-- Contact Methods -->
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <div class="text-4xl mb-4">📧</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Escríbenos</h3>
+                    <p class="text-gray-600 mb-4">Para preguntas, ideas o simplemente para saludar</p>
+                    <button class="text-blue-600 font-bold hover:underline">Enviar Email →</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <div class="text-4xl mb-4">📱</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Síguenos</h3>
+                    <p class="text-gray-600 mb-4">Para ver más de nuestros proyectos locos</p>
+                    <button class="text-blue-600 font-bold hover:underline">Redes Sociales →</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <div class="text-4xl mb-4">💼</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Colaboremos</h3>
+                    <p class="text-gray-600 mb-4">Si tienes un proyecto genial, hablemos</p>
+                    <button class="text-blue-600 font-bold hover:underline">LinkedIn →</button>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl p-8 text-white">
+                <h3 class="text-2xl font-bold mb-4">¿Quieres Probar SirenaMap? 🚀</h3>
+                <p class="text-lg mb-6 opacity-90">
+                    Estamos trabajando para hacer realidad este sueño. ¡Únete a la lista de espera!
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="bg-white text-blue-600 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-all">
+                        <i class="fas fa-bell mr-2"></i>Avisarme Cuando Esté Lista
+                    </button>
+                    <button class="border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-blue-600 transition-all">
+                        <i class="fab fa-github mr-2"></i>Ver el Código
+                    </button>
+                </div>
+            </div>
+
+            <!-- Resources -->
+            <div class="grid md:grid-cols-3 gap-6 mt-16">
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="text-3xl mb-4">📖</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Documentación Completa</h3>
+                    <p class="text-gray-600 text-sm mb-4">Todo el proceso, decisiones y aprendizajes</p>
+                    <button class="text-blue-600 font-medium hover:underline">Leer Más →</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="text-3xl mb-4">🎬</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Presentación del Hackathon</h3>
+                    <p class="text-gray-600 text-sm mb-4">Nuestra presentación completa de 10 minutos</p>
+                    <button class="text-blue-600 font-medium hover:underline">Ver Video →</button>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="text-3xl mb-4">🎨</div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Diseños y Prototipos</h3>
+                    <p class="text-gray-600 text-sm mb-4">Todos nuestros diseños en Figma</p>
+                    <button class="text-blue-600 font-medium hover:underline">Ver Diseños →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <div class="text-4xl font-bold text-gradient mb-4 font-sugar">
+                    SirenaMap
+                </div>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    Creado con ❤️ en República Dominicana para el Hackathon de Grupo Ramos 2025. 
+                    Un proyecto que nació de la frustración y se convirtió en solución.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4">El Proyecto</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#story" class="text-gray-600 hover:text-blue-600 transition-colors">Nuestra Historia</a></li>
+                        <li><a href="#preview" class="text-gray-600 hover:text-blue-600 transition-colors">Cómo Se Ve</a></li>
+                        <li><a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors">Cómo Funciona</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4">Contenido</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#videos" class="text-gray-600 hover:text-blue-600 transition-colors">Videos</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Documentación</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Presentación</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4">El Equipo</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#team" class="text-gray-600 hover:text-blue-600 transition-colors">ShelfHackers</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">GitHub</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">LinkedIn</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4">Hackathon</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Grupo Ramos 2025</a></li>
+                        <li><a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors">Contacto</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Más Proyectos</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-200 pt-8 flex flex-col sm:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 sm:mb-0">
+                    © 2025 ShelfHackers. Hecho con ❤️ para mejorar la vida de las personas.
+                </p>
+                <div class="flex items-center space-x-4">
+                    <span class="text-gray-500 text-sm">Proudly from</span>
+                    <span class="text-2xl">🇩🇴</span>
+                    <span class="text-gray-500 text-sm">República Dominicana</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Placeholder for video functionality
+        function playVideo(type) {
+            alert(`🎬 Video "${type}" se abriría aquí. En la versión final, esto reproduciría el video real de ${type === 'demo' ? 'demostración' : 'proceso'}.`);
+        }
+
+        // Add some interactive animations when elements come into view
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and team cards
+        document.querySelectorAll('.feature-card, .bg-white').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Add mobile menu functionality (basic)
+        const mobileMenuBtn = document.querySelector('.md\\:hidden button');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                alert('📱 En la versión final, esto abriría el menú móvil');
+            });
+        }
+    </script>
 </body>
 </html>
