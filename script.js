@@ -440,3 +440,8 @@ Equipo:
 - Israel Gomez (UI/UX)
 - Alan Tubert (IA)
 `);
+
+
+
+
+

@@ -1082,3 +1082,34 @@ input[type="checkbox"], input[type="radio"] {
 .prose p {
     text-wrap: pretty;
 }
+
+
+
+/* CSS para el gradiente azul animado */
+.text-gradient-animated {
+    background: linear-gradient(45deg, #02B0D5, #00C4E4, #00D4F2, #02B0D5, #0094BB);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-wave 3s ease-in-out infinite;
+}
+
+@keyframes gradient-wave {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+
+
+
+
