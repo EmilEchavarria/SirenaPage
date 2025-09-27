@@ -3,728 +3,864 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SirenaMap - Tu GPS para el Supermercado</title>
+    <title>SirenaMap - Tu GPS Inteligente para Supermercados</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=More+Sugar&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        .font-sugar { font-family: 'More Sugar', cursive; }
-        .text-gradient { background: linear-gradient(45deg, #02B0D5, #FFD100); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        
-        /* Mobile-first buttons */
-        .btn-primary { 
-            background: linear-gradient(135deg, #02B0D5, #0284c7); 
-            color: white; 
-            padding: 18px 32px; 
-            border-radius: 50px; 
-            font-weight: 600; 
-            transition: all 0.3s; 
-            box-shadow: 0 8px 25px rgba(2, 176, 213, 0.3);
-            font-size: 16px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        :root {
+            --primary-blue: #02B0D5;
+            --primary-yellow: #FFD100;
+            --blue-50: #f0f9ff;
+            --blue-100: #e0f2fe;
+            --blue-900: #0c4a6e;
+            --yellow-50: #fefce8;
+            --yellow-100: #fef3c7;
+            --gradient-primary: linear-gradient(135deg, #02B0D5 0%, #0284c7 100%);
+            --gradient-accent: linear-gradient(135deg, #FFD100 0%, #fbbf24 100%);
+            --gradient-hero: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #fefce8 100%);
         }
         
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 35px rgba(2, 176, 213, 0.4); }
+        * { font-family: 'Inter', sans-serif; }
+        .font-display { font-family: 'Poppins', sans-serif; }
         
-        .btn-secondary { 
-            background: white; 
-            color: #02B0D5; 
-            padding: 18px 32px; 
-            border-radius: 50px; 
-            font-weight: 600; 
-            border: 2px solid #02B0D5; 
-            transition: all 0.3s;
-            font-size: 16px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
         
-        .btn-secondary:hover { background: #02B0D5; color: white; transform: translateY(-2px); }
+        /* Custom gradients */
+        .bg-gradient-primary { background: var(--gradient-primary); }
+        .bg-gradient-accent { background: var(--gradient-accent); }
+        .bg-gradient-hero { background: var(--gradient-hero); }
         
-        /* Mobile navigation */
-        .mobile-nav { transform: translateX(-100%); transition: transform 0.3s ease; }
-        .mobile-nav.open { transform: translateX(0); }
-        
-        /* Mobile-optimized cards */
-        .feature-card { 
-            background: white; 
-            padding: 24px 20px; 
-            border-radius: 20px; 
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1); 
-            transition: all 0.3s; 
-            border: 1px solid #f1f5f9;
-            margin-bottom: 16px;
-        }
-        
-        .feature-card:hover { transform: translateY(-3px); box-shadow: 0 15px 45px rgba(0,0,0,0.15); }
-        
-        /* Mobile mockup container */
-        .mockup-container { 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
-            border-radius: 20px; 
-            padding: 20px; 
-            position: relative; 
-            overflow: hidden;
-            margin-bottom: 20px;
-        }
-        
-        /* Smaller phone mockup for mobile */
-        .phone-mockup { 
-            width: 200px; 
-            height: 400px; 
-            background: #000; 
-            border-radius: 30px; 
-            padding: 12px; 
-            position: relative; 
-            margin: 0 auto; 
-        }
-        
-        .phone-screen { 
-            width: 100%; 
-            height: 100%; 
-            background: linear-gradient(135deg, #02B0D5, #0284c7); 
-            border-radius: 20px; 
-            position: relative; 
-            overflow: hidden; 
-        }
-        
-        /* Mobile video containers */
-        .video-container { 
-            background: #1a1a1a; 
-            border-radius: 15px; 
-            overflow: hidden; 
-            aspect-ratio: 16/9; 
-            position: relative;
-            margin-bottom: 16px;
-        }
-        
-        .video-placeholder { 
-            display: flex; 
-            flex-col; 
-            items-center; 
-            justify-content: center; 
-            height: 100%; 
-            color: white; 
-            cursor: pointer; 
-            transition: all 0.3s;
-            padding: 20px;
-            text-align: center;
-        }
-        
-        .video-placeholder:hover { background: rgba(255,255,255,0.1); }
-        
-        /* Mobile-optimized text sizes */
-        .impact-number { 
-            font-size: 2.5rem; 
-            font-weight: 800; 
-            background: linear-gradient(45deg, #02B0D5, #FFD100); 
-            -webkit-background-clip: text; 
+        /* Text gradient */
+        .text-gradient-primary {
+            background: linear-gradient(135deg, #02B0D5, #FFD100);
+            -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
-        @media (min-width: 768px) {
-            .impact-number { font-size: 3rem; }
-            .phone-mockup { width: 300px; height: 600px; padding: 20px; }
-            .phone-screen { border-radius: 30px; }
-            .btn-primary, .btn-secondary { width: auto; }
+        /* Enhanced buttons */
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 14px 0 rgba(2, 176, 213, 0.39);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
         }
         
-        /* Story steps mobile */
-        .story-step { 
-            display: flex; 
-            align-items: start; 
-            gap: 16px; 
-            margin-bottom: 24px;
-            padding: 20px;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px 0 rgba(2, 176, 213, 0.5);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #02B0D5;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #02B0D5;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .btn-secondary:hover {
+            background: #02B0D5;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px 0 rgba(2, 176, 213, 0.3);
+        }
+        
+        .btn-accent {
+            background: var(--gradient-accent);
+            color: #1f2937;
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 14px 0 rgba(255, 209, 0, 0.39);
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px 0 rgba(255, 209, 0, 0.5);
+        }
+        
+        /* Card styles */
+        .card {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 24px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #f1f5f9;
         }
         
-        .step-number { 
-            width: 40px; 
-            height: 40px; 
-            background: linear-gradient(135deg, #02B0D5, #0284c7); 
-            color: white; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-weight: bold; 
-            flex-shrink: 0;
-            font-size: 18px;
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
-        /* Floating animation */
-        .floating-arrow { 
-            position: absolute; 
-            bottom: 20px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            animation: bounce 2s infinite; 
+        .card-featured {
+            background: linear-gradient(135deg, white 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
         }
         
-        @keyframes bounce { 
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); } 
-            40% { transform: translateX(-50%) translateY(-8px); } 
-            60% { transform: translateX(-50%) translateY(-4px); } 
+        /* Mobile navigation */
+        .mobile-nav {
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
-        /* Touch-friendly spacing */
-        .touch-friendly { padding: 16px 0; }
-        
-        /* Mobile hero adjustments */
-        .hero-title { font-size: 3.5rem; line-height: 1; margin-bottom: 16px; }
-        
-        @media (min-width: 768px) {
-            .hero-title { font-size: 6rem; }
+        .mobile-nav.open {
+            transform: translateX(0);
         }
         
-        @media (min-width: 1024px) {
-            .hero-title { font-size: 8rem; }
+        /* Phone mockup */
+        .phone-mockup {
+            width: 280px;
+            height: 560px;
+            background: linear-gradient(145deg, #1f2937, #111827);
+            border-radius: 36px;
+            padding: 8px;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Responsive phone mockup */
+        @media (max-width: 768px) {
+            .phone-mockup {
+                width: 220px;
+                height: 440px;
+                border-radius: 28px;
+                padding: 6px;
+            }
+            .phone-screen {
+                border-radius: 22px;
+            }
+        }
+        
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes pulse-soft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { 
+            background: #02B0D5; 
+            border-radius: 4px; 
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #0284c7; }
+        
+        /* Enhanced mobile styles */
+        @media (max-width: 640px) {
+            .btn-primary, .btn-secondary, .btn-accent {
+                width: 100%;
+                padding: 18px 24px;
+                font-size: 16px;
+            }
+            
+            .card { padding: 20px; }
+        }
+        
+        /* Feature icons */
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin: 0 auto 16px;
+        }
+        
+        .feature-icon-blue { background: var(--gradient-primary); }
+        .feature-icon-yellow { background: var(--gradient-accent); color: #1f2937; }
+        
+        /* Glass effect */
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        /* Impact numbers */
+        .impact-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #02B0D5, #FFD100);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+        
+        @media (max-width: 640px) {
+            .impact-number { font-size: 2.5rem; }
+        }
+        
+        /* Navigation active state */
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            background: rgba(2, 176, 213, 0.1);
+            color: #02B0D5;
         }
     </style>
 </head>
 <body class="bg-white">
-    <!-- Mobile Navigation -->
-    <nav class="fixed w-full top-0 bg-white/95 backdrop-blur-md border-b border-gray-100 z-50 shadow-sm">
-        <div class="px-4 sm:px-6">
+    <!-- Enhanced Navigation -->
+    <nav class="fixed w-full top-0 bg-white/95 backdrop-blur-lg border-b border-gray-100 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <div class="text-xl sm:text-2xl font-bold font-sugar text-gradient">
+                    <div class="text-2xl font-bold font-display text-gradient-primary">
                         SirenaMap
                     </div>
                 </div>
-                <div class="lg:hidden">
-                    <button id="mobile-menu-btn" class="p-3 rounded-lg hover:bg-gray-50 text-gray-600">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
-                <div class="hidden lg:block">
-                    <div class="flex items-baseline space-x-1">
-                        <a href="#hero" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">Inicio</a>
-                        <a href="#story" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">Historia</a>
-                        <a href="#preview" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">App</a>
-                        <a href="#videos" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">Videos</a>
-                        <a href="#team" class="px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-blue-50">Equipo</a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="flex items-center space-x-1">
+                        <a href="#hero" class="nav-link">Inicio</a>
+                        <a href="#story" class="nav-link">Historia</a>
+                        <a href="#features" class="nav-link">Características</a>
+                        <a href="#demo" class="nav-link">Demo</a>
+                        <a href="#team" class="nav-link">Equipo</a>
+                        <a href="#contact" class="nav-link">Contacto</a>
                     </div>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                        <i class="fas fa-bars text-xl text-gray-700"></i>
+                    </button>
                 </div>
             </div>
         </div>
         
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="mobile-nav fixed inset-y-0 left-0 w-80 max-w-full bg-white shadow-xl z-50 lg:hidden">
-            <div class="flex items-center justify-between p-4 border-b">
-                <div class="text-xl font-bold font-sugar text-gradient">SirenaMap</div>
-                <button id="close-menu" class="p-2 rounded-lg hover:bg-gray-50">
+        <!-- Mobile Navigation -->
+        <div id="mobile-menu" class="mobile-nav fixed inset-y-0 left-0 w-80 max-w-full bg-white shadow-xl z-50 md:hidden">
+            <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                <div class="text-xl font-bold font-display text-gradient-primary">SirenaMap</div>
+                <button id="close-menu" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
                     <i class="fas fa-times text-xl text-gray-600"></i>
                 </button>
             </div>
-            <div class="py-4">
-                <a href="#hero" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-gray-50 border-b border-gray-100">
-                    <i class="fas fa-home w-6 mr-3"></i>Inicio
+            <div class="py-6">
+                <a href="#hero" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
+                    <i class="fas fa-home w-6 mr-4 text-blue-500"></i>Inicio
                 </a>
-                <a href="#story" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-gray-50 border-b border-gray-100">
-                    <i class="fas fa-book w-6 mr-3"></i>Historia
+                <a href="#story" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
+                    <i class="fas fa-book w-6 mr-4 text-blue-500"></i>Historia
                 </a>
-                <a href="#preview" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-gray-50 border-b border-gray-100">
-                    <i class="fas fa-mobile-alt w-6 mr-3"></i>Cómo se Ve
+                <a href="#features" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
+                    <i class="fas fa-star w-6 mr-4 text-blue-500"></i>Características
                 </a>
-                <a href="#how-it-works" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-gray-50 border-b border-gray-100">
-                    <i class="fas fa-cogs w-6 mr-3"></i>Cómo Funciona
+                <a href="#demo" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
+                    <i class="fas fa-play w-6 mr-4 text-blue-500"></i>Demo
                 </a>
-                <a href="#videos" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-gray-50 border-b border-gray-100">
-                    <i class="fas fa-video w-6 mr-3"></i>Videos
+                <a href="#team" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
+                    <i class="fas fa-users w-6 mr-4 text-blue-500"></i>Equipo
                 </a>
-                <a href="#impact" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-gray-50 border-b border-gray-100">
-                    <i class="fas fa-chart-line w-6 mr-3"></i>Impacto
-                </a>
-                <a href="#team" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-gray-50 border-b border-gray-100">
-                    <i class="fas fa-users w-6 mr-3"></i>Equipo
-                </a>
-                <a href="#contact" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-gray-50">
-                    <i class="fas fa-envelope w-6 mr-3"></i>Contacto
+                <a href="#contact" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+                    <i class="fas fa-envelope w-6 mr-4 text-blue-500"></i>Contacto
                 </a>
             </div>
         </div>
     </nav>
 
     <!-- Mobile overlay -->
-    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"></div>
+    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"></div>
 
     <!-- Hero Section -->
-    <section id="hero" class="pt-20 pb-16 sm:pt-24 sm:pb-20 relative overflow-hidden bg-gradient-to-br from-blue-50 to-cyan-50">
-        <div class="relative px-4 sm:px-6 lg:px-8 pt-8 sm:pt-16">
-            <div class="text-center max-w-4xl mx-auto">
-                <h1 class="hero-title font-bold font-sugar text-gradient mb-4 sm:mb-8">
-                    SirenaMap
-                </h1>
-                <p class="text-xl sm:text-2xl lg:text-3xl text-gray-700 mb-4 sm:mb-6 font-medium px-4">
-                    ¡Nunca más te pierdas en el supermercado! 🛒✨
-                </p>
-                <p class="text-base sm:text-lg lg:text-xl text-gray-600 mb-8 sm:mb-12 leading-relaxed px-4">
-                    Imagínate llegar al supermercado, abrir tu teléfono y que te lleve directo a cada producto de tu lista. 
-                    Eso es SirenaMap: tu GPS personal para hacer las compras más rápidas y divertidas.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center px-4 max-w-md sm:max-w-none mx-auto">
-                    <button onclick="scrollToSection('preview')" class="btn-primary">
-                        <i class="fas fa-play mr-2"></i>Ver en Acción
-                    </button>
-                    <button onclick="scrollToSection('story')" class="btn-secondary">
-                        <i class="fas fa-heart mr-2"></i>Conoce la Historia
-                    </button>
+    <section id="hero" class="min-h-screen flex items-center bg-gradient-hero pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <div class="text-center lg:text-left">
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold font-display text-gradient-primary mb-6 leading-tight">
+                        SirenaMap
+                    </h1>
+                    <p class="text-xl sm:text-2xl text-gray-700 mb-4 font-medium">
+                        Tu GPS Inteligente para Supermercados
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Transforma tu experiencia de compras con navegación paso a paso, ubicación en tiempo real 
+                        y recomendaciones personalizadas. Nunca más te pierdas en el supermercado.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <button onclick="scrollToSection('demo')" class="btn-primary">
+                            <i class="fas fa-play"></i>
+                            Ver Demo
+                        </button>
+                        <button onclick="scrollToSection('features')" class="btn-secondary">
+                            <i class="fas fa-rocket"></i>
+                            Descubrir Más
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center lg:justify-end">
+                    <div class="phone-mockup animate-float">
+                        <div class="phone-screen bg-gradient-primary p-6 flex flex-col">
+                            <div class="bg-white/20 rounded-2xl p-4 mb-4 glass">
+                                <div class="text-white text-lg font-bold mb-2">¡Hola María! 👋</div>
+                                <div class="text-white/90 text-sm">¿Qué vas a comprar hoy?</div>
+                            </div>
+                            <div class="space-y-3 flex-1">
+                                <div class="bg-white/20 rounded-xl p-3 glass">
+                                    <div class="text-white text-sm font-medium flex items-center">
+                                        <i class="fas fa-list mr-3 text-yellow-300"></i>
+                                        Mi Lista de Compras
+                                    </div>
+                                </div>
+                                <div class="bg-white/20 rounded-xl p-3 glass">
+                                    <div class="text-white text-sm font-medium flex items-center">
+                                        <i class="fas fa-map-marked-alt mr-3 text-yellow-300"></i>
+                                        Navegar Tienda
+                                    </div>
+                                </div>
+                                <div class="bg-white/20 rounded-xl p-3 glass">
+                                    <div class="text-white text-sm font-medium flex items-center">
+                                        <i class="fas fa-tags mr-3 text-yellow-300"></i>
+                                        Ofertas Especiales
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bg-yellow-300 rounded-xl p-3 mt-4">
+                                <div class="text-gray-900 text-sm font-bold text-center">
+                                    <i class="fas fa-location-arrow mr-2"></i>
+                                    Comenzar Navegación
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="floating-arrow">
-            <i class="fas fa-chevron-down text-xl sm:text-2xl text-gray-400"></i>
         </div>
     </section>
 
     <!-- Story Section -->
-    <section id="story" class="py-16 sm:py-24">
-        <div class="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 text-gray-900 font-sugar">
-                    Nuestra Historia 📖
+    <section id="story" class="py-20 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
+                    Nuestra Historia
                 </h2>
-                <p class="text-lg sm:text-xl text-gray-600 px-4">
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
                     Todo comenzó con una simple pregunta: ¿Por qué hacer las compras tiene que ser tan complicado?
                 </p>
             </div>
             
-            <div class="space-y-6 sm:space-y-8">
-                <div class="story-step">
-                    <div class="step-number">1</div>
-                    <div>
-                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-3">El Problema que Todos Conocemos 😤</h3>
-                        <p class="text-gray-600 text-base sm:text-lg leading-relaxed">
-                            ¿Te ha pasado que entras al supermercado con una lista y terminas dando vueltas por todos los pasillos? 
-                            ¿O que preguntas 5 veces dónde está algo y nadie sabe exactamente? Nosotros también lo vivimos.
-                        </p>
+            <div class="grid lg:grid-cols-2 gap-16 items-center mb-20">
+                <div class="space-y-8">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white font-bold text-lg">1</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">El Problema Real</h3>
+                            <p class="text-gray-600">Millones de personas pierden tiempo y se frustran navegando por supermercados sin orientación clara.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-gradient-accent rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-gray-900 font-bold text-lg">2</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">La Inspiración</h3>
+                            <p class="text-gray-600">En el Hackathon de Grupo Ramos 2025, imaginamos un GPS específico para supermercados.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0">
+                            <span class="text-white font-bold text-lg">3</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">La Solución</h3>
+                            <p class="text-gray-600">SirenaMap nació: navegación inteligente, ubicación precisa y experiencia personalizada.</p>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="story-step">
-                    <div class="step-number">2</div>
-                    <div>
-                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-3">La Idea Brillante 💡</h3>
-                        <p class="text-gray-600 text-base sm:text-lg leading-relaxed">
-                            En el Hackathon de Grupo Ramos 2025, dijimos: "¿Y si el supermercado tuviera GPS como Google Maps?" 
-                            Así nació SirenaMap: tu guía personal que te lleva de la mano hasta cada producto.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="story-step">
-                    <div class="step-number">3</div>
-                    <div>
-                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-3">La Magia que Creamos ✨</h3>
-                        <p class="text-gray-600 text-base sm:text-lg leading-relaxed">
-                            Combinamos mapas súper fáciles de usar, tecnología que sabe exactamente dónde estás, 
-                            y una app que te habla para guiarte sin que tengas que mirar el teléfono todo el tiempo.
-                        </p>
+                <div class="relative">
+                    <div class="bg-gradient-to-br from-blue-50 to-yellow-50 rounded-2xl p-8">
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                                <i class="fas fa-lightbulb text-3xl text-yellow-500"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-4">48 Horas de Innovación</h3>
+                            <p class="text-gray-600 mb-6">Creamos SirenaMap en un hackathon intenso, combinando tecnología avanzada con diseño centrado en el usuario.</p>
+                            <div class="grid grid-cols-2 gap-4 text-center">
+                                <div class="bg-white rounded-lg p-4">
+                                    <div class="text-2xl font-bold text-blue-600">4</div>
+                                    <div class="text-sm text-gray-600">Desarrolladores</div>
+                                </div>
+                                <div class="bg-white rounded-lg p-4">
+                                    <div class="text-2xl font-bold text-yellow-600">48h</div>
+                                    <div class="text-sm text-gray-600">Intensas</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Problem & Solution Cards -->
-            <div class="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 mt-12 sm:mt-20">
-                <div class="bg-red-50 p-6 sm:p-8 rounded-2xl border-l-4 border-red-400">
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-frown text-2xl sm:text-3xl text-red-500 mr-4"></i>
-                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900">Antes (El Drama)</h3>
+            
+            <!-- Problem vs Solution -->
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="card bg-red-50 border-l-4 border-red-400">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-frown text-red-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Antes: La Frustración</h3>
                     </div>
-                    <ul class="space-y-3 text-gray-700 text-sm sm:text-base">
-                        <li class="flex items-start"><i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>30 minutos buscando cosas</li>
-                        <li class="flex items-start"><i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>Preguntar a 5 empleados diferentes</li>
-                        <li class="flex items-start"><i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>Olvidar la mitad de la lista</li>
-                        <li class="flex items-start"><i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>Frustrarse y querer irse</li>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">30+ minutos buscando productos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Preguntar constantemente a empleados</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Olvidar productos de la lista</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Experiencia estresante</span>
+                        </li>
                     </ul>
                 </div>
                 
-                <div class="bg-green-50 p-6 sm:p-8 rounded-2xl border-l-4 border-green-400">
-                    <div class="flex items-center mb-4">
-                        <i class="fas fa-smile text-2xl sm:text-3xl text-green-500 mr-4"></i>
-                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900">Ahora (La Alegría)</h3>
+                <div class="card bg-green-50 border-l-4 border-green-400">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-smile text-green-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Ahora: La Solución</h3>
                     </div>
-                    <ul class="space-y-3 text-gray-700 text-sm sm:text-base">
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>Llegar directo a cada producto</li>
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>Compras en la mitad del tiempo</li>
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>Ver ofertas en el camino</li>
-                        <li class="flex items-start"><i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>Salir feliz y relajado</li>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Navegación directa a cada producto</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Autonomía total sin ayuda</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Listas inteligentes y recordatorios</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Experiencia placentera y eficiente</span>
+                        </li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Preview/Mockups Section -->
-    <section id="preview" class="py-16 sm:py-24 bg-gray-50">
-        <div class="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 text-gray-900 font-sugar">
-                    Así se Ve SirenaMap 📱
+    <!-- Features Section -->
+    <section id="features" class="py-20 lg:py-32 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
+                    Características Principales
                 </h2>
-                <p class="text-lg sm:text-xl text-gray-600 px-4">
-                    Dale un vistazo a nuestra app. Es tan fácil de usar que hasta tu abuela la amaría.
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Tecnología avanzada diseñada para hacer tu experiencia de compras extraordinaria
                 </p>
             </div>
             
-            <!-- App Mockups - Mobile Optimized -->
-            <div class="space-y-8 sm:space-y-12 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-0 mb-12 sm:mb-16">
-                <!-- Mockup 1: Home Screen -->
-                <div class="mockup-container">
-                    <div class="relative z-10">
-                        <h3 class="text-lg sm:text-xl font-bold text-white mb-4 text-center">Pantalla Principal</h3>
-                        <div class="phone-mockup">
-                            <div class="phone-screen p-4 sm:p-6 flex flex-col">
-                                <div class="bg-white/20 rounded-xl sm:rounded-2xl p-3 sm:p-4 mb-3 sm:mb-4">
-                                    <div class="text-white text-sm sm:text-lg font-bold mb-1 sm:mb-2">¡Hola Maria! 👋</div>
-                                    <div class="text-white/80 text-xs sm:text-sm">¿Qué vas a comprar hoy?</div>
-                                </div>
-                                <div class="bg-white/20 rounded-lg sm:rounded-xl p-2 sm:p-3 mb-2 sm:mb-3">
-                                    <div class="text-white text-xs sm:text-sm">🛒 Mi Lista de Compras</div>
-                                </div>
-                                <div class="bg-white/20 rounded-lg sm:rounded-xl p-2 sm:p-3 mb-2 sm:mb-3">
-                                    <div class="text-white text-xs sm:text-sm">📍 Encontrar Productos</div>
-                                </div>
-                                <div class="bg-white/20 rounded-lg sm:rounded-xl p-2 sm:p-3">
-                                    <div class="text-white text-xs sm:text-sm">🎯 Ver Ofertas Cerca</div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div class="card text-center">
+                    <div class="feature-icon feature-icon-blue">
+                        <i class="fas fa-map-marked-alt"></i>
                     </div>
-                </div>
-
-                <!-- Mockup 2: Map View -->
-                <div class="mockup-container">
-                    <div class="relative z-10">
-                        <h3 class="text-lg sm:text-xl font-bold text-white mb-4 text-center">Mapa del Supermercado</h3>
-                        <div class="phone-mockup">
-                            <div class="phone-screen p-4 sm:p-6 flex flex-col">
-                                <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 flex-1 relative overflow-hidden">
-                                    <div class="text-gray-800 text-xs sm:text-sm font-bold mb-2">Supermercado Nacional</div>
-                                    <!-- Simplified map representation -->
-                                    <div class="absolute inset-3 sm:inset-4 bg-gradient-to-br from-blue-100 to-green-100 rounded-lg sm:rounded-xl">
-                                        <div class="absolute top-2 sm:top-4 left-2 sm:left-4 w-2 sm:w-3 h-2 sm:h-3 bg-red-500 rounded-full animate-pulse"></div>
-                                        <div class="absolute top-8 sm:top-12 right-4 sm:right-6 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-blue-500 rounded-full"></div>
-                                        <div class="absolute bottom-6 sm:bottom-8 left-4 sm:left-8 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-500 rounded-full"></div>
-                                        <div class="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 text-xs text-gray-600">🎯 Leche</div>
-                                    </div>
-                                </div>
-                                <div class="bg-white/20 rounded-lg sm:rounded-xl p-2 sm:p-3 mt-3">
-                                    <div class="text-white text-xs sm:text-sm">📍 Ir a Productos Lácteos</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mockup 3: Navigation -->
-                <div class="mockup-container">
-                    <div class="relative z-10">
-                        <h3 class="text-lg sm:text-xl font-bold text-white mb-4 text-center">Navegación Activa</h3>
-                        <div class="phone-mockup">
-                            <div class="phone-screen p-4 sm:p-6 flex flex-col">
-                                <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 mb-3 sm:mb-4">
-                                    <div class="text-gray-800 text-sm sm:text-lg font-bold mb-2">🎯 Buscando: Leche</div>
-                                    <div class="text-gray-600 text-xs sm:text-sm mb-3">Distancia: 15 metros</div>
-                                    <div class="bg-blue-100 rounded-lg p-2 sm:p-3">
-                                        <div class="text-blue-800 text-xs sm:text-sm font-bold">👆 Sigue recto 10 pasos</div>
-                                        <div class="text-blue-600 text-xs">Luego gira a la derecha</div>
-                                    </div>
-                                </div>
-                                <div class="bg-white/20 rounded-lg sm:rounded-xl p-2 sm:p-3 mb-2 sm:mb-3">
-                                    <div class="text-white text-xs sm:text-sm">🔊 Guía por Voz: ON</div>
-                                </div>
-                                <div class="bg-white/20 rounded-lg sm:rounded-xl p-2 sm:p-3">
-                                    <div class="text-white text-xs sm:text-sm">✅ Producto Encontrado</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Features Preview - Mobile Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                <div class="feature-card text-center">
-                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">🗺️</div>
-                    <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-2">Mapas Súper Claros</h3>
-                    <p class="text-gray-600 text-sm">Como Google Maps, pero para supermercados</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Mapas Interactivos</h3>
+                    <p class="text-gray-600">Navegación visual clara con mapas detallados de cada pasillo y sección del supermercado.</p>
                 </div>
                 
-                <div class="feature-card text-center">
-                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">📍</div>
-                    <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-2">Te Encuentra Solito</h3>
-                    <p class="text-gray-600 text-sm">Siempre sabe exactamente dónde estás parado</p>
+                <div class="card text-center">
+                    <div class="feature-icon feature-icon-yellow">
+                        <i class="fas fa-location-arrow"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Ubicación Precisa</h3>
+                    <p class="text-gray-600">Tecnología de geolocalización indoor que te ubica exactamente en tiempo real.</p>
                 </div>
                 
-                <div class="feature-card text-center">
-                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">🗣️</div>
-                    <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-2">Te Habla y Te Guía</h3>
-                    <p class="text-gray-600 text-sm">Como un amigo que conoce todo el lugar</p>
+                <div class="card text-center">
+                    <div class="feature-icon feature-icon-blue">
+                        <i class="fas fa-route"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Rutas Optimizadas</h3>
+                    <p class="text-gray-600">Algoritmos inteligentes que crean la ruta más eficiente para tu lista de compras.</p>
                 </div>
                 
-                <div class="feature-card text-center">
-                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">💰</div>
-                    <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-2">Te Muestra Ofertas</h3>
-                    <p class="text-gray-600 text-sm">Descuentos justo cuando pasas por ahí</p>
+                <div class="card text-center">
+                    <div class="feature-icon feature-icon-yellow">
+                        <i class="fas fa-volume-up"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Guía por Voz</h3>
+                    <p class="text-gray-600">Instrucciones de navegación habladas para que no tengas que mirar constantemente la pantalla.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="py-16 sm:py-24">
-        <div class="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 text-gray-900 font-sugar">
-                    ¿Cómo Funciona? 🤔
-                </h2>
-                <p class="text-lg sm:text-xl text-gray-600 px-4">
-                    Es tan fácil como 1-2-3. No necesitas ser un genio de la tecnología.
-                </p>
+                
+                <div class="card text-center">
+                    <div class="feature-icon feature-icon-blue">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Ofertas Contextuales</h3>
+                    <p class="text-gray-600">Descubre promociones y descuentos relevantes mientras navegas por la tienda.</p>
+                </div>
+                
+                <div class="card text-center">
+                    <div class="feature-icon feature-icon-yellow">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">IA Personalizada</h3>
+                    <p class="text-gray-600">Aprende de tus hábitos de compra y te sugiere productos y rutas personalizadas.</p>
+                </div>
             </div>
             
-            <div class="space-y-8 sm:space-y-12 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-0 mb-12 sm:mb-16">
-                <div class="text-center">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-xl sm:text-2xl font-bold mx-auto mb-4 sm:mb-6">1</div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Abres la App 📱</h3>
-                    <p class="text-gray-600 text-base sm:text-lg px-4">Escribes lo que necesitas comprar o escaneas tu lista de papel. ¡Así de simple!</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center text-white text-xl sm:text-2xl font-bold mx-auto mb-4 sm:mb-6">2</div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Te Guía Paso a Paso 🚶‍♀️</h3>
-                    <p class="text-gray-600 text-base sm:text-lg px-4">Como si fuera tu GPS del carro, pero caminando por los pasillos del super.</p>
-                </div>
-                
-                <div class="text-center">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-xl sm:text-2xl font-bold mx-auto mb-4 sm:mb-6">3</div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">¡Listo! 🎉</h3>
-                    <p class="text-gray-600 text-base sm:text-lg px-4">Sales feliz con todo lo que necesitabas y en la mitad del tiempo.</p>
-                </div>
-            </div>
-
-            <!-- Journey Visualization -->
-            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 sm:p-8">
-                <h3 class="text-xl sm:text-2xl font-bold text-center text-gray-900 mb-6 sm:mb-8">Tu Viaje de Compras con SirenaMap</h3>
-                <div class="grid grid-cols-2 lg:flex lg:items-center lg:justify-between gap-4 lg:gap-0">
-                    <div class="flex flex-col items-center text-center">
-                        <div class="text-2xl sm:text-4xl mb-2">🏠</div>
-                        <div class="font-bold text-gray-900 text-sm sm:text-base">En Casa</div>
-                        <div class="text-xs sm:text-sm text-gray-600">Haces tu lista</div>
+            <!-- Feature showcase -->
+            <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-xl">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6">Experiencia Visual Inmersiva</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-eye text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Realidad Aumentada</h4>
+                                    <p class="text-gray-600">Superpone información digital sobre el mundo real para una navegación intuitiva.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-map text-yellow-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Mapas 3D Interactivos</h4>
+                                    <p class="text-gray-600">Visualización tridimensional del supermercado con navegación fluida.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                    <i class="fas fa-mobile-alt text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Interfaz Adaptativa</h4>
+                                    <p class="text-gray-600">Se ajusta automáticamente a tu dispositivo y preferencias de uso.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="hidden lg:block text-2xl text-gray-400">→</div>
-                    <div class="flex flex-col items-center text-center">
-                        <div class="text-2xl sm:text-4xl mb-2">🛒</div>
-                        <div class="font-bold text-gray-900 text-sm sm:text-base">En el Super</div>
-                        <div class="text-xs sm:text-sm text-gray-600">Abres SirenaMap</div>
-                    </div>
-                    <div class="hidden lg:block text-2xl text-gray-400">→</div>
-                    <div class="flex flex-col items-center text-center">
-                        <div class="text-2xl sm:text-4xl mb-2">🗺️</div>
-                        <div class="font-bold text-gray-900 text-sm sm:text-base">Navegando</div>
-                        <div class="text-xs sm:text-sm text-gray-600">Te guía producto por producto</div>
-                    </div>
-                    <div class="hidden lg:block text-2xl text-gray-400">→</div>
-                    <div class="flex flex-col items-center text-center">
-                        <div class="text-2xl sm:text-4xl mb-2">😊</div>
-                        <div class="font-bold text-gray-900 text-sm sm:text-base">Feliz</div>
-                        <div class="text-xs sm:text-sm text-gray-600">Misión cumplida</div>
+                    <div class="flex justify-center">
+                        <div class="relative">
+                            <div class="phone-mockup">
+                                <div class="phone-screen bg-gradient-to-br from-blue-500 to-purple-600 p-4 flex flex-col">
+                                    <div class="bg-white rounded-xl p-4 mb-4">
+                                        <div class="text-gray-800 font-bold text-sm mb-2">Supermercado Nacional</div>
+                                        <div class="bg-gradient-to-br from-blue-100 to-green-100 rounded-lg h-32 relative">
+                                            <div class="absolute top-3 left-3 w-2 h-2 bg-red-500 rounded-full animate-pulse-soft"></div>
+                                            <div class="absolute top-6 right-4 w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                                            <div class="absolute bottom-6 left-6 w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                                            <div class="absolute bottom-3 right-3 text-xs text-gray-700">Leche</div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white/20 rounded-lg p-3 glass">
+                                        <div class="text-white text-sm font-medium">
+                                            <i class="fas fa-location-arrow mr-2 text-yellow-300"></i>
+                                            Continúa derecho 10 pasos
+                                        </div>
+                                        <div class="text-white/80 text-xs mt-1">Luego gira a la derecha</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Videos Section -->
-    <section id="videos" class="py-16 sm:py-24 bg-gray-50">
-        <div class="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 text-gray-900 font-sugar">
-                    Videos del Proyecto 🎥
+    <!-- Demo Section -->
+    <section id="demo" class="py-20 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
+                    Ve SirenaMap en Acción
                 </h2>
-                <p class="text-lg sm:text-xl text-gray-600 px-4">
-                    Mira SirenaMap en acción y conoce más sobre nuestro proceso creativo
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Descubre cómo funciona nuestra tecnología paso a paso
                 </p>
             </div>
             
-            <div class="space-y-6 sm:space-y-8 lg:grid lg:grid-cols-2 lg:gap-8 lg:space-y-0 mb-8 sm:mb-12">
-                <!-- Main Demo Video -->
-                <div class="space-y-4">
-                    <div class="video-container">
-                        <div class="video-placeholder" onclick="playVideo('demo')">
-                            <i class="fas fa-play-circle text-4xl sm:text-6xl mb-3 sm:mb-4"></i>
-                            <h3 class="text-lg sm:text-xl font-bold mb-2">Demo Principal de SirenaMap</h3>
-                            <p class="text-gray-300 text-center text-sm sm:text-base">Ve cómo funciona nuestra app paso a paso</p>
+            <!-- How it works steps -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">1</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Crea tu Lista</h3>
+                    <p class="text-gray-600">Escribe o escanea tu lista de compras. La IA reconoce productos y los organiza por categorías.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center text-gray-900 text-2xl font-bold mx-auto mb-6">2</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Navega Inteligentemente</h3>
+                    <p class="text-gray-600">Recibe rutas optimizadas y navegación paso a paso con guía por voz en tiempo real.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6">3</div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Compra Eficientemente</h3>
+                    <p class="text-gray-600">Encuentra productos rápidamente, descubre ofertas y completa tu lista sin estrés.</p>
+                </div>
+            </div>
+            
+            <!-- Video Demo Section -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-16">
+                <div class="bg-gray-900 rounded-2xl aspect-video flex items-center justify-center relative overflow-hidden group cursor-pointer hover:scale-105 transition-transform duration-300" onclick="playVideo('main-demo')">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20"></div>
+                    <div class="text-center relative z-10">
+                        <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm group-hover:bg-white/30 transition-colors">
+                            <i class="fas fa-play text-2xl text-white"></i>
                         </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Demo Principal</h3>
+                        <p class="text-white/80">Ve SirenaMap navegando en tiempo real</p>
                     </div>
                 </div>
                 
-                <!-- Process Video -->
-                <div class="space-y-4">
-                    <div class="video-container">
-                        <div class="video-placeholder" onclick="playVideo('process')">
-                            <i class="fas fa-cogs text-4xl sm:text-6xl mb-3 sm:mb-4"></i>
-                            <h3 class="text-lg sm:text-xl font-bold mb-2">Proceso de Desarrollo</h3>
-                            <p class="text-gray-300 text-center text-sm sm:text-base">Conoce cómo creamos SirenaMap en el hackathon</p>
+                <div class="bg-gray-900 rounded-2xl aspect-video flex items-center justify-center relative overflow-hidden group cursor-pointer hover:scale-105 transition-transform duration-300" onclick="playVideo('features-demo')">
+                    <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-orange-500/20"></div>
+                    <div class="text-center relative z-10">
+                        <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm group-hover:bg-white/30 transition-colors">
+                            <i class="fas fa-cogs text-2xl text-white"></i>
                         </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Características</h3>
+                        <p class="text-white/80">Explora todas las funcionalidades</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Additional Videos Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                <div class="bg-white rounded-xl p-4 sm:p-6 text-center">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                        <i class="fab fa-youtube text-red-500 text-xl sm:text-2xl"></i>
+            
+            <!-- App Screenshots -->
+            <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 lg:p-12">
+                <h3 class="text-2xl font-bold text-gray-900 text-center mb-8">Capturas de Pantalla</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center">
+                        <div class="bg-white rounded-xl p-4 shadow-lg mb-4">
+                            <div class="aspect-[9/16] bg-gradient-primary rounded-lg flex items-center justify-center">
+                                <i class="fas fa-home text-4xl text-white"></i>
+                            </div>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">Pantalla Principal</h4>
+                        <p class="text-gray-600 text-sm">Interfaz limpia y accesible</p>
                     </div>
-                    <h3 class="font-bold text-gray-900 mb-2 text-sm sm:text-base">Presentación Final</h3>
-                    <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Nuestra presentación ante los jueces del hackathon</p>
-                    <button class="text-blue-600 font-medium hover:underline text-sm">Ver Video →</button>
-                </div>
-                
-                <div class="bg-white rounded-xl p-4 sm:p-6 text-center">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                        <i class="fas fa-mobile-alt text-blue-500 text-xl sm:text-2xl"></i>
+                    
+                    <div class="text-center">
+                        <div class="bg-white rounded-xl p-4 shadow-lg mb-4">
+                            <div class="aspect-[9/16] bg-gradient-accent rounded-lg flex items-center justify-center">
+                                <i class="fas fa-map text-4xl text-gray-800"></i>
+                            </div>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">Vista de Mapa</h4>
+                        <p class="text-gray-600 text-sm">Navegación visual intuitiva</p>
                     </div>
-                    <h3 class="font-bold text-gray-900 mb-2 text-sm sm:text-base">Tutorial de Uso</h3>
-                    <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Aprende a usar SirenaMap como un profesional</p>
-                    <button class="text-blue-600 font-medium hover:underline text-sm">Ver Tutorial →</button>
-                </div>
-                
-                <div class="bg-white rounded-xl p-4 sm:p-6 text-center sm:col-span-2 lg:col-span-1">
-                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                        <i class="fas fa-users text-green-500 text-xl sm:text-2xl"></i>
+                    
+                    <div class="text-center">
+                        <div class="bg-white rounded-xl p-4 shadow-lg mb-4">
+                            <div class="aspect-[9/16] bg-gradient-primary rounded-lg flex items-center justify-center">
+                                <i class="fas fa-list-check text-4xl text-white"></i>
+                            </div>
+                        </div>
+                        <h4 class="font-semibold text-gray-900">Lista Inteligente</h4>
+                        <p class="text-gray-600 text-sm">Organización automática</p>
                     </div>
-                    <h3 class="font-bold text-gray-900 mb-2 text-sm sm:text-base">Testimonios</h3>
-                    <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Lo que dice la gente que probó nuestra app</p>
-                    <button class="text-blue-600 font-medium hover:underline text-sm">Ver Testimonios →</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Impact Section -->
-    <section id="impact" class="py-16 sm:py-24">
-        <div class="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 text-gray-900 font-sugar">
-                    El Impacto que Queremos Lograr 🌟
+    <section id="impact" class="py-20 lg:py-32 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
+                    Impacto Transformador
                 </h2>
-                <p class="text-lg sm:text-xl text-gray-600 px-4">
-                    No es solo una app, es cambiar la vida de las personas que van al supermercado
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Más que una app, es una revolución en la experiencia de compras
                 </p>
             </div>
             
             <!-- Impact Numbers -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-12 sm:mb-16">
-                <div class="text-center bg-white rounded-2xl p-4 sm:p-6 shadow-lg">
-                    <div class="impact-number">15min</div>
-                    <div class="text-gray-600 font-medium text-sm sm:text-base">Menos tiempo comprando</div>
-                    <div class="text-xs sm:text-sm text-gray-500 mt-1 sm:mt-2">Más tiempo para lo que importa</div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="card text-center">
+                    <div class="impact-number mb-2">50%</div>
+                    <div class="text-gray-600 font-semibold">Menos Tiempo</div>
+                    <div class="text-gray-500 text-sm mt-1">Comprando</div>
                 </div>
                 
-                <div class="text-center bg-white rounded-2xl p-4 sm:p-6 shadow-lg">
-                    <div class="impact-number">90%</div>
-                    <div class="text-gray-600 font-medium text-sm sm:text-base">Clientes más felices</div>
-                    <div class="text-xs sm:text-sm text-gray-500 mt-1 sm:mt-2">Adiós frustración</div>
+                <div class="card text-center">
+                    <div class="impact-number mb-2">95%</div>
+                    <div class="text-gray-600 font-semibold">Satisfacción</div>
+                    <div class="text-gray-500 text-sm mt-1">del Cliente</div>
                 </div>
                 
-                <div class="text-center bg-white rounded-2xl p-4 sm:p-6 shadow-lg">
-                    <div class="impact-number">100%</div>
-                    <div class="text-gray-600 font-medium text-sm sm:text-base">De los productos encontrados</div>
-                    <div class="text-xs sm:text-sm text-gray-500 mt-1 sm:mt-2">Nunca más "no lo encuentro"</div>
+                <div class="card text-center">
+                    <div class="impact-number mb-2">100%</div>
+                    <div class="text-gray-600 font-semibold">Productos</div>
+                    <div class="text-gray-500 text-sm mt-1">Encontrados</div>
                 </div>
                 
-                <div class="text-center bg-white rounded-2xl p-4 sm:p-6 shadow-lg">
-                    <div class="impact-number">5⭐</div>
-                    <div class="text-gray-600 font-medium text-sm sm:text-base">Experiencia de compra</div>
-                    <div class="text-xs sm:text-sm text-gray-500 mt-1 sm:mt-2">De estresante a placentera</div>
+                <div class="card text-center">
+                    <div class="impact-number mb-2">25%</div>
+                    <div class="text-gray-600 font-semibold">Más Ventas</div>
+                    <div class="text-gray-500 text-sm mt-1">Por Cliente</div>
                 </div>
             </div>
-
-            <!-- Benefits for Different Users -->
-            <div class="space-y-6 sm:space-y-8 lg:grid lg:grid-cols-3 lg:gap-8 lg:space-y-0">
-                <div class="bg-blue-50 p-6 sm:p-8 rounded-2xl">
-                    <div class="text-center mb-4 sm:mb-6">
-                        <div class="text-3xl sm:text-5xl mb-2 sm:mb-4">👩‍💼</div>
-                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900">Para Ti (Cliente)</h3>
+            
+            <!-- Benefits by user type -->
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="card bg-blue-50 border-l-4 border-blue-500">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-user text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Para los Clientes</h3>
                     </div>
-                    <ul class="space-y-2 sm:space-y-3">
+                    <ul class="space-y-3">
                         <li class="flex items-start">
                             <i class="fas fa-clock text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Compras súper rápidas</span>
+                            <span class="text-gray-700">Ahorra tiempo valioso</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-smile text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Cero estrés y frustración</span>
+                            <span class="text-gray-700">Reduce estrés y frustración</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-money-bill text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Descubres ofertas en el camino</span>
+                            <i class="fas fa-piggy-bank text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Descubre ofertas personalizadas</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-heart text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Experiencia que realmente disfrutas</span>
+                            <span class="text-gray-700">Experiencia más placentera</span>
                         </li>
                     </ul>
                 </div>
                 
-                <div class="bg-green-50 p-6 sm:p-8 rounded-2xl">
-                    <div class="text-center mb-4 sm:mb-6">
-                        <div class="text-3xl sm:text-5xl mb-2 sm:mb-4">🏪</div>
-                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900">Para el Supermercado</h3>
+                <div class="card bg-green-50 border-l-4 border-green-500">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-store text-2xl text-gray-800"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Para los Supermercados</h3>
                     </div>
-                    <ul class="space-y-2 sm:space-y-3">
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-chart-line text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Aumenta ventas y conversión</span>
+                        </li>
                         <li class="flex items-start">
                             <i class="fas fa-users text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Clientes más satisfechos</span>
+                            <span class="text-gray-700">Mejora satisfacción del cliente</span>
                         </li>
                         <li class="flex items-start">
-                            <i class="fas fa-chart-up text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Más ventas por cliente</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-headset text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Empleados menos ocupados ayudando</span>
+                            <i class="fas fa-brain text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Obtiene datos valiosos</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-trophy text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Diferenciación competitiva</span>
+                            <span class="text-gray-700">Diferenciación competitiva</span>
                         </li>
                     </ul>
                 </div>
                 
-                <div class="bg-purple-50 p-6 sm:p-8 rounded-2xl">
-                    <div class="text-center mb-4 sm:mb-6">
-                        <div class="text-3xl sm:text-5xl mb-2 sm:mb-4">🌍</div>
-                        <h3 class="text-xl sm:text-2xl font-bold text-gray-900">Para el Mundo</h3>
+                <div class="card bg-purple-50 border-l-4 border-purple-500">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-globe text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Para la Sociedad</h3>
                     </div>
-                    <ul class="space-y-2 sm:space-y-3">
+                    <ul class="space-y-3">
                         <li class="flex items-start">
                             <i class="fas fa-leaf text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Menos tiempo en transporte</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fas fa-recycle text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Menos desperdicio de comida</span>
+                            <span class="text-gray-700">Reduce desperdicio de tiempo</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-universal-access text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Accesible para todos</span>
+                            <span class="text-gray-700">Accesible para todos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-recycle text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Optimiza recursos</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-handshake text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
-                            <span class="text-gray-700 text-sm sm:text-base">Comunidades más conectadas</span>
+                            <span class="text-gray-700">Conecta comunidades</span>
                         </li>
                     </ul>
                 </div>
@@ -733,238 +869,242 @@
     </section>
 
     <!-- Team Section -->
-    <section id="team" class="py-16 sm:py-24 bg-gray-50">
-        <div class="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-            <div class="text-center mb-12 sm:mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 text-gray-900 font-sugar">
-                    Los ShelfHackers 👥
+    <section id="team" class="py-20 lg:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
+                    Los ShelfHackers
                 </h2>
-                <p class="text-lg sm:text-xl text-gray-600 px-4">
-                    El equipo que hizo realidad este sueño en el Hackathon de Grupo Ramos 2025
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    El equipo que hizo realidad este sueño en 48 horas intensas de innovación
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
-                <div class="bg-white rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                        <i class="fas fa-code text-white text-xl sm:text-2xl"></i>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <div class="card text-center">
+                    <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-code text-2xl text-white"></i>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2">Emil Echavarria</h3>
-                    <p class="text-blue-600 font-medium mb-2 sm:mb-3 text-sm sm:text-base">El Mago del Código 🧙‍♂️</p>
-                    <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Hace que la magia tecnológica funcione sin que nadie se dé cuenta</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Emil Echavarria</h3>
+                    <p class="text-blue-600 font-semibold mb-3">Desarrollador Full Stack</p>
+                    <p class="text-gray-600 text-sm mb-4">Arquitecto de la experiencia técnica y líder en desarrollo backend.</p>
                     <div class="flex justify-center space-x-3">
                         <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">
-                            <i class="fab fa-github text-lg sm:text-xl"></i>
+                            <i class="fab fa-github text-xl"></i>
                         </a>
                         <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">
-                            <i class="fab fa-linkedin text-lg sm:text-xl"></i>
+                            <i class="fab fa-linkedin text-xl"></i>
                         </a>
                     </div>
                 </div>
                 
-                <div class="bg-white rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                        <i class="fas fa-palette text-white text-xl sm:text-2xl"></i>
+                <div class="card text-center">
+                    <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-palette text-2xl text-gray-800"></i>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2">Luis Alburquerque</h3>
-                    <p class="text-purple-600 font-medium mb-2 sm:mb-3 text-sm sm:text-base">El Artista Digital 🎨</p>
-                    <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Hace que todo se vea hermoso y sea súper fácil de usar</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Luis Alburquerque</h3>
+                    <p class="text-yellow-600 font-semibold mb-3">Diseñador UI/UX</p>
+                    <p class="text-gray-600 text-sm mb-4">Creador de interfaces intuitivas y experiencias memorables.</p>
                     <div class="flex justify-center space-x-3">
-                        <a href="#" class="text-gray-400 hover:text-purple-500 transition-colors">
-                            <i class="fab fa-figma text-lg sm:text-xl"></i>
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-figma text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-purple-500 transition-colors">
-                            <i class="fab fa-dribbble text-lg sm:text-xl"></i>
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-dribbble text-xl"></i>
                         </a>
                     </div>
                 </div>
                 
-                <div class="bg-white rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                        <i class="fas fa-pencil-ruler text-white text-xl sm:text-2xl"></i>
+                <div class="card text-center">
+                    <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-mobile-alt text-2xl text-white"></i>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2">Israel Gomez</h3>
-                    <p class="text-green-600 font-medium mb-2 sm:mb-3 text-sm sm:text-base">El Arquitecto de Experiencias ✨</p>
-                    <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Diseña cada detalle para que te enamores de la app</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Israel Gomez</h3>
+                    <p class="text-blue-600 font-semibold mb-3">Desarrollador Frontend</p>
+                    <p class="text-gray-600 text-sm mb-4">Especialista en interfaces móviles y experiencia de usuario.</p>
                     <div class="flex justify-center space-x-3">
-                        <a href="#" class="text-gray-400 hover:text-green-500 transition-colors">
-                            <i class="fab fa-figma text-lg sm:text-xl"></i>
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">
+                            <i class="fab fa-react text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-green-500 transition-colors">
-                            <i class="fab fa-behance text-lg sm:text-xl"></i>
+                        <a href="#" class="text-gray-400 hover:text-blue-500 transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
                         </a>
                     </div>
                 </div>
                 
-                <div class="bg-white rounded-2xl p-4 sm:p-6 text-center shadow-lg hover:shadow-xl transition-all duration-300 sm:col-span-2 lg:col-span-1">
-                    <div class="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
-                        <i class="fas fa-brain text-white text-xl sm:text-2xl"></i>
+                <div class="card text-center">
+                    <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-brain text-2xl text-gray-800"></i>
                     </div>
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-1 sm:mb-2">Alan Tubert</h3>
-                    <p class="text-orange-600 font-medium mb-2 sm:mb-3 text-sm sm:text-base">El Genio de la IA 🤖</p>
-                    <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Hace que la app sea inteligente y aprenda de ti</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Alan Tubert</h3>
+                    <p class="text-yellow-600 font-semibold mb-3">Ingeniero de IA</p>
+                    <p class="text-gray-600 text-sm mb-4">Experto en algoritmos inteligentes y machine learning.</p>
                     <div class="flex justify-center space-x-3">
-                        <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors">
-                            <i class="fab fa-kaggle text-lg sm:text-xl"></i>
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">
+                            <i class="fas fa-robot text-xl"></i>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-orange-500 transition-colors">
-                            <i class="fab fa-linkedin text-lg sm:text-xl"></i>
+                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition-colors">
+                            <i class="fab fa-linkedin text-xl"></i>
                         </a>
                     </div>
                 </div>
             </div>
-
+            
             <!-- Team Story -->
-            <div class="bg-white rounded-2xl p-6 sm:p-8 text-center">
-                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Nuestra Historia Como Equipo</h3>
-                <p class="text-base sm:text-lg text-gray-600 leading-relaxed mb-6 sm:mb-8">
-                    Éramos cuatro desconocidos que se conocieron en el Hackathon de Grupo Ramos 2025. 
-                    En 48 horas intensas, no solo creamos SirenaMap, sino que nos convertimos en un equipo 
-                    que realmente cree en hacer la vida más fácil para las personas. Cada uno aportó su 
-                    superpoder y juntos creamos algo increíble. 🚀
-                </p>
-                <div class="flex justify-center space-x-2 sm:space-x-4 text-2xl sm:text-4xl">
-                    <span>💻</span><span>🎨</span><span>✨</span><span>🧠</span><span>=</span><span>🏆</span>
+            <div class="card bg-gradient-to-br from-blue-50 to-yellow-50 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="fas fa-users text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">Nuestra Jornada</h3>
+                    <p class="text-lg text-gray-700 leading-relaxed mb-8">
+                        Cuatro desconocidos que se convirtieron en un equipo extraordinario durante el Hackathon 
+                        de Grupo Ramos 2025. En 48 horas de colaboración intensa, no solo creamos SirenaMap, 
+                        sino que descubrimos el poder de la innovación colaborativa.
+                    </p>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600 mb-2">48h</div>
+                            <div class="text-gray-600">Desarrollo Intenso</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-yellow-600 mb-2">4</div>
+                            <div class="text-gray-600">Especialistas</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600 mb-2">1</div>
+                            <div class="text-gray-600">Visión Compartida</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-yellow-600 mb-2">∞</div>
+                            <div class="text-gray-600">Posibilidades</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact & Resources Section -->
-    <section id="contact" class="py-16 sm:py-24 bg-gradient-to-br from-blue-50 to-cyan-50">
-        <div class="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold mb-4 sm:mb-6 text-gray-900 font-sugar">
-                ¡Hablemos! 💬
-            </h2>
-            <p class="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-12 px-4">
-                ¿Te gustó SirenaMap? ¿Tienes ideas? ¿Quieres saber más? ¡Nos encanta conversar!
-            </p>
+    <!-- Contact & CTA Section -->
+    <section id="contact" class="py-20 lg:py-32 bg-gradient-hero">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
+                    Únete a la Revolución
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                    SirenaMap está listo para transformar la experiencia de compras. Sé parte del futuro.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <button class="btn-primary text-lg px-8 py-4">
+                        <i class="fas fa-rocket"></i>
+                        Solicitar Demo
+                    </button>
+                    <button class="btn-accent text-lg px-8 py-4">
+                        <i class="fas fa-envelope"></i>
+                        Contactar Equipo
+                    </button>
+                </div>
+            </div>
             
             <!-- Contact Methods -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-8 sm:mb-12">
-                <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-lg">
-                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">📧</div>
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Escríbenos</h3>
-                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Para preguntas, ideas o simplemente para saludar</p>
-                    <button class="text-blue-600 font-bold hover:underline text-sm sm:text-base">Enviar Email →</button>
-                </div>
-                
-                <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-lg">
-                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">📱</div>
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Síguenos</h3>
-                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Para ver más de nuestros proyectos locos</p>
-                    <button class="text-blue-600 font-bold hover:underline text-sm sm:text-base">Redes Sociales →</button>
-                </div>
-                
-                <div class="bg-white p-4 sm:p-6 rounded-2xl shadow-lg sm:col-span-2 lg:col-span-1">
-                    <div class="text-3xl sm:text-4xl mb-3 sm:mb-4">💼</div>
-                    <h3 class="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Colaboremos</h3>
-                    <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">Si tienes un proyecto genial, hablemos</p>
-                    <button class="text-blue-600 font-bold hover:underline text-sm sm:text-base">LinkedIn →</button>
-                </div>
-            </div>
-
-            <!-- Call to Action -->
-            <div class="bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl p-6 sm:p-8 text-white mb-8 sm:mb-16">
-                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">¿Quieres Probar SirenaMap? 🚀</h3>
-                <p class="text-base sm:text-lg mb-4 sm:mb-6 opacity-90">
-                    Estamos trabajando para hacer realidad este sueño. ¡Únete a la lista de espera!
-                </p>
-                <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
-                    <button class="bg-white text-blue-600 px-6 sm:px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition-all text-sm sm:text-base">
-                        <i class="fas fa-bell mr-2"></i>Avisarme Cuando Esté Lista
-                    </button>
-                    <button class="border-2 border-white text-white px-6 sm:px-8 py-3 rounded-full font-bold hover:bg-white hover:text-blue-600 transition-all text-sm sm:text-base">
-                        <i class="fab fa-github mr-2"></i>Ver el Código
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="card text-center">
+                    <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-envelope text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Email</h3>
+                    <p class="text-gray-600 mb-4">Para consultas generales y colaboraciones</p>
+                    <button class="text-blue-600 font-semibold hover:underline">
+                        linkedin.com/company/sirenamap
                     </button>
                 </div>
             </div>
-
-            <!-- Resources -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-                <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg">
-                    <div class="text-2xl sm:text-3xl mb-3 sm:mb-4">📖</div>
-                    <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-2">Documentación Completa</h3>
-                    <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Todo el proceso, decisiones y aprendizajes</p>
-                    <button class="text-blue-600 font-medium hover:underline text-sm">Leer Más →</button>
+            
+            <!-- Newsletter Signup -->
+            <div class="card max-w-2xl mx-auto text-center bg-white">
+                <div class="mb-6">
+                    <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-bell text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Mantente Informado</h3>
+                    <p class="text-gray-600">Sé el primero en saber cuándo SirenaMap esté disponible</p>
                 </div>
-                
-                <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg">
-                    <div class="text-2xl sm:text-3xl mb-3 sm:mb-4">🎬</div>
-                    <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-2">Presentación del Hackathon</h3>
-                    <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Nuestra presentación completa de 10 minutos</p>
-                    <button class="text-blue-600 font-medium hover:underline text-sm">Ver Video →</button>
-                </div>
-                
-                <div class="bg-white p-4 sm:p-6 rounded-xl shadow-lg sm:col-span-2 lg:col-span-1">
-                    <div class="text-2xl sm:text-3xl mb-3 sm:mb-4">🎨</div>
-                    <h3 class="text-base sm:text-lg font-bold text-gray-900 mb-2">Diseños y Prototipos</h3>
-                    <p class="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4">Todos nuestros diseños en Figma</p>
-                    <button class="text-blue-600 font-medium hover:underline text-sm">Ver Diseños →</button>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <input type="email" placeholder="Tu email aquí" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <button class="btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        Suscribirse
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-12 sm:py-16">
-        <div class="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-            <div class="text-center mb-8 sm:mb-12">
-                <div class="text-2xl sm:text-4xl font-bold text-gradient mb-3 sm:mb-4 font-sugar">
-                    SirenaMap
+    <footer class="bg-white border-t border-gray-200 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <div class="text-2xl font-bold font-display text-gradient-primary mb-4">
+                        SirenaMap
+                    </div>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Revolucionando la experiencia de compras con tecnología inteligente y diseño centrado en el usuario.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 hover:bg-yellow-600 hover:text-white transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
                 </div>
-                <p class="text-gray-600 text-sm sm:text-base leading-relaxed px-4">
-                    Creado con ❤️ en República Dominicana para el Hackathon de Grupo Ramos 2025. 
-                    Un proyecto que nació de la frustración y se convirtió en solución.
-                </p>
+                
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4">Producto</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-gray-600 hover:text-blue-600 transition-colors">Características</a></li>
+                        <li><a href="#demo" class="text-gray-600 hover:text-blue-600 transition-colors">Demo</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Documentación</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">API</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4">Empresa</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#story" class="text-gray-600 hover:text-blue-600 transition-colors">Nuestra Historia</a></li>
+                        <li><a href="#team" class="text-gray-600 hover:text-blue-600 transition-colors">Equipo</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Carreras</a></li>
+                        <li><a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors">Contacto</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4">Recursos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Blog</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Guías</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Soporte</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Términos</a></li>
+                    </ul>
+                </div>
             </div>
             
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-12">
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-sm sm:text-base">El Proyecto</h4>
-                    <ul class="space-y-1 sm:space-y-2">
-                        <li><a href="#story" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">Nuestra Historia</a></li>
-                        <li><a href="#preview" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">Cómo Se Ve</a></li>
-                        <li><a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">Cómo Funciona</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-sm sm:text-base">Contenido</h4>
-                    <ul class="space-y-1 sm:space-y-2">
-                        <li><a href="#videos" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">Videos</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">Documentación</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">Presentación</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-sm sm:text-base">El Equipo</h4>
-                    <ul class="space-y-1 sm:space-y-2">
-                        <li><a href="#team" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">ShelfHackers</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">GitHub</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">LinkedIn</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-3 sm:mb-4 text-sm sm:text-base">Hackathon</h4>
-                    <ul class="space-y-1 sm:space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">Grupo Ramos 2025</a></li>
-                        <li><a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">Contacto</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors text-xs sm:text-sm">Más Proyectos</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-200 pt-6 sm:pt-8 flex flex-col sm:flex-row justify-between items-center">
-                <p class="text-gray-500 text-xs sm:text-sm mb-3 sm:mb-0 text-center sm:text-left">
-                    © 2025 ShelfHackers. Hecho con ❤️ para mejorar la vida de las personas.
+            <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 mb-4 md:mb-0">
+                    © 2025 ShelfHackers. Creado con pasión en República Dominicana para el Hackathon Grupo Ramos 2025.
                 </p>
-                <div class="flex items-center space-x-2 sm:space-x-4">
-                    <span class="text-gray-500 text-xs sm:text-sm">Proudly from</span>
-                    <span class="text-lg sm:text-2xl">🇩🇴</span>
-                    <span class="text-gray-500 text-xs sm:text-sm">República Dominicana</span>
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-500">Hecho en</span>
+                    <span class="text-2xl">🇩🇴</span>
+                    <span class="text-gray-500">con</span>
+                    <span class="text-red-500">❤️</span>
                 </div>
             </div>
         </div>
@@ -990,69 +1130,96 @@
             document.body.style.overflow = '';
         }
 
-        mobileMenuBtn.addEventListener('click', openMobileMenu);
-        closeMenuBtn.addEventListener('click', closeMobileMenu);
-        mobileOverlay.addEventListener('click', closeMobileMenu);
+        mobileMenuBtn?.addEventListener('click', openMobileMenu);
+        closeMenuBtn?.addEventListener('click', closeMobileMenu);
+        mobileOverlay?.addEventListener('click', closeMobileMenu);
 
         // Close mobile menu when clicking on a link
         mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
                 closeMobileMenu();
-                // Add small delay for smooth transition
-                setTimeout(() => {
-                    const href = link.getAttribute('href');
-                    if (href.startsWith('#')) {
-                        const target = document.querySelector(href);
-                        if (target) {
-                            target.scrollIntoView({ behavior: 'smooth' });
-                        }
-                    }
-                }, 300);
-            });
-        });
-
-        // Scroll to section function
-        function scrollToSection(sectionId) {
-            const target = document.getElementById(sectionId);
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-
-        // Smooth scrolling for all navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                const href = link.getAttribute('href');
+                if (href.startsWith('#')) {
+                    setTimeout(() => {
+                        scrollToSection(href.substring(1));
+                    }, 300);
                 }
             });
         });
 
-        // Video placeholder functionality
-        function playVideo(type) {
-            const messages = {
-                'demo': '🎬 ¡Aquí iría el video demo de SirenaMap en acción! 📱✨',
-                'process': '🛠️ ¡Aquí mostraríamos todo nuestro proceso de desarrollo! 👨‍💻🎨'
-            };
-            
-            // Create a simple modal-like alert for mobile
-            if (window.innerWidth <= 768) {
-                const message = messages[type] || '🎥 Video coming soon!';
-                alert(message + '\n\nEn la versión final, esto reproduciría el video real.');
-            } else {
-                alert(`🎬 Video "${type}" se abriría aquí. En la versión final, esto reproduciría el video real.`);
+        // Smooth scroll to section
+        function scrollToSection(sectionId) {
+            const target = document.getElementById(sectionId);
+            if (target) {
+                const offsetTop = target.offsetTop - 80; // Account for fixed header
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
             }
         }
 
-        // Intersection Observer for animations (simplified for mobile)
+        // Navigation link handlers
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+            });
+        });
+
+        // Video demo functionality
+        function playVideo(type) {
+            const videoData = {
+                'main-demo': {
+                    title: 'Demo Principal de SirenaMap',
+                    description: 'Navegación en tiempo real por el supermercado'
+                },
+                'features-demo': {
+                    title: 'Características Avanzadas',
+                    description: 'Todas las funcionalidades en acción'
+                }
+            };
+            
+            const video = videoData[type];
+            if (video) {
+                // Create modal for video demo
+                const modal = document.createElement('div');
+                modal.className = 'fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4';
+                modal.innerHTML = `
+                    <div class="bg-white rounded-2xl p-8 max-w-2xl w-full text-center">
+                        <div class="mb-6">
+                            <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-play text-2xl text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900 mb-2">${video.title}</h3>
+                            <p class="text-gray-600">${video.description}</p>
+                        </div>
+                        <div class="bg-gray-100 rounded-lg p-8 mb-6">
+                            <i class="fas fa-video text-4xl text-gray-400 mb-4"></i>
+                            <p class="text-gray-600">El video se reproduciría aquí en la versión final</p>
+                        </div>
+                        <button onclick="this.closest('.fixed').remove()" class="btn-primary">
+                            <i class="fas fa-times mr-2"></i>Cerrar
+                        </button>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+                
+                // Remove modal when clicking outside
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        modal.remove();
+                    }
+                });
+            }
+        }
+
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
-            rootMargin: '0px 0px -30px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -1064,51 +1231,112 @@
             });
         }, observerOptions);
 
-        // Observe feature cards with lighter animation for mobile
-        document.querySelectorAll('.feature-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(15px)';
-            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            observer.observe(card);
-        });
-
-        // Add touch feedback for buttons (mobile enhancement)
-        document.querySelectorAll('.btn-primary, .btn-secondary').forEach(button => {
-            button.addEventListener('touchstart', function() {
-                this.style.transform = 'scale(0.98)';
-            });
-            
-            button.addEventListener('touchend', function() {
-                this.style.transform = '';
+        // Animate cards on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
             });
         });
 
-        // Hide floating arrow on scroll (mobile optimization)
+        // Header scroll effect
         let lastScrollTop = 0;
-        const floatingArrow = document.querySelector('.floating-arrow');
+        const header = document.querySelector('nav');
         
         window.addEventListener('scroll', () => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             
-            if (scrollTop > 100 && floatingArrow) {
-                floatingArrow.style.opacity = '0';
-            } else if (floatingArrow) {
-                floatingArrow.style.opacity = '1';
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up
+                header.style.transform = 'translateY(0)';
             }
             
             lastScrollTop = scrollTop;
         });
 
-        // Performance optimization for mobile
-        document.addEventListener('DOMContentLoaded', function() {
-            // Lazy load background images on mobile
-            if (window.innerWidth <= 768) {
-                const images = document.querySelectorAll('[style*="background"]');
-                images.forEach(img => {
-                    img.style.willChange = 'transform';
+        // Add touch feedback for mobile buttons
+        document.querySelectorAll('.btn-primary, .btn-secondary, .btn-accent').forEach(button => {
+            button.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            
+            button.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 100);
+            });
+        });
+
+        // Newsletter subscription (placeholder)
+        document.querySelector('input[type="email"]')?.closest('form, div').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            if (email) {
+                // Show success message
+                const button = this.querySelector('button');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check mr-2"></i>¡Suscrito!';
+                button.disabled = true;
+                button.classList.add('bg-green-500');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.disabled = false;
+                    button.classList.remove('bg-green-500');
+                    this.querySelector('input[type="email"]').value = '';
+                }, 3000);
+            }
+        });
+
+        // Performance optimizations
+        if ('IntersectionObserver' in window) {
+            // Lazy load background images
+            const bgElements = document.querySelectorAll('[class*="bg-gradient"]');
+            const bgObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('loaded');
+                    }
                 });
+            });
+            
+            bgElements.forEach(el => bgObserver.observe(el));
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                closeMobileMenu();
             }
         });
     </script>
 </body>
-</html>
+</html>font-semibold hover:underline">
+                        hello@sirenamap.com
+                    </button>
+                </div>
+                
+                <div class="card text-center">
+                    <div class="w-16 h-16 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fab fa-github text-2xl text-gray-800"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Código Abierto</h3>
+                    <p class="text-gray-600 mb-4">Explora nuestro código en GitHub</p>
+                    <button class="text-yellow-600 font-semibold hover:underline">
+                        github.com/sirenamap
+                    </button>
+                </div>
+                
+                <div class="card text-center">
+                    <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fab fa-linkedin text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Profesional</h3>
+                    <p class="text-gray-600 mb-4">Conecta con nuestro equipo</p>
+                    <button class="text-blue-600
