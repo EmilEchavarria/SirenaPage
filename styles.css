@@ -2,7 +2,9 @@
    ShelfHackers - Hackathon 2025 Styles
    Clean, Modern, Friendly Design
    ========================================== */
-
+.font-sugar {
+    font-family: 'More Sugar', cursive;
+}
 /* Variables CSS personalizadas */
 :root {
     --primary-color: #02B0D5;
@@ -22,7 +24,7 @@
 /* Smooth scrolling y configuración base */
 html {
     scroll-behavior: smooth;
-    font-family: 'Inter', sans-serif;
+    
 }
 
 body {
@@ -1095,6 +1097,14 @@ input[type="checkbox"], input[type="radio"] {
     animation: gradient-wave 3s ease-in-out infinite;
 }
 
+.text-gradient-animated-yellow {
+    background: linear-gradient(45deg, #FFD100, #FBBF24, #F59E0B, #f48507, #FFD100);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-wave 3s ease-in-out infinite;
+}
 @keyframes gradient-wave {
     0% {
         background-position: 0% 50%;
@@ -1106,10 +1116,3 @@ input[type="checkbox"], input[type="radio"] {
         background-position: 0% 50%;
     }
 }
-
-
-
-
-
-
-
