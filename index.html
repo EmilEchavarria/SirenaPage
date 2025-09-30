@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
         :root {
             --primary-blue: #02B0D5;
@@ -21,6 +21,7 @@
             --gradient-primary: linear-gradient(135deg, #02B0D5 0%, #0284c7 100%);
             --gradient-accent: linear-gradient(135deg, #FFD100 0%, #fbbf24 100%);
             --gradient-hero: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #fefce8 100%);
+            --gradient-elegant: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
         }
         
         * { font-family: 'Inter', sans-serif; }
@@ -33,13 +34,22 @@
         .bg-gradient-primary { background: var(--gradient-primary); }
         .bg-gradient-accent { background: var(--gradient-accent); }
         .bg-gradient-hero { background: var(--gradient-hero); }
+        .bg-gradient-elegant { background: var(--gradient-elegant); }
         
-        /* Text gradient */
-        .text-gradient-primary {
-            background: linear-gradient(135deg, #02B0D5, #FFD100);
+        /* Text gradient with animation */
+        .text-gradient-animated {
+            background: linear-gradient(135deg, #02B0D5, #0284c7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            background-size: 200% 200%;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         
         /* Enhanced buttons */
@@ -128,9 +138,58 @@
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         
-        .card-featured {
-            background: linear-gradient(135deg, white 0%, #f8fafc 100%);
-            border: 1px solid #e2e8f0;
+        /* Enhanced card for features */
+        .card-elegant {
+            background: var(--gradient-elegant);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15), 0 4px 10px -2px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card-elegant:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 40px -5px rgba(0, 0, 0, 0.2), 0 6px 15px -2px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Feature item animation */
+        .feature-item {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        
+        .feature-item:nth-child(1) { animation-delay: 0.1s; }
+        .feature-item:nth-child(2) { animation-delay: 0.2s; }
+        .feature-item:nth-child(3) { animation-delay: 0.3s; }
+        .feature-item:nth-child(4) { animation-delay: 0.4s; }
+        .feature-item:nth-child(5) { animation-delay: 0.5s; }
+        .feature-item:nth-child(6) { animation-delay: 0.6s; }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Feature icon enhanced */
+        .feature-icon-enhanced {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            background: var(--gradient-accent);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-item:hover .feature-icon-enhanced {
+            transform: scale(1.1);
         }
         
         /* Mobile navigation */
@@ -145,71 +204,131 @@
         
         /* Phone mockup */
         .phone-mockup {
-            width: 280px;
-            height: 560px;
-            background: linear-gradient(145deg, #1f2937, #111827);
-            border-radius: 36px;
-            padding: 8px;
+            width: 22rem;
+            height: 700px;
+            border-radius: 35px;
+            padding: 0.5rem;
+            background: linear-gradient(145deg, #3e3e3e 0%, #242424 100%);
             position: relative;
-            margin: 0 auto;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transform-style: preserve-3d;
         }
         
         .phone-screen {
             width: 100%;
             height: 100%;
-            background: white;
-            border-radius: 28px;
-            position: relative;
+            background: black;
+            border-radius: 27px;
             overflow: hidden;
         }
         
         /* Responsive phone mockup */
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             .phone-mockup {
-                width: 220px;
-                height: 440px;
-                border-radius: 28px;
-                padding: 6px;
+                width: 14rem;
+                height: 480px;
             }
-            .phone-screen {
-                border-radius: 22px;
+            .phone-mockup::after {
+                bottom: -40px;
+                height: 15px;
             }
+        }
+        
+        @media (min-width: 481px) and (max-width: 768px) {
+            .phone-mockup {
+                width: 16rem;
+                height: 550px;
+            }
+        }
+        
+        @media (min-width: 769px) and (max-width: 1023px) {
+            .phone-mockup {
+                width: 18rem;
+                height: 600px;
+            }
+        }
+        
+        .phone-mockup::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            width: 80%;
+            height: 20px;
+            transform: translateX(-50%);
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 70%);
+            filter: blur(15px);
+            z-index: -1;
+            animation: shadow-float 4s ease-in-out infinite;
         }
         
         /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        @keyframes pulse-soft {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        .animate-float { animation: float 3s ease-in-out infinite; }
-        .animate-pulse-soft { animation: pulse-soft 2s ease-in-out infinite; }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { 
-            background: #02B0D5; 
-            border-radius: 4px; 
-        }
-        ::-webkit-scrollbar-thumb:hover { background: #0284c7; }
-        
-        /* Enhanced mobile styles */
-        @media (max-width: 640px) {
-            .btn-primary, .btn-secondary, .btn-accent {
-                width: 100%;
-                padding: 18px 24px;
-                font-size: 16px;
+        @keyframes animate-float {
+            0%, 100% {
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 8px 16px rgba(0, 0, 0, 0.25), 0 2px 8px rgba(0, 0, 0, 0.15);
             }
-            
-            .card { padding: 20px; }
+            25% {
+                transform: translateY(-8px) rotateX(1deg) rotateY(-1deg);
+                box-shadow: 0 28px 48px rgba(0, 0, 0, 0.25), 0 12px 24px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
+            50% {
+                transform: translateY(-15px) rotateX(0deg) rotateY(0deg);
+                box-shadow: 0 35px 60px rgba(0, 0, 0, 0.08), 0 15px 30px rgba(0, 0, 0, 0.05), 0 8px 16px rgba(0, 0, 0, 0.03);
+            }
+            75% {
+                transform: translateY(-8px) rotateX(-1deg) rotateY(1deg);
+                box-shadow: 0 28px 48px rgba(0, 0, 0, 0.25), 0 12px 24px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(0, 0, 0, 0.1);
+            }
         }
+        
+        @keyframes shadow-float {
+            0%, 100% { opacity: 0.45; transform: translateX(-50%) scale(1); filter: blur(15px); }
+            25% { opacity: 0.25; transform: translateX(-50%) scale(0.95); filter: blur(18px); }
+            50% { opacity: 0.02; transform: translateX(-50%) scale(0.75); filter: blur(25px); }
+            75% { opacity: 0.25; transform: translateX(-50%) scale(0.95); filter: blur(18px); }
+        }
+        
+        .animate-float { animation: animate-float 4s ease-in-out infinite; }
+        
+        /* Rocket animation */
+        @keyframes rocket-launch {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .animate-rocket-launch { animation: rocket-launch 1.5s ease-in-out infinite; }
+        
+        /* Sparkle animation */
+        @keyframes fire-sparkle {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; filter: blur(0px); }
+            30% { opacity: 0.8; filter: blur(2px); }
+            100% { transform: translate(var(--sparkle-drift), 55px) scale(0.1); opacity: 0; filter: blur(8px); }
+        }
+        
+        .rocket-container { position: relative; display: inline-flex; justify-content: center; align-items: center; }
+        
+        .sparkle {
+            position: absolute;
+            top: 55%;
+            width: 6px;
+            height: 12px;
+            background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 1) 0%, rgba(2, 176, 213, 0.9) 30%, rgba(2, 176, 213, 0.5) 70%, rgba(2, 176, 213, 0) 100%);
+            box-shadow: 0 0 5px 2px rgba(2, 176, 213, 0.7);
+            border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
+            opacity: 0;
+            z-index: 5;
+            --sparkle-drift: 0px;
+            animation: fire-sparkle 1.2s cubic-bezier(0.1, 0.8, 0.5, 0.95) infinite;
+        }
+        
+        .sparkle-1 { left: 45%; animation-delay: 0s; width: 5px; height: 10px; --sparkle-drift: -10px; animation-duration: 1.1s; }
+        .sparkle-2 { left: 30%; animation-delay: 0.1s; width: 7px; height: 14px; animation-duration: 1.5s; --sparkle-drift: -20px; }
+        .sparkle-3 { left: 60%; animation-delay: 0.2s; width: 6px; height: 12px; animation-duration: 1.3s; --sparkle-drift: 15px; }
+        .sparkle-4 { left: 38%; animation-delay: 0.3s; width: 8px; height: 16px; animation-duration: 1.4s; --sparkle-drift: 5px; }
+        .sparkle-5 { left: 52%; animation-delay: 0.4s; width: 5px; height: 10px; animation-duration: 1.6s; --sparkle-drift: -7px; }
+        .sparkle-6 { left: 20%; animation-delay: 0.5s; width: 9px; height: 18px; animation-duration: 1.8s; --sparkle-drift: -25px; }
+        .sparkle-7 { left: 70%; animation-delay: 0.6s; width: 6px; height: 13px; animation-duration: 1.3s; --sparkle-drift: 20px; }
+        .sparkle-8 { left: 48%; animation-delay: 0.7s; width: 7px; height: 15px; animation-duration: 1.0s; --sparkle-drift: 3px; }
         
         /* Feature icons */
         .feature-icon {
@@ -226,13 +345,6 @@
         
         .feature-icon-blue { background: var(--gradient-primary); }
         .feature-icon-yellow { background: var(--gradient-accent); color: #1f2937; }
-        
-        /* Glass effect */
-        .glass {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-        }
         
         /* Impact numbers */
         .impact-number {
@@ -261,32 +373,36 @@
             background: rgba(2, 176, 213, 0.1);
             color: #02B0D5;
         }
+        
+        /* MacBook mockup */
+        .macbook-mockup {
+            background: #1f2937;
+            border-radius: 16px 16px 0 0;
+            padding: 12px;
+            position: relative;
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body class="bg-white">
-    <!-- Enhanced Navigation -->
+    <!-- Navigation -->
     <nav class="fixed w-full top-0 bg-white/95 backdrop-blur-lg border-b border-gray-100 z-50 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <div class="text-2xl font-bold font-sugar text-gradient-animated">
+                    <div class="text-2xl font-bold font-display text-gradient-primary">
                         ShelfHackers
                     </div>
                 </div>
-                
-                <!-- Desktop Navigation -->
                 <div class="hidden md:block">
                     <div class="flex items-center space-x-1">
                         <a href="#hero" class="nav-link">Inicio</a>
-                        <a href="#story" class="nav-link">Historia</a>
-                        <a href="#features" class="nav-link">Características</a>
-                        <a href="#demo" class="nav-link">Demo</a>
+                        <a href="#mission" class="nav-link">Misión</a>
+                        <a href="#how-it-works" class="nav-link">Cómo Funciona</a>
                         <a href="#team" class="nav-link">Equipo</a>
                         <a href="#contact" class="nav-link">Contacto</a>
                     </div>
                 </div>
-                
-                <!-- Mobile menu button -->
                 <div class="md:hidden">
                     <button id="mobile-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
                         <i class="fas fa-bars text-xl text-gray-700"></i>
@@ -294,8 +410,6 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Mobile Navigation -->
         <div id="mobile-menu" class="mobile-nav fixed inset-y-0 left-0 w-80 max-w-full bg-white shadow-xl z-50 md:hidden">
             <div class="flex items-center justify-between p-6 border-b border-gray-100">
                 <div class="text-xl font-bold font-display text-gradient-primary">SirenaMap</div>
@@ -307,14 +421,11 @@
                 <a href="#hero" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
                     <i class="fas fa-home w-6 mr-4 text-blue-500"></i>Inicio
                 </a>
-                <a href="#story" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
-                    <i class="fas fa-book w-6 mr-4 text-blue-500"></i>Historia
+                <a href="#mission" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
+                    <i class="fas fa-book w-6 mr-4 text-blue-500"></i>Misión
                 </a>
-                <a href="#features" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
-                    <i class="fas fa-star w-6 mr-4 text-blue-500"></i>Características
-                </a>
-                <a href="#demo" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
-                    <i class="fas fa-play w-6 mr-4 text-blue-500"></i>Demo
+                <a href="#how-it-works" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
+                    <i class="fas fa-cogs w-6 mr-4 text-blue-500"></i>Cómo Funciona
                 </a>
                 <a href="#team" class="mobile-nav-link block px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors border-b border-gray-50">
                     <i class="fas fa-users w-6 mr-4 text-blue-500"></i>Equipo
@@ -325,167 +436,46 @@
             </div>
         </div>
     </nav>
-
-    <!-- Mobile overlay -->
     <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"></div>
 
-<!-- Hero Section -->
-<!-- Hero Section -->
-<style>
-   
-    /* Estilo del mockup con sombra realista - PC fijo */
-    .phone-mockup {
-        width: 22rem;
-        height: 700px;
-        border-radius: 35px;
-        padding: 0.5rem;
-        background: linear-gradient(145deg, #3e3e3e 0%, #242424 100%);
-        position: relative;
-        transform-style: preserve-3d;
-    }
-
-    /* Solo responsive para móviles y tablets */
-    @media (max-width: 480px) {
-        .phone-mockup {
-            width: 14rem;
-            height: 480px;
-        }
-        
-        .phone-mockup::after {
-            bottom: -40px;
-            height: 15px;
-        }
-    }
-
-    @media (min-width: 481px) and (max-width: 768px) {
-        .phone-mockup {
-            width: 16rem;
-            height: 550px;
-        }
-    }
-
-    @media (min-width: 769px) and (max-width: 1023px) {
-        .phone-mockup {
-            width: 18rem;
-            height: 600px;
-        }
-    }
-
-    /* Sombra de suelo para mayor realismo */
-    .phone-mockup::after {
-        content: '';
-        position: absolute;
-        bottom: -50px;
-        left: 50%;
-        width: 80%;
-        height: 20px;
-        transform: translateX(-50%);
-        background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 70%);
-        filter: blur(15px);
-        z-index: -1;
-        animation: shadow-float 4s ease-in-out infinite;
-    }
-
-    .phone-screen {
-        width: 100%;
-        height: 100%;
-        background: black;
-        border-radius: 27px;
-        overflow: hidden;
-    }
-
-    /* Animación más fluida con sombra dinámica más realista */
-    @keyframes animate-float {
-        0%, 100% {
-            transform: translateY(0px) rotateX(0deg) rotateY(0deg);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.35),
-                0 8px 16px rgba(0, 0, 0, 0.25),
-                0 2px 8px rgba(0, 0, 0, 0.15);
-        }
-        25% {
-            transform: translateY(-8px) rotateX(1deg) rotateY(-1deg);
-            box-shadow: 
-                0 28px 48px rgba(0, 0, 0, 0.25),
-                0 12px 24px rgba(0, 0, 0, 0.18),
-                0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        50% {
-            transform: translateY(-15px) rotateX(0deg) rotateY(0deg);
-            box-shadow: 
-                0 35px 60px rgba(0, 0, 0, 0.08),
-                0 15px 30px rgba(0, 0, 0, 0.05),
-                0 8px 16px rgba(0, 0, 0, 0.03);
-        }
-        75% {
-            transform: translateY(-8px) rotateX(-1deg) rotateY(1deg);
-            box-shadow: 
-                0 28px 48px rgba(0, 0, 0, 0.25),
-                0 12px 24px rgba(0, 0, 0, 0.18),
-                0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-    }
-
-    /* Animación para la sombra de suelo más sutil */
-    @keyframes shadow-float {
-        0%, 100% {
-            opacity: 0.45;
-            transform: translateX(-50%) scale(1);
-            filter: blur(15px);
-        }
-        25% {
-            opacity: 0.25;
-            transform: translateX(-50%) scale(0.95);
-            filter: blur(18px);
-        }
-        50% {
-            opacity: 0.02;
-            transform: translateX(-50%) scale(0.75);
-            filter: blur(25px);
-        }
-        75% {
-            opacity: 0.25;
-            transform: translateX(-50%) scale(0.95);
-            filter: blur(18px);
-        }
-    }
-
-    .animate-float {
-        animation: animate-float 4s ease-in-out infinite;
-        transition: box-shadow 0.3s ease-in-out;
-    }
-</style>
-
-<!-- Hero Section -->
-<section id="hero" class="min-h-screen flex items-center bg-gradient-hero pt-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div class="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
-            <div class="text-center lg:text-left">
-                <h1 class="text-4xl sm:text-5xl lg:text-7xl font-sugar font-semibold text-gradient-animated mb-6 leading-tight">
-                    SirenaMap
-                </h1>
-                <p class="text-xl sm:text-2xl text-gray-700 mb-4 font-medium">
-                    Tu GPS Inteligente para Supermercados
-                </p>
-                <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                    Transforma tu experiencia de compras con navegación paso a paso, ubicación en tiempo real 
-                    y recomendaciones personalizadas. Nunca más te pierdas en el supermercado.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8 lg:mb-0">
-                    <button onclick="scrollToSection('demo')" class="btn-primary">
-                        <i class="fas fa-play"></i>
-                        Ver Demo
-                    </button>
-                    <button onclick="scrollToSection('features')" class="btn-secondary">
-                        <i class="fas fa-rocket"></i>
-                        Descubrir Más
-                    </button>
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center bg-gradient-hero pt-16" data-aos="fade-in">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
+                <div class="text-center lg:text-left" data-aos="fade-right">
+                    <h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-semibold text-gradient-primary mb-6 leading-tight">
+                        SirenaMap
+                    </h1>
+                    <p class="text-xl sm:text-2xl text-gray-700 mb-4 font-medium">
+                        Tu GPS Inteligente para Supermercados
+                    </p>
+                    <p class="text-lg text-gray-600 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                        Transforma tu experiencia de compras con navegación paso a paso, ubicación en tiempo real y recomendaciones personalizadas.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8 lg:mb-0">
+                        <button onclick="scrollToSection('how-it-works')" class="btn-primary">
+                            <i class="fas fa-play"></i>
+                            Ver Demo
+                        </button>
+                        <button onclick="scrollToSection('mission')" class="btn-secondary">
+                            <i class="fas fa-rocket"></i>
+                            Nuestra Misión
+                        </button>
+                    </div>
+                    <div class="flex justify-center lg:hidden mt-8">
+                        <div class="phone-mockup animate-float relative" data-aos="fade-up">
+                            <div class="phone-screen p-3 flex flex-col relative overflow-hidden">
+                                <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+                                    <source src="assets/videos/generalApp.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <!-- Mockup solo visible en móviles -->
-                <div class="flex justify-center lg:hidden mt-8">
-                    <div class="phone-mockup animate-float relative">
-                        <div class="phone-screen p-3 flex flex-col relative overflow-hidden">
+                <div class="hidden lg:flex justify-center lg:justify-end">
+                    <div class="phone-mockup animate-float relative" data-aos="fade-left">
+                        <div class="phone-screen p-6 flex flex-col relative overflow-hidden">
                             <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
                                 <source src="assets/videos/generalApp.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
@@ -494,114 +484,70 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Mockup solo visible en desktop -->
-            <div class="hidden lg:flex justify-center lg:justify-end">
-                <div class="phone-mockup animate-float relative">
-                    <div class="phone-screen p-6 flex flex-col relative overflow-hidden">
-                        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
-                            <source src="assets/videos/generalApp.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
-</section>
+    </section>
 
+    <!-- Nuestra Misión e Impacto -->
+    <section id="mission" class="py-20 lg:py-32 bg-white" data-aos="fade-up">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <div class="inline-flex items-center bg-[#FFD100]/10 text-gray-800 px-6 py-3 rounded-full font-semibold text-sm mb-6">
+                    <i class="fas fa-code mr-2 text-[#02B0D5]"></i>
+                    Hackathon Grupo Ramos 2025 - Equipo ShelfHackers
+                </div>
+                <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold font-display text-gradient-animated mb-6">
+                    Nuestra Misión e Impacto
+                </h2>
+                <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    En 30 días, transformamos los desafíos del retail dominicano en SirenaMap, una solución innovadora que revoluciona la experiencia de compra.
+                </p>
+            </div>
 
-<section id="story" class="py-20 lg:py-32 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-20">
-            <div class="inline-flex items-center bg-[#FFD100]/10 text-gray-800 px-6 py-3 rounded-full font-semibold text-sm mb-6">
-                <i class="fas fa-code mr-2 text-[#02B0D5]"></i>
-                Hackathon Grupo Ramos 2025 - Equipo ShelfHackers
-            </div>
-            <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-                De la Idea al 
-                <span class="bg-clip-text text-transparent text-gradient-animated">Prototipo Funcional</span>
-            </h2>
-            <p class="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                En 30 días intensos, transformamos una problemática real del retail dominicano en una solución 
-                tecnológica innovadora que revoluciona la experiencia de compra en supermercados.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-            <div class="bg-white rounded-2xl p-6 text-center relative overflow-hidden shadow-md">
-                <div class="absolute top-0 left-0 right-0 h-1 bg-[#02B0D5]"></div>
-                <div class="text-3xl font-bold mb-2 text-gray-900">30</div>
-                <div class="text-sm opacity-90 text-gray-600">Días de desarrollo</div>
-            </div>
-            <div class="bg-white rounded-2xl p-6 text-center relative overflow-hidden shadow-md">
-                <div class="absolute top-0 left-0 right-0 h-1 bg-[#FFD100]"></div>
-                <div class="text-3xl font-bold mb-2 text-gray-900">4</div>
-                <div class="text-sm opacity-90 text-gray-600">Desarrolladores</div>
-            </div>
-            <div class="bg-white rounded-2xl p-6 text-center relative overflow-hidden shadow-md">
-                <div class="absolute top-0 left-0 right-0 h-1 bg-[#02B0D5]"></div>
-                <div class="text-3xl font-bold mb-2 text-gray-900">100%</div>
-                <div class="text-sm opacity-90 text-gray-600">Funcional y demo</div>
-            </div>
-            <div class="bg-white rounded-2xl p-6 text-center relative overflow-hidden shadow-md">
-                <div class="absolute top-0 left-0 right-0 h-1 bg-[#FFD100]"></div>
-                <div class="text-3xl font-bold mb-2 text-gray-900">1°</div>
-                <div class="text-sm opacity-90 text-gray-600">En innovación</div>
-            </div>
-        </div>
-        
-        <div class="grid lg:grid-cols-2 gap-16 items-start mb-20">
-            <div class="space-y-8">
-                <h3 class="text-2xl font-bold text-gray-900 mb-8">Nuestro Journey en el Hackathon</h3>
-                
-                <div class="flex items-start space-x-4">
-                    <div class="w-12 h-12 bg-[#02B0D5]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#02B0D5]">
-                        <span class="font-bold text-lg">1</span>
+            <!-- Journey -->
+            <div class="grid lg:grid-cols-2 gap-16 items-start mb-20" data-aos="fade-right">
+                <div class="space-y-8">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-8">Nuestro Journey en el Hackathon</h3>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-[#02B0D5]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#02B0D5]">
+                            <span class="font-bold text-lg">1</span>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">Identificación del Problema</h4>
+                            <p class="text-gray-600">Clientes pierden 30+ minutos navegando sin orientación, generando ineficiencias y frustración.</p>
+                        </div>
                     </div>
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2">Identificación del Problema</h4>
-                        <p class="text-gray-600">Detectamos que los clientes de Grupo Ramos pierden 30+ minutos navegando sin orientación clara en sus supermercados.</p>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-[#FFD100]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#FFD100]">
+                            <span class="font-bold text-lg">2</span>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">Conceptualización</h4>
+                            <p class="text-gray-600">Diseñamos SirenaMap: un GPS indoor con navegación y recomendaciones inteligentes.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-[#02B0D5]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#02B0D5]">
+                            <span class="font-bold text-lg">3</span>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">Desarrollo</h4>
+                            <p class="text-gray-600">Creamos una app con mapeo indoor, rutas optimizadas e integración con inventario.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 bg-[#FFD100]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#FFD100]">
+                            <span class="font-bold text-lg">4</span>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-gray-900 mb-2">Validación</h4>
+                            <p class="text-gray-600">Prototipo funcional con demo que transforma el retail dominicano.</p>
+                        </div>
                     </div>
                 </div>
-                
-                <div class="flex items-start space-x-4">
-                    <div class="w-12 h-12 bg-[#FFD100]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#FFD100]">
-                        <span class="font-bold text-lg">2</span>
-                    </div>
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2">Conceptualización de la Solución</h4>
-                        <p class="text-gray-600">Diseñamos SirenaMap: el primer GPS indoor específico para supermercados con navegación paso a paso y recomendaciones inteligentes.</p>
-                    </div>
-                </div>
-                
-                <div class="flex items-start space-x-4">
-                    <div class="w-12 h-12 bg-[#02B0D5]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#02B0D5]">
-                        <span class="font-bold text-lg">3</span>
-                    </div>
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2">Desarrollo y Prototipado</h4>
-                        <p class="text-gray-600">Implementamos una aplicación móvil completa con mapeo indoor, sistema de rutas optimizadas y integración con inventario en tiempo real.</p>
-                    </div>
-                </div>
-
-                <div class="flex items-start space-x-4">
-                    <div class="w-12 h-12 bg-[#FFD100]/10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg text-[#FFD100]">
-                        <span class="font-bold text-lg">4</span>
-                    </div>
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-2">Validación y Demo</h4>
-                        <p class="text-gray-600">Creamos un prototipo funcional con demo completo que demuestra el potencial de transformación del retail dominicano.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="relative">
-                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-200">
+                <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-200" data-aos="fade-left">
                     <div class="text-center">
-                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg border-4 border-blue-100 relative overflow-hidden rocket-container">
+                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg border-4 border-blue-100 rocket-container">
                             <i class="fas fa-rocket text-3xl text-blue-600 animate-rocket-launch"></i>
-                            
                             <div class="sparkle sparkle-1"></div>
                             <div class="sparkle sparkle-2"></div>
                             <div class="sparkle sparkle-3"></div>
@@ -612,764 +558,486 @@
                             <div class="sparkle sparkle-8"></div>
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-4">Impacto Proyectado</h3>
-                        <p class="text-gray-600 mb-6">SirenaMap está diseñado para implementarse en toda la red de Grupo Ramos, beneficiando a millones de clientes dominicanos.</p>
-                        
+                        <p class="text-gray-600 mb-6">SirenaMap beneficiará a millones de clientes en la red de Grupo Ramos.</p>
                         <div class="grid grid-cols-2 gap-4 text-center">
                             <div class="bg-white rounded-lg p-4 shadow-sm">
-                                <div class="text-2xl font-bold text-blue-600">74%</div>
-                                <div class="text-sm text-gray-600">Tiempo ahorrado</div>
+                                <div class="text-2xl font-bold text-blue-600">50%</div>
+                                <div class="text-sm text-gray-600">Menos tiempo comprando</div>
                             </div>
                             <div class="bg-white rounded-lg p-4 shadow-sm">
-                                <div class="text-2xl font-bold text-[#FFD100]">2M+</div>
-                                <div class="text-sm text-gray-600">Usuarios objetivo</div>
+                                <div class="text-2xl font-bold text-[#FFD100]">95%</div>
+                                <div class="text-sm text-gray-600">Satisfacción del cliente</div>
                             </div>
-                        </div>
-                        
-                        <div   div class="mt-6 p-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg text-white">
-                            <p class="font-semibold text-sm">
-                                    "Una solución que posiciona a <span class="text-[#FFD100]">Grupo Ramos</span> como líder en innovación retail de la <span class="text-[#FFD100]">República Dominicana</span>"
-                            </p>
+                            <div class="bg-white rounded-lg p-4 shadow-sm">
+                                <div class="text-2xl font-bold text-blue-600">100%</div>
+                                <div class="text-sm text-gray-600">Productos encontrados</div>
+                            </div>
+                            <div class="bg-white rounded-lg p-4 shadow-sm">
+                                <div class="text-2xl font-bold text-[#FFD100]">25%</div>
+                                <div class="text-sm text-gray-600">Más ventas por cliente</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-<div class="grid lg:grid-cols-2 gap-8">
-    <div class="bg-white border-l-4 border-red-400 rounded-lg p-8 shadow-md">
-        <div class="flex items-center mb-6">
-            <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
-                <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+
+            <!-- Challenges and Solutions -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-20" data-aos="fade-up">
+                <div class="card border-l-4 border-red-400 p-8" data-aos="fade-right">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Desafíos</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-red-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Ineficiencia operacional: Cuellos de botella por falta de orientación.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-red-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Experiencia deficiente: Frustración al buscar productos.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-times text-red-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Falta de datos: Limitaciones para personalizar ofertas.</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card border-l-4 border-[#02B0D5] p-8" data-aos="fade-left">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-[#02B0D5]/20 rounded-full flex items-center justify-center mr-4 text-[#02B0D5]">
+                            <i class="fas fa-lightbulb text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Soluciones de SirenaMap</h3>
+                    </div>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-[#FFD100] mr-3 mt-1"></i>
+                            <span class="text-gray-700">Mapa interactivo: Geolocalización indoor para agilizar compras.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-[#02B0D5] mr-3 mt-1"></i>
+                            <span class="text-gray-700">Buddy: IA con recomendaciones personalizadas.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-[#FFD100] mr-3 mt-1"></i>
+                            <span class="text-gray-700">Análisis predictivo: Optimiza inventarios y ventas.</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <h3 class="text-xl font-bold text-gray-900">El Desafío Identificado</h3>
-        </div>
-        <ul class="space-y-4">
-            <li class="flex items-start">
-                <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700"><strong>Ineficiencia Operacional:</strong> Los clientes que buscan productos sin orientación generan cuellos de botella, aumentando la carga de trabajo del personal y reduciendo la fluidez en la tienda.</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700"><strong>Experiencia Deficiente:</strong> La dificultad para encontrar productos lleva a frustración y pérdida de tiempo, afectando la satisfacción del cliente en cada visita al supermercado.</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700"><strong>Oportunidad Perdida:</strong> La falta de datos detallados sobre el comportamiento de compra limita la capacidad de personalizar ofertas y optimizar la disposición de productos.</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-times text-red-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700"><strong>Competitividad:</strong> La ausencia de tecnología diferenciadora en los supermercados dificulta destacar en un mercado competitivo, perdiendo la oportunidad de atraer clientes modernos.</span>
-            </li>
-        </ul>
-    </div>
-    
-    <div class="bg-white border-l-4 border-[#02B0D5] rounded-lg p-8 shadow-md">
-        <div class="flex items-center mb-6">
-            <div class="w-12 h-12 bg-[#02B0D5]/20 rounded-full flex items-center justify-center mr-4 text-[#02B0D5]">
-                <i class="fas fa-lightbulb text-xl"></i>
+
+            <!-- Benefits -->
+            <div class="grid lg:grid-cols-3 gap-8" data-aos="fade-up">
+                <div class="card bg-blue-50 border-l-4 border-blue-500" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-user text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Para los Clientes</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-clock text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Ahorra tiempo valioso</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-smile text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Reduce estrés y frustración</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-piggy-bank text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Descubre ofertas personalizadas</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-heart text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Experiencia más placentera</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-map-signs text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Navega fácilmente con mapas interactivos y Buddy como guía</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card bg-green-50 border-l-4 border-green-500" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-store text-2xl text-gray-800"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Para los Supermercados</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-chart-line text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Aumenta ventas y conversión</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-users text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Mejora satisfacción del cliente</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-brain text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Obtiene datos valiosos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-trophy text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Diferenciación competitiva</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-bullhorn text-green-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Impulsa ingresos con ofertas push contextuales</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card bg-purple-50 border-l-4 border-purple-500" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-globe text-2xl text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Para la Sociedad</h3>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-leaf text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Reduce desperdicio de tiempo</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-universal-access text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Accesible para todos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-recycle text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Optimiza recursos</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-handshake text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Conecta comunidades</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-lightbulb text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
+                            <span class="text-gray-700">Fomenta innovación retail sostenible</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <h3 class="text-xl font-bold text-gray-900">Soluciones Innovadoras de SirenaMap</h3>
         </div>
-        <ul class="space-y-4">
-            <li class="flex items-start">
-                <i class="fas fa-check text-[#FFD100] mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700"><strong>Mapa Interactivo:</strong> Geolocalización indoor con sensores guía a los clientes por los pasillos, agilizando las compras con precisión.</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-check text-[#02B0D5] mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700"><strong>Buddy, Tu Compañero:</strong> Nuestra IA Buddy ofrece recomendaciones personalizadas y listas de compras optimizadas para una experiencia fluida.</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-check text-[#FFD100] mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700"><strong>Análisis Predictivo:</strong> Buddy genera insights de compras para optimizar inventarios y disposición de productos, maximizando ventas.</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-check text-[#02B0D5] mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700"><strong>Retail Vanguardista:</strong> SirenaMap y Buddy transforman supermercados en destinos tecnológicos, cautivando clientes modernos.</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-check text-[#FFD100] mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700"><strong>Ofertas Contextuales:</strong> Promociones personalizadas emergen elegantemente al pasar por pasillos, impulsando compras con relevancia y oportunidad.</span>
-            </li>
-        </ul>
-    </div>
-</div>
-    </div>
-</section>
+    </section>
 
-
-<style>
-/* Animación de micro-movimiento del cohete */
-@keyframes rocket-launch {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-5px); 
-    }
-}
-
-.animate-rocket-launch {
-    animation: rocket-launch 1.5s ease-in-out infinite;
-    transform-origin: bottom; 
-    z-index: 10; 
-}
-
-/* Animaciones de las chispas realistas: Más lentas y dispersas */
-@keyframes fire-sparkle {
-    0% {
-        transform: translate(0, 0) scale(1); 
-        opacity: 1;
-        filter: blur(0px);
-    }
-    30% {
-        opacity: 0.8;
-        filter: blur(2px);
-    }
-    100% {
-        /* Distancia de movimiento aumentada a 55px para dar espacio al movimiento lento */
-        transform: translate(var(--sparkle-drift), 55px) scale(0.1); 
-        opacity: 0;
-        filter: blur(8px); 
-    }
-}
-
-.rocket-container {
-    position: relative;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.sparkle {
-    position: absolute;
-    top: 55%; 
-    
-    width: 6px; 
-    height: 12px; 
-    
-    /* Mismo estilo de plasma y resplandor azul */
-    background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 1) 0%, rgba(2, 176, 213, 0.9) 30%, rgba(2, 176, 213, 0.5) 70%, rgba(2, 176, 213, 0) 100%); 
-    box-shadow: 0 0 5px 2px rgba(2, 176, 213, 0.7); 
-    border-radius: 50% 50% 30% 30% / 60% 60% 40% 40%;
-    
-    opacity: 0;
-    z-index: 5;
-    
-    --sparkle-drift: 0px; 
-    
-    /* Duración base AUMENTADA para ralentizar el movimiento */
-    animation: fire-sparkle 1.2s cubic-bezier(0.1, 0.8, 0.5, 0.95) infinite; 
-    filter: blur(0px); 
-}
-
-/* Variaciones con duraciones individuales aumentadas */
-.sparkle-1 { left: 45%; animation-delay: 0s; width: 5px; height: 10px; --sparkle-drift: -10px; animation-duration: 1.1s; }
-.sparkle-2 { left: 30%; animation-delay: 0.1s; width: 7px; height: 14px; animation-duration: 1.5s; --sparkle-drift: -20px; }
-.sparkle-3 { left: 60%; animation-delay: 0.2s; width: 6px; height: 12px; animation-duration: 1.3s; --sparkle-drift: 15px; }
-.sparkle-4 { left: 38%; animation-delay: 0.3s; width: 8px; height: 16px; animation-duration: 1.4s; --sparkle-drift: 5px; }
-.sparkle-5 { left: 52%; animation-delay: 0.4s; width: 5px; height: 10px; animation-duration: 1.6s; --sparkle-drift: -7px; }
-.sparkle-6 { left: 20%; animation-delay: 0.5s; width: 9px; height: 18px; animation-duration: 1.8s; --sparkle-drift: -25px; }
-.sparkle-7 { left: 70%; animation-delay: 0.6s; width: 6px; height: 13px; animation-duration: 1.3s; --sparkle-drift: 20px; }
-.sparkle-8 { left: 48%; animation-delay: 0.7s; width: 7px; height: 15px; animation-duration: 1.0s; --sparkle-drift: 3px; }
-</style>
-    <!-- Features Section -->
-    <section id="features" class="py-20 lg:py-32 bg-gray-50">
+    <!-- Cómo Funciona SirenaMap -->
+    <section id="how-it-works" class="py-20 lg:py-32 bg-gray-50" data-aos="fade-up">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
-                    Características Principales
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gradient-animated mb-6">
+                    Cómo Funciona SirenaMap
                 </h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Tecnología avanzada diseñada para hacer tu experiencia de compras extraordinaria
+                    Descubre la tecnología que hace tus compras más rápidas e inteligentes
                 </p>
             </div>
-            
+
+            <!-- Features -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-                <div class="card text-center">
+                <div class="card text-center" data-aos="fade-up" data-aos-delay="100">
                     <div class="feature-icon feature-icon-blue">
                         <i class="fas fa-map-marked-alt"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Mapas Interactivos</h3>
-                    <p class="text-gray-600">Navegación visual clara con mapas detallados de cada pasillo y sección del supermercado.</p>
+                    <p class="text-gray-600">Navegación visual clara con mapas detallados de cada pasillo.</p>
                 </div>
-                
-                <div class="card text-center">
+                <div class="card text-center" data-aos="fade-up" data-aos-delay="200">
                     <div class="feature-icon feature-icon-yellow">
                         <i class="fas fa-location-arrow"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Ubicación Precisa</h3>
-                    <p class="text-gray-600">Tecnología de geolocalización indoor que te ubica exactamente en tiempo real.</p>
+                    <p class="text-gray-600">Geolocalización indoor en tiempo real.</p>
                 </div>
-                
-                <div class="card text-center">
+                <div class="card text-center" data-aos="fade-up" data-aos-delay="300">
                     <div class="feature-icon feature-icon-blue">
                         <i class="fas fa-route"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Rutas Optimizadas</h3>
-                    <p class="text-gray-600">Algoritmos inteligentes que crean la ruta más eficiente para tu lista de compras.</p>
+                    <p class="text-gray-600">Algoritmos para la ruta más eficiente.</p>
                 </div>
-                
-                <div class="card text-center">
-                    <div class="feature-icon feature-icon-yellow">
-                        <i class="fas fa-volume-up"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Guía por Voz</h3>
-                    <p class="text-gray-600">Instrucciones de navegación habladas para que no tengas que mirar constantemente la pantalla.</p>
-                </div>
-                
-                <div class="card text-center">
-                    <div class="feature-icon feature-icon-blue">
-                        <i class="fas fa-tags"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Ofertas Contextuales</h3>
-                    <p class="text-gray-600">Descubre promociones y descuentos relevantes mientras navegas por la tienda.</p>
-                </div>
-                
-                <div class="card text-center">
+                <div class="card text-center" data-aos="fade-up" data-aos-delay="400">
                     <div class="feature-icon feature-icon-yellow">
                         <i class="fas fa-brain"></i>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">IA Personalizada</h3>
-                    <p class="text-gray-600">Aprende de tus hábitos de compra y te sugiere productos y rutas personalizadas.</p>
+                    <p class="text-gray-600">Recomendaciones basadas en tus hábitos de compra.</p>
+                </div>
+                <div class="card text-center" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon feature-icon-blue">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Ofertas Contextuales</h3>
+                    <p class="text-gray-600">Promociones relevantes mientras navegas.</p>
+                </div>
+                <div class="card text-center" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-icon feature-icon-yellow">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Realidad Aumentada</h3>
+                    <p class="text-gray-600">Navegación intuitiva con información digital superpuesta.</p>
                 </div>
             </div>
-            
-            <!-- Feature showcase -->
-<div class="bg-white rounded-2xl p-8 lg:p-12 shadow-xl">
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
-        <div>
-            <h3 class="text-3xl font-bold text-gray-900 mb-6">Experiencia Visual Inmersiva</h3>
-            <div class="space-y-6">
-                <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-eye text-blue-600"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-900 mb-1">Realidad Aumentada</h4>
-                        <p class="text-gray-600">Superpone información digital sobre el mundo real para una navegación intuitiva.</p>
-                    </div>
-                </div>
-                <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-map text-yellow-600"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-900 mb-1">Mapas 3D Interactivos</h4>
-                        <p class="text-gray-600">Visualización tridimensional del supermercado con navegación fluida.</p>
-                    </div>
-                </div>
-                <div class="flex items-start space-x-4">
-                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                        <i class="fas fa-mobile-alt text-blue-600"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-900 mb-1">Interfaz Adaptativa</h4>
-                        <p class="text-gray-600">Se ajusta automáticamente a tu dispositivo y preferencias de uso.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="flex justify-center">
-            <div class="relative">
-                <div class="phone-mockup">
-                    <div class="phone-screen p-3 flex flex-col relative overflow-hidden">
-                        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
-                            <source src="assets/videos/route.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-        </div>
-    </section>
 
-    <!-- Demo Section -->
-  <section id="demo" class="py-20 lg:py-32">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
-                Ve SirenaMap en Acción
-            </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                Descubre cómo funciona nuestra tecnología paso a paso
-            </p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-8 mb-16 relative">
-            
-            <div class="absolute top-1/4 left-0 right-0 h-0.5 bg-gray-200 hidden md:block z-0 transform -translate-y-1/2"></div>
+            <!-- Steps -->
+            <div class="grid md:grid-cols-3 gap-8 mb-16 relative" data-aos="fade-up">
+                <div class="absolute top-1/4 left-0 right-0 h-0.5 bg-gray-200 hidden md:block z-0 transform -translate-y-1/2"></div>
+                <div class="text-center relative pt-10 md:pt-0" data-aos="fade-right" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6 shadow-xl relative z-10">
+                        <i class="fas fa-list-check"></i>
+                    </div>
+                    <span class="absolute top-0 left-1/2 w-0.5 h-10 bg-gray-200 block md:hidden transform -translate-x-1/2"></span>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Crea tu Lista</h3>
+                    <p class="text-gray-600">La IA optimiza tu lista de compras por ruta eficiente.</p>
+                </div>
+                <div class="text-center relative pt-10 md:pt-0" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center text-gray-900 text-2xl font-bold mx-auto mb-6 shadow-xl relative z-10">
+                        <i class="fas fa-map-location-dot"></i>
+                    </div>
+                    <span class="absolute top-0 left-1/2 w-0.5 h-10 bg-gray-200 block md:hidden transform -translate-x-1/2"></span>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Navega con GPS</h3>
+                    <p class="text-gray-600">Indicaciones precisas al entrar a la tienda.</p>
+                </div>
+                <div class="text-center relative pt-10 md:pt-0" data-aos="fade-left" data-aos-delay="300">
+                    <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6 shadow-xl relative z-10">
+                        <i class="fas fa-cart-shopping"></i>
+                    </div>
+                    <span class="absolute top-0 left-1/2 w-0.5 h-10 bg-gray-200 block md:hidden transform -translate-x-1/2"></span>
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">Compra Rápido</h3>
+                    <p class="text-gray-600">Encuentra productos y descubre ofertas.</p>
+                </div>
+            </div>
 
-            <div class="text-center relative pt-10 md:pt-0">
-                <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6 shadow-xl relative z-10">
-                    <i class="fas fa-list-check"></i> 
-                </div>
-                <span class="absolute top-0 left-1/2 w-0.5 h-10 bg-gray-200 block md:hidden transform -translate-x-1/2"></span>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Paso 1: Crea tu Lista Inteligente</h3>
-                <p class="text-gray-600">Escribe tu lista de compras; la IA la **optimiza al instante**, ordenando los productos según la ruta más eficiente de la tienda.</p>
-            </div>
-            
-            <div class="text-center relative pt-10 md:pt-0">
-                <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center text-gray-900 text-2xl font-bold mx-auto mb-6 shadow-xl relative z-10">
-                    <i class="fas fa-map-location-dot"></i>
-                </div>
-                <span class="absolute top-0 left-1/2 w-0.5 h-10 bg-gray-200 block md:hidden transform -translate-x-1/2"></span>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Paso 2: Inicia la Navegación GPS</h3>
-                <p class="text-gray-600">Al entrar a la tienda, la app activa la ruta. Recibe indicaciones precisas **paso a paso** y guía visual para el primer producto.</p>
-            </div>
-            
-            <div class="text-center relative pt-10 md:pt-0">
-                <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-6 shadow-xl relative z-10">
-                    <i class="fas fa-cart-shopping"></i>
-                </div>
-                <span class="absolute top-0 left-1/2 w-0.5 h-10 bg-gray-200 block md:hidden transform -translate-x-1/2"></span>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Paso 3: Encuentra y Finaliza Rápido</h3>
-                <p class="text-gray-600">La guía te lleva a cada artículo. Tacha, **descubre ofertas cercanas**, y completa tu compra en el menor tiempo posible.</p>
-            </div>
-        </div>
-        <div class="grid lg:grid-cols-2 gap-8 mb-16">
-            <div class="bg-gray-900 rounded-2xl aspect-video flex items-center justify-center relative overflow-hidden group cursor-pointer hover:scale-105 transition-transform duration-300" onclick="playVideo('main-demo')">
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20"></div>
-                <div class="text-center relative z-10">
-                    <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm group-hover:bg-white/30 transition-colors">
-                        <i class="fas fa-play text-2xl text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Demo Principal</h3>
-                    <p class="text-white/80">Ve SirenaMap navegando en tiempo real</p>
-                </div>
-            </div>
-            
-            <div class="bg-gray-900 rounded-2xl aspect-video flex items-center justify-center relative overflow-hidden group cursor-pointer hover:scale-105 transition-transform duration-300" onclick="playVideo('features-demo')">
-                <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/20 to-orange-500/20"></div>
-                <div class="text-center relative z-10">
-                    <div class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm group-hover:bg-white/30 transition-colors">
-                        <i class="fas fa-cogs text-2xl text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Características</h3>
-                    <p class="text-white/80">Explora todas las funcionalidades</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-8 lg:p-12">
-            <h3 class="text-2xl font-bold text-gray-900 text-center mb-8">Capturas de Pantalla</h3>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="text-center">
-                    <div class="bg-white rounded-xl p-4 shadow-lg mb-4">
-                        <div class="aspect-[9/16] bg-gradient-primary rounded-lg flex items-center justify-center">
-                            <i class="fas fa-home text-4xl text-white"></i>
+            <!-- Videos -->
+            <div class="grid lg:grid-cols-2 gap-8 mb-16" data-aos="fade-up">
+                <div class="flex justify-center items-center" data-aos="fade-right">
+                    <div class="phone-mockup animate-float relative" onclick="playVideo('main-demo')">
+                        <div class="phone-screen p-3 flex flex-col relative overflow-hidden">
+                            <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover z-0">
+                                <source src="assets/videos/route.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
                     </div>
-                    <h4 class="font-semibold text-gray-900">Pantalla Principal</h4>
-                    <p class="text-gray-600 text-sm">Interfaz limpia y accesible</p>
                 </div>
-                
-                <div class="text-center">
-                    <div class="bg-white rounded-xl p-4 shadow-lg mb-4">
-                        <div class="aspect-[9/16] bg-gradient-accent rounded-lg flex items-center justify-center">
-                            <i class="fas fa-map text-4xl text-gray-800"></i>
+                <div class="card-elegant text-center" data-aos="fade-left">
+                    <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-cogs text-2xl text-gray-800"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 tracking-tight">Características</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="feature-item flex items-start p-4 rounded-lg hover:bg-white/50 transition-colors">
+                            <div class="feature-icon-enhanced mr-4">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-1">Mapas Interactivos</h4>
+                                <p class="text-gray-600 text-sm">Navegación visual clara con mapas detallados de cada pasillo.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item flex items-start p-4 rounded-lg hover:bg-white/50 transition-colors">
+                            <div class="feature-icon-enhanced mr-4">
+                                <i class="fas fa-location-arrow"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-1">Ubicación Precisa</h4>
+                                <p class="text-gray-600 text-sm">Geolocalización indoor en tiempo real.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item flex items-start p-4 rounded-lg hover:bg-white/50 transition-colors">
+                            <div class="feature-icon-enhanced mr-4">
+                                <i class="fas fa-route"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-1">Rutas Optimizadas</h4>
+                                <p class="text-gray-600 text-sm">Algoritmos para la ruta más eficiente.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item flex items-start p-4 rounded-lg hover:bg-white/50 transition-colors">
+                            <div class="feature-icon-enhanced mr-4">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-1">IA Personalizada</h4>
+                                <p class="text-gray-600 text-sm">Recomendaciones basadas en tus hábitos de compra.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item flex items-start p-4 rounded-lg hover:bg-white/50 transition-colors">
+                            <div class="feature-icon-enhanced mr-4">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-1">Ofertas Contextuales</h4>
+                                <p class="text-gray-600 text-sm">Promociones relevantes mientras navegas.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item flex items-start p-4 rounded-lg hover:bg-white/50 transition-colors">
+                            <div class="feature-icon-enhanced mr-4">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-semibold text-gray-900 mb-1">Realidad Aumentada</h4>
+                                <p class="text-gray-600 text-sm">Navegación intuitiva con información digital superpuesta.</p>
+                            </div>
                         </div>
                     </div>
-                    <h4 class="font-semibold text-gray-900">Vista de Mapa</h4>
-                    <p class="text-gray-600 text-sm">Navegación visual intuitiva</p>
                 </div>
-                
-                <div class="text-center">
-                    <div class="bg-white rounded-xl p-4 shadow-lg mb-4">
-                        <div class="aspect-[9/16] bg-gradient-primary rounded-lg flex items-center justify-center">
-                            <i class="fas fa-list-check text-4xl text-white"></i>
+            </div>
+
+            <!-- Mockups -->
+            <div class="max-w-5xl mx-auto mb-16" data-aos="fade-up">
+                <h3 class="text-2xl font-bold text-gray-900 text-center mb-8">Diseño y Experiencia de Usuario</h3>
+                <div class="macbook-mockup">
+                    <div class="aspect-[16/10] bg-gray-900 relative">
+                        <img src="assets/images/figma.png" alt="Dashboard de SirenaMap" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div class="h-4 bg-gray-700 mx-auto rounded-b-xl relative z-10"></div>
+                <div class="h-2 w-1/2 bg-gray-600 mx-auto rounded-b-lg"></div>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6" data-aos="fade-up">
+                <div class="text-center group" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
+                        <div class="aspect-[9/16] bg-gradient-to-br from-[#02B0D5] to-blue-400 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-map-marked-alt text-4xl text-white/90"></i>
+                        </div>
+                    </div>
+                    <h4 class="font-semibold text-gray-900">Rutas Optimizadas</h4>
+                    <p class="text-gray-600 text-sm">Navegación interior</p>
+                </div>
+                <div class="text-center group" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
+                        <div class="aspect-[9/16] bg-gradient-to-br from-[#FFD100] to-yellow-400 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-list-ul text-4xl text-gray-900/90"></i>
                         </div>
                     </div>
                     <h4 class="font-semibold text-gray-900">Lista Inteligente</h4>
-                    <p class="text-gray-600 text-sm">Organización automática</p>
+                    <p class="text-gray-600 text-sm">Organización por pasillo</p>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="visuales" class="py-20 lg:py-32 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
-                Visualización del Diseño y UX
-            </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                Explora la interfaz de usuario (UI) y la experiencia de usuario (UX) que construimos en Figma.
-            </p>
-        </div>
-
-        <div class="max-w-5xl mx-auto mb-16 relative">
-            
-            <div class="macbook-mockup bg-gray-800 rounded-t-xl border-t-8 border-l-8 border-r-8 border-gray-700 shadow-2xl overflow-hidden">
-                <div class="aspect-[16/10] bg-gray-900 relative">
-                    
-                    <div class="w-full h-full absolute inset-0">
-                        <img 
-                            src="assets/images/figma.png" 
-                            alt="Dashboard de Administración de SirenaMap" 
-                            class="w-full h-full object-cover"
-                        >
+                <div class="text-center group" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
+                        <div class="aspect-[9/16] bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-street-view text-4xl text-white/90"></i>
+                        </div>
                     </div>
-                    
+                    <h4 class="font-semibold text-gray-900">Guía AR</h4>
+                    <p class="text-gray-600 text-sm">Indicaciones en tiempo real</p>
                 </div>
-            </div>
-            <div class="h-4 bg-gray-700 mx-auto rounded-b-xl relative z-10"></div>
-            <div class="h-2 w-1/2 bg-gray-600 mx-auto rounded-b-lg"></div>
-
-        </div>
-        <h3 class="text-2xl font-bold text-gray-900 text-center mb-8">Capturas Clave (Mockups)</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            
-            <div class="text-center group">
-                <div class="mockup-frame-small bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
-                    <div class="aspect-[9/16] bg-gradient-to-br from-[#02B0D5] to-blue-400 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-map-marked-alt text-4xl text-white/90"></i>
+                <div class="text-center group" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
+                        <div class="aspect-[9/16] bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-home text-4xl text-white/90"></i>
+                        </div>
                     </div>
-                </div>
-                <h4 class="font-semibold text-gray-900">Rutas Optimizadas</h4>
-                <p class="text-gray-600 text-sm">Navegación interior</p>
-            </div>
-
-            <div class="text-center group">
-                <div class="mockup-frame-small bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
-                    <div class="aspect-[9/16] bg-gradient-to-br from-[#FFD100] to-yellow-400 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-list-ul text-4xl text-gray-900/90"></i>
-                    </div>
-                </div>
-                <h4 class="font-semibold text-gray-900">Lista Inteligente</h4>
-                <p class="text-gray-600 text-sm">Organización por pasillo</p>
-            </div>
-
-            <div class="text-center group">
-                <div class="mockup-frame-small bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
-                    <div class="aspect-[9/16] bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-street-view text-4xl text-white/90"></i>
-                    </div>
-                </div>
-                <h4 class="font-semibold text-gray-900">Guía AR</h4>
-                <p class="text-gray-600 text-sm">Indicaciones en tiempo real</p>
-            </div>
-
-            <div class="text-center group">
-                <div class="mockup-frame-small bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
-                    <div class="aspect-[9/16] bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-home text-4xl text-white/90"></i>
-                    </div>
-                </div>
-                <h4 class="font-semibold text-gray-900">Dashboard</h4>
-                <p class="text-gray-600 text-sm">Vista principal</p>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
-    <!-- Impact Section -->
-    <section id="impact" class="py-20 lg:py-32 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
-                    Impacto Transformador
-                </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    Más que una app, es una revolución en la experiencia de compras
-                </p>
-            </div>
-            
-            <!-- Impact Numbers -->
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                <div class="card text-center">
-                    <div class="impact-number mb-2">50%</div>
-                    <div class="text-gray-600 font-semibold">Menos Tiempo</div>
-                    <div class="text-gray-500 text-sm mt-1">Comprando</div>
-                </div>
-                
-                <div class="card text-center">
-                    <div class="impact-number mb-2">95%</div>
-                    <div class="text-gray-600 font-semibold">Satisfacción</div>
-                    <div class="text-gray-500 text-sm mt-1">del Cliente</div>
-                </div>
-                
-                <div class="card text-center">
-                    <div class="impact-number mb-2">100%</div>
-                    <div class="text-gray-600 font-semibold">Productos</div>
-                    <div class="text-gray-500 text-sm mt-1">Encontrados</div>
-                </div>
-                
-                <div class="card text-center">
-                    <div class="impact-number mb-2">25%</div>
-                    <div class="text-gray-600 font-semibold">Más Ventas</div>
-                    <div class="text-gray-500 text-sm mt-1">Por Cliente</div>
+                    <h4 class="font-semibold text-gray-900">Dashboard</h4>
+                    <p class="text-gray-600 text-sm">Vista principal</p>
                 </div>
             </div>
-            
-            <!-- Benefits by user type -->
-           <div class="grid lg:grid-cols-3 gap-8">
-    <div class="card bg-blue-50 border-l-4 border-blue-500">
-        <div class="text-center mb-6">
-            <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-user text-2xl text-white"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900">Para los Clientes</h3>
-        </div>
-        <ul class="space-y-3">
-            <li class="flex items-start">
-                <i class="fas fa-clock text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Ahorra tiempo valioso</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-smile text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Reduce estrés y frustración</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-piggy-bank text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Descubre ofertas personalizadas</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-heart text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Experiencia más placentera</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-map-signs text-blue-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Navega fácilmente con mapas interactivos y Buddy como guía</span>
-            </li>
-        </ul>
-    </div>
-    
-    <div class="card bg-green-50 border-l-4 border-green-500">
-        <div class="text-center mb-6">
-            <div class="w-16 h-16 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-store text-2xl text-gray-800"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900">Para los Supermercados</h3>
-        </div>
-        <ul class="space-y-3">
-            <li class="flex items-start">
-                <i class="fas fa-chart-line text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Aumenta ventas y conversión</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-users text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Mejora satisfacción del cliente</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-brain text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Obtiene datos valiosos</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-trophy text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Diferenciación competitiva</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-bullhorn text-green-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Impulsa ingresos con ofertas push contextuales</span>
-            </li>
-        </ul>
-    </div>
-    
-    <div class="card bg-purple-50 border-l-4 border-purple-500">
-        <div class="text-center mb-6">
-            <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
-                <i class="fas fa-globe text-2xl text-white"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900">Para la Sociedad</h3>
-        </div>
-        <ul class="space-y-3">
-            <li class="flex items-start">
-                <i class="fas fa-leaf text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Reduce desperdicio de tiempo</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-universal-access text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Accesible para todos</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-recycle text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Optimiza recursos</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-handshake text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Conecta comunidades</span>
-            </li>
-            <li class="flex items-start">
-                <i class="fas fa-lightbulb text-purple-500 mr-3 mt-1 flex-shrink-0"></i>
-                <span class="text-gray-700">Fomenta innovación retail sostenible</span>
-            </li>
-        </ul>
-    </div>
-</div>
         </div>
     </section>
 
     <!-- Team Section -->
-<section id="team" class="py-20 lg:py-32">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
-                Los ShelfHackers
-            </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                El equipo que hizo realidad este sueño en 48 horas intensas de innovación
-            </p>
-        </div>
-        
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            <div class="card text-center">
-                <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-code text-2xl text-white"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Emil Echavarria</h3>
-                <p class="text-blue-600 font-semibold mb-3">Desarrollador Full Stack</p>
-                <p class="text-gray-600 text-sm mb-4">Arquitecto de la experiencia técnica y líder en desarrollo backend.</p>
-                <div class="flex justify-center space-x-3">
-                    <a href="https://github.com/EmilEchavarria" target="_blank" class="text-gray-400 hover:text-blue-500 transition-colors">
-                        <i class="fab fa-github text-xl"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/emil-echavarria/" target="_blank" class="text-gray-400 hover:text-blue-500 transition-colors">
-                        <i class="fab fa-linkedin text-xl"></i>
-                    </a>
-                    <a href="https://emilechavarria.vercel.app" target="_blank" class="text-gray-400 hover:text-blue-500 transition-colors">
-                        <i class="fas fa-briefcase text-xl"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="card text-center">
-                <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-palette text-2xl text-gray-800"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Luis Alburquerque</h3>
-                <p class="text-yellow-600 font-semibold mb-3">Diseñador UI/UX</p>
-                <p class="text-gray-600 text-sm mb-4">Creador de interfaces intuitivas y experiencias memorables.</p>
-                <div class="flex justify-center space-x-3">
-                    <a href="https://github.com/LuisAlburquerque" target="_blank" class="text-gray-400 hover:text-yellow-500 transition-colors">
-                        <i class="fab fa-github text-xl"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/luis-alburquerque/" target="_blank" class="text-gray-400 hover:text-yellow-500 transition-colors">
-                        <i class="fab fa-linkedin text-xl"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="card text-center">
-                <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-shield-alt text-2xl text-white"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Israel Gomez</h3>
-                <p class="text-blue-600 font-semibold mb-3">Especialista en Seguridad Informática</p>
-                <p class="text-gray-600 text-sm mb-4">Especialista en interfaces móviles y experiencia de usuario.</p>
-                <div class="flex justify-center space-x-3">
-                    <a href="https://github.com/IsraelGomez" target="_blank" class="text-gray-400 hover:text-blue-500 transition-colors">
-                        <i class="fab fa-github text-xl"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/israel-gomez/" target="_blank" class="text-gray-400 hover:text-blue-500 transition-colors">
-                        <i class="fab fa-linkedin text-xl"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="card text-center">
-                <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-brain text-2xl text-gray-800"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">Alan Tubert</h3>
-                <p class="text-yellow-600 font-semibold mb-3">Ingeniero de IA</p>
-                <p class="text-gray-600 text-sm mb-4">Experto en algoritmos inteligentes y machine learning.</p>
-                <div class="flex justify-center space-x-3">
-                    <a href="https://github.com/AlanTubert" target="_blank" class="text-gray-400 hover:text-yellow-500 transition-colors">
-                        <i class="fab fa-github text-xl"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/alan-tubert/" target="_blank" class="text-gray-400 hover:text-yellow-500 transition-colors">
-                        <i class="fab fa-linkedin text-xl"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Team Story -->
-        <div class="card bg-gradient-to-br from-blue-50 to-yellow-50 text-center">
-            <div class="max-w-3xl mx-auto">
-                <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-                    <i class="fas fa-users text-2xl text-blue-600"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-6">Nuestra Jornada</h3>
-                <p class="text-lg text-gray-700 leading-relaxed mb-8">
-                    Cuatro desconocidos que se convirtieron en un equipo extraordinario durante el Hackathon 
-                    de Grupo Ramos 2025. En 48 horas de colaboración intensa, no solo creamos SirenaMap, 
-                    sino que descubrimos el poder de la innovación colaborativa.
-                </p>
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-blue-600 mb-2">30D</div>
-                        <div class="text-gray-600">Desarrollo Intenso</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-yellow-600 mb-2">4</div>
-                        <div class="text-gray-600">Especialistas</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-blue-600 mb-2">1</div>
-                        <div class="text-gray-600">Visión Compartida</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-3xl font-bold text-yellow-600 mb-2">∞</div>
-                        <div class="text-gray-600">Posibilidades</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- Contact & CTA Section -->
-    <section id="contact" class="py-20 lg:py-32 bg-gradient-hero">
+    <section id="team" class="py-20 lg:py-32" data-aos="fade-up">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gray-900 mb-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gradient-animated mb-6">
+                    Los ShelfHackers
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    El equipo que creó SirenaMap en 30 días de innovación intensa
+                </p>
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16" data-aos="fade-up">
+                <div class="card text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-code text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Emil Echavarria</h3>
+                    <p class="text-blue-600 font-semibold mb-3">Desarrollador Full Stack</p>
+                    <p class="text-gray-600 text-sm mb-4">Arquitecto técnico y líder backend.</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="https://github.com/EmilEchavarria" target="_blank" class="text-gray-400 hover:text-blue-500">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/emil-echavarria/" target="_blank" class="text-gray-400 hover:text-blue-500">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-palette text-2xl text-gray-800"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Luis Alburquerque</h3>
+                    <p class="text-yellow-600 font-semibold mb-3">Diseñador UI/UX</p>
+                    <p class="text-gray-600 text-sm mb-4">Creador de interfaces intuitivas.</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="https://github.com/LuisAlburquerque" target="_blank" class="text-gray-400 hover:text-yellow-500">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/luis-alburquerque/" target="_blank" class="text-gray-400 hover:text-yellow-500">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shield-alt text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Israel Gomez</h3>
+                    <p class="text-blue-600 font-semibold mb-3">Especialista en Seguridad</p>
+                    <p class="text-gray-600 text-sm mb-4">Experto en interfaces móviles.</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="https://github.com/IsraelGomez" target="_blank" class="text-gray-400 hover:text-blue-500">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/israel-gomez/" target="_blank" class="text-gray-400 hover:text-blue-500">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-brain text-2xl text-gray-800"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Alan Tubert</h3>
+                    <p class="text-yellow-600 font-semibold mb-3">Ingeniero de IA</p>
+                    <p class="text-gray-600 text-sm mb-4">Experto en algoritmos inteligentes.</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="https://github.com/AlanTubert" target="_blank" class="text-gray-400 hover:text-yellow-500">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/alan-tubert/" target="_blank" class="text-gray-400 hover:text-yellow-500">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Únete a la Revolución -->
+    <section id="contact" class="py-20 lg:py-32 bg-gradient-hero" data-aos="fade-up">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gradient-animated mb-6">
                     Únete a la Revolución
                 </h2>
                 <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-                    SirenaMap está listo para transformar la experiencia de compras. Sé parte del futuro.
+                    Sé parte del futuro de las compras con SirenaMap.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                    <button class="btn-primary text-lg px-8 py-4">
-                        <i class="fas fa-rocket"></i>
-                        Solicitar Demo
-                    </button>
-                    <button class="btn-accent text-lg px-8 py-4">
-                        <i class="fas fa-envelope"></i>
-                        Contactar Equipo
-                    </button>
-                </div>
             </div>
-            
-            <!-- Contact Methods -->
-            <div class="grid md:grid-cols-3 gap-8 mb-16">
-                <div class="card text-center">
-                    <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-envelope text-2xl text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Email</h3>
-                    <p class="text-gray-600 mb-4">Para consultas generales y colaboraciones</p>
-                    <button class="text-blue-600 font-semibold hover:underline">
-                        linkedin.com/company/sirenamap
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Newsletter Signup -->
-            <div class="card max-w-2xl mx-auto text-center bg-white">
+            <div class="card max-w-2xl mx-auto text-center bg-white" data-aos="fade-up" data-aos-delay="200">
                 <div class="mb-6">
                     <div class="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-bell text-2xl text-white"></i>
                     </div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-2">Mantente Informado</h3>
-                    <p class="text-gray-600">Sé el primero en saber cuándo SirenaMap esté disponible</p>
+                    <p class="text-gray-600">Entérate primero cuando SirenaMap esté disponible.</p>
                 </div>
                 <div class="flex flex-col sm:flex-row gap-4">
                     <input type="email" placeholder="Tu email aquí" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
@@ -1378,12 +1046,13 @@
                         Suscribirse
                     </button>
                 </div>
+                <p class="text-gray-600 mt-4">Contáctanos en: <a href="mailto:contact@sirenamap.com" class="text-blue-600 hover:underline">contact@sirenamap.com</a></p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-16">
+    <footer class="bg-white border-t border-gray-200 py-16" data-aos="fade-up">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
                 <div>
@@ -1391,7 +1060,7 @@
                         SirenaMap
                     </div>
                     <p class="text-gray-600 mb-6 leading-relaxed">
-                        Revolucionando la experiencia de compras con tecnología inteligente y diseño centrado en el usuario.
+                        Revolucionando las compras con tecnología inteligente.
                     </p>
                     <div class="flex space-x-4">
                         <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-colors">
@@ -1405,41 +1074,34 @@
                         </a>
                     </div>
                 </div>
-                
                 <div>
                     <h4 class="font-bold text-gray-900 mb-4">Producto</h4>
                     <ul class="space-y-2">
-                        <li><a href="#features" class="text-gray-600 hover:text-blue-600 transition-colors">Características</a></li>
-                        <li><a href="#demo" class="text-gray-600 hover:text-blue-600 transition-colors">Demo</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Documentación</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">API</a></li>
+                        <li><a href="#how-it-works" class="text-gray-600 hover:text-blue-600">Cómo Funciona</a></li>
+                        <li><a href="#how-it-works" class="text-gray-600 hover:text-blue-600">Demo</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Documentación</a></li>
                     </ul>
                 </div>
-                
                 <div>
                     <h4 class="font-bold text-gray-900 mb-4">Empresa</h4>
                     <ul class="space-y-2">
-                        <li><a href="#story" class="text-gray-600 hover:text-blue-600 transition-colors">Nuestra Historia</a></li>
-                        <li><a href="#team" class="text-gray-600 hover:text-blue-600 transition-colors">Equipo</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Carreras</a></li>
-                        <li><a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors">Contacto</a></li>
+                        <li><a href="#mission" class="text-gray-600 hover:text-blue-600">Nuestra Misión</a></li>
+                        <li><a href="#team" class="text-gray-600 hover:text-blue-600">Equipo</a></li>
+                        <li><a href="#contact" class="text-gray-600 hover:text-blue-600">Contacto</a></li>
                     </ul>
                 </div>
-                
                 <div>
                     <h4 class="font-bold text-gray-900 mb-4">Recursos</h4>
                     <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Blog</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Guías</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Soporte</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Términos</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Blog</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Soporte</a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Términos</a></li>
                     </ul>
                 </div>
             </div>
-            
             <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-500 mb-4 md:mb-0">
-                    © 2025 ShelfHackers. Creado con pasión en República Dominicana para el Hackathon Grupo Ramos 2025.
+                    © 2025 ShelfHackers. Creado en República Dominicana.
                 </p>
                 <div class="flex items-center space-x-2">
                     <span class="text-gray-500">Hecho en</span>
@@ -1451,6 +1113,14 @@
         </div>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-in-out'
+        });
+    </script>
     <script>
         // Mobile menu functionality
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -1475,7 +1145,6 @@
         closeMenuBtn?.addEventListener('click', closeMobileMenu);
         mobileOverlay?.addEventListener('click', closeMobileMenu);
 
-        // Close mobile menu when clicking on a link
         mobileNavLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 closeMobileMenu();
@@ -1489,11 +1158,10 @@
             });
         });
 
-        // Smooth scroll to section
         function scrollToSection(sectionId) {
             const target = document.getElementById(sectionId);
             if (target) {
-                const offsetTop = target.offsetTop - 80; // Account for fixed header
+                const offsetTop = target.offsetTop - 80;
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -1501,7 +1169,6 @@
             }
         }
 
-        // Navigation link handlers
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1510,22 +1177,15 @@
             });
         });
 
-        // Video demo functionality
         function playVideo(type) {
             const videoData = {
                 'main-demo': {
                     title: 'Demo Principal de SirenaMap',
                     description: 'Navegación en tiempo real por el supermercado'
-                },
-                'features-demo': {
-                    title: 'Características Avanzadas',
-                    description: 'Todas las funcionalidades en acción'
                 }
             };
-            
             const video = videoData[type];
             if (video) {
-                // Create modal for video demo
                 const modal = document.createElement('div');
                 modal.className = 'fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4';
                 modal.innerHTML = `
@@ -1539,7 +1199,7 @@
                         </div>
                         <div class="bg-gray-100 rounded-lg p-8 mb-6">
                             <i class="fas fa-video text-4xl text-gray-400 mb-4"></i>
-                            <p class="text-gray-600">El video se reproduciría aquí en la versión final</p>
+                            <p class="text-gray-600">El video se reproduciría aquí</p>
                         </div>
                         <button onclick="this.closest('.fixed').remove()" class="btn-primary">
                             <i class="fas fa-times mr-2"></i>Cerrar
@@ -1547,8 +1207,6 @@
                     </div>
                 `;
                 document.body.appendChild(modal);
-                
-                // Remove modal when clicking outside
                 modal.addEventListener('click', (e) => {
                     if (e.target === modal) {
                         modal.remove();
@@ -1557,12 +1215,7 @@
             }
         }
 
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1572,9 +1225,8 @@
             });
         }, observerOptions);
 
-        // Animate cards on scroll
         document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.card');
+            const cards = document.querySelectorAll('.card, .card-elegant');
             cards.forEach(card => {
                 card.style.opacity = '0';
                 card.style.transform = 'translateY(20px)';
@@ -1583,30 +1235,22 @@
             });
         });
 
-        // Header scroll effect
         let lastScrollTop = 0;
         const header = document.querySelector('nav');
-        
         window.addEventListener('scroll', () => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
             if (scrollTop > lastScrollTop && scrollTop > 100) {
-                // Scrolling down
                 header.style.transform = 'translateY(-100%)';
             } else {
-                // Scrolling up
                 header.style.transform = 'translateY(0)';
             }
-            
             lastScrollTop = scrollTop;
         });
 
-        // Add touch feedback for mobile buttons
         document.querySelectorAll('.btn-primary, .btn-secondary, .btn-accent').forEach(button => {
             button.addEventListener('touchstart', function() {
                 this.style.transform = 'scale(0.98)';
             });
-            
             button.addEventListener('touchend', function() {
                 setTimeout(() => {
                     this.style.transform = '';
@@ -1614,18 +1258,15 @@
             });
         });
 
-        // Newsletter subscription (placeholder)
-        document.querySelector('input[type="email"]')?.closest('form, div').addEventListener('submit', function(e) {
+        document.querySelector('input[type="email"]')?.closest('div').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = this.querySelector('input[type="email"]').value;
             if (email) {
-                // Show success message
                 const button = this.querySelector('button');
                 const originalText = button.innerHTML;
                 button.innerHTML = '<i class="fas fa-check mr-2"></i>¡Suscrito!';
                 button.disabled = true;
                 button.classList.add('bg-green-500');
-                
                 setTimeout(() => {
                     button.innerHTML = originalText;
                     button.disabled = false;
@@ -1634,28 +1275,7 @@
                 }, 3000);
             }
         });
-
-        // Performance optimizations
-        if ('IntersectionObserver' in window) {
-            // Lazy load background images
-            const bgElements = document.querySelectorAll('[class*="bg-gradient"]');
-            const bgObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('loaded');
-                    }
-                });
-            });
-            
-            bgElements.forEach(el => bgObserver.observe(el));
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-                closeMobileMenu();
-            }
-        });
     </script>
+    
 </body>
 </html>
