@@ -1100,7 +1100,6 @@ input[type="checkbox"], input[type="radio"] {
 .text-gradient-animated-yellow {
     background: linear-gradient(45deg, #FFD100, #FBBF24, #F59E0B, #f48507, #FFD100);
     background-size: 300% 300%;
-    -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: gradient-wave 5s ease-in-out infinite;
