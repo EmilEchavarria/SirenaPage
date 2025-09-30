@@ -1103,7 +1103,7 @@ input[type="checkbox"], input[type="radio"] {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradient-wave 3s ease-in-out infinite;
+    animation: gradient-wave 5s ease-in-out infinite;
 }
 @keyframes gradient-wave {
     0% {
