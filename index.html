@@ -186,7 +186,94 @@
             background: var(--gradient-accent);
             transition: transform 0.3s ease;
         }
-        
+        #mobile-menu {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Header del sidebar - siempre visible */
+#mobile-menu > div:first-child {
+    flex-shrink: 0;
+}
+
+/* Contenedor de contenido - crece y permite scroll */
+#mobile-menu > div:last-child {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 0.5rem;
+}
+
+/* Footer dentro del contenido */
+#mobile-menu .mt-8 {
+    margin-top: auto;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+}
+
+/* Enlaces del menú */
+.mobile-nav-link {
+    padding: 0.875rem 1rem;
+    font-size: 0.95rem;
+}
+
+.mobile-nav-link .w-10.h-10 {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1rem;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 480px) {
+    #mobile-menu > div:last-child {
+        padding: 1rem 0.5rem;
+    }
+    
+    .mobile-nav-link {
+        padding: 0.75rem 0.75rem;
+        font-size: 0.9rem;
+    }
+    
+    .mobile-nav-link .w-10.h-10 {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.875rem;
+    }
+    
+    #mobile-menu .mt-8 {
+        margin-top: auto;
+        margin-left: 0.75rem;
+        margin-right: 0.75rem;
+        margin-bottom: 0.75rem;
+        padding: 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    #mobile-menu .text-2xl {
+        font-size: 1.25rem;
+    }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-height: 640px) {
+    #mobile-menu > div:last-child {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .mobile-nav-link {
+        padding: 0.625rem 0.75rem;
+    }
+    
+    #mobile-menu .mt-8 {
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+    }
+}
         .feature-item:hover .feature-icon-enhanced {
             transform: scale(1.1);
         }
@@ -384,57 +471,97 @@
     </style>
 </head>
 <body class="bg-white">
-    <!-- Navigation -->
-    <nav class="fixed w-full top-0 bg-white/95 backdrop-blur-lg border-b border-gray-100 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <div class="text-2xl font-bold font-sugar text-gradient-primary text-gradient-animated-yellow">ShelfHackers</div>
-                </div>
-                <div class="hidden md:block">
-                    <div class="flex items-center space-x-1">
-                        <a href="#hero" class="nav-link">Inicio</a>
-                        <a href="#mission" class="nav-link">Misión</a>
-                        <a href="#how-it-works" class="nav-link">Cómo Funciona</a>
-                        <a href="#team" class="nav-link">Equipo</a>
-                        <a href="#contact" class="nav-link">Contacto</a>
-                    </div>
-                </div>
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-                        <i class="fas fa-bars text-xl text-gray-700"></i>
-                    </button>
+ <!-- Navigation -->
+<nav class="fixed w-full top-0 bg-white/95 backdrop-blur-lg border-b border-gray-100 z-50 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <div class="flex items-center">
+                <div class="text-2xl font-bold font-sugar text-gradient-primary text-gradient-animated-yellow">ShelfHackers</div>
+            </div>
+            <div class="hidden md:block">
+                <div class="flex items-center space-x-1">
+                    <a href="#hero" class="nav-link">Inicio</a>
+                    <a href="#mission" class="nav-link">Misión</a>
+                    <a href="#how-it-works" class="nav-link">Cómo Funciona</a>
+                    <a href="#team" class="nav-link">Equipo</a>
+                    <a href="#contact" class="nav-link">Contacto</a>
                 </div>
             </div>
-        </div>
-        <div id="mobile-menu" class="mobile-nav fixed inset-y-0 left-0 w-80 max-w-full bg-gradient-to-b from-blue-50 to-cyan-50 shadow-2xl z-50 md:hidden transition-transform duration-300 ease-in-out">
-            <div class="flex items-center justify-between p-6 bg-gradient-elegant border-b border-gray-100/50">
-                <div class="text-2xl font-bold font-display bg-gradient-primary text-transparent bg-clip-text">SirenaMap</div>
-                <button id="close-menu" class="p-3 rounded-full hover:bg-blue-50 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Cerrar menú">
-                    <i class="fas fa-times text-xl text-gray-600"></i>
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+                    <i class="fas fa-bars text-xl text-gray-700"></i>
                 </button>
             </div>
-            <div class="py-8 flex flex-col gap-2">
-                <a href="#hero" class="mobile-nav-link flex items-center px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-100/50 hover:text-blue-600 transition-colors border-l-4 border-transparent hover:border-blue-500 focus:outline-none focus:bg-blue-100/50">
-                    <i class="fas fa-home w-8 mr-4 text-blue-500"></i>Inicio
+        </div>
+    </div>
+    
+    <!-- Mobile Menu Sidebar -->
+    <div id="mobile-menu" class="mobile-nav fixed inset-y-0 left-0 w-80 max-w-[85%] bg-white shadow-2xl z-50 md:hidden transition-transform duration-300 ease-in-out transform -translate-x-full">
+        <!-- Header del Sidebar -->
+        <div class="flex items-center justify-between p-6 bg-gradient-to-r from-blue-600 to-cyan-500 border-b border-blue-500/20">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                    <i class="fas fa-shopping-cart text-white text-lg"></i>
+                </div>
+                <div class="text-2xl font-bold text-white">SirenaMap</div>
+            </div>
+            <button id="close-menu" class="p-2 rounded-lg hover:bg-white/20 transition-colors focus:outline-none" aria-label="Cerrar menú">
+                <i class="fas fa-times text-xl text-white"></i>
+            </button>
+        </div>
+        
+        <!-- Menu Items -->
+        <div class="py-6 px-2 bg-gradient-to-b from-gray-50 to-white h-full overflow-y-auto">
+            <div class="space-y-1">
+                <a href="#hero" class="mobile-nav-link group flex items-center px-4 py-3.5 text-base font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all duration-200 border-l-4 border-transparent hover:border-blue-500 mx-2">
+                    <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors mr-3">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <span>Inicio</span>
                 </a>
-                <a href="#mission" class="mobile-nav-link flex items-center px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-100/50 hover:text-blue-600 transition-colors border-l-4 border-transparent hover:border-blue-500 focus:outline-none focus:bg-blue-100/50">
-                    <i class="fas fa-book w-8 mr-4 text-blue-500"></i>Misión
+                
+                <a href="#mission" class="mobile-nav-link group flex items-center px-4 py-3.5 text-base font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all duration-200 border-l-4 border-transparent hover:border-blue-500 mx-2">
+                    <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors mr-3">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <span>Misión</span>
                 </a>
-                <a href="#how-it-works" class="mobile-nav-link flex items-center px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-100/50 hover:text-blue-600 transition-colors border-l-4 border-transparent hover:border-blue-500 focus:outline-none focus:bg-blue-100/50">
-                    <i class="fas fa-cogs w-8 mr-4 text-blue-500"></i>Cómo Funciona
+                
+                <a href="#how-it-works" class="mobile-nav-link group flex items-center px-4 py-3.5 text-base font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all duration-200 border-l-4 border-transparent hover:border-blue-500 mx-2">
+                    <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors mr-3">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <span>Cómo Funciona</span>
                 </a>
-                <a href="#team" class="mobile-nav-link flex items-center px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-100/50 hover:text-blue-600 transition-colors border-l-4 border-transparent hover:border-blue-500 focus:outline-none focus:bg-blue-100/50">
-                    <i class="fas fa-users w-8 mr-4 text-blue-500"></i>Equipo
+                
+                <a href="#team" class="mobile-nav-link group flex items-center px-4 py-3.5 text-base font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all duration-200 border-l-4 border-transparent hover:border-blue-500 mx-2">
+                    <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors mr-3">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span>Equipo</span>
                 </a>
-                <a href="#contact" class="mobile-nav-link flex items-center px-6 py-4 text-lg font-medium text-gray-700 hover:bg-blue-100/50 hover:text-blue-600 transition-colors border-l-4 border-transparent hover:border-blue-500 focus:outline-none focus:bg-blue-100/50">
-                    <i class="fas fa-envelope w-8 mr-4 text-blue-500"></i>Contacto
+                
+                <a href="#contact" class="mobile-nav-link group flex items-center px-4 py-3.5 text-base font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-xl transition-all duration-200 border-l-4 border-transparent hover:border-blue-500 mx-2">
+                    <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors mr-3">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <span>Contacto</span>
                 </a>
             </div>
+            
+            <!-- Footer del Sidebar -->
+            <div class="mt-8 mx-4 p-4 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
+                <p class="text-xs text-gray-600 text-center leading-relaxed">
+                    <span class="font-semibold text-blue-600">ShelfHackers</span><br>
+                    Hackathon 2025
+                </p>
+            </div>
         </div>
-    </nav>
-    <div id="mobile-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden md:hidden"></div>
+    </div>
+</nav>
 
+<!-- Overlay oscuro -->
+<div id="mobile-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden md:hidden transition-opacity duration-300"></div>
     <!-- Hero Section -->
     <section id="hero" class="min-h-screen flex items-center bg-gradient-hero pt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -897,24 +1024,24 @@
                 <div class="h-2 w-1/2 bg-gray-600 mx-auto rounded-b-lg"></div>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                <div class="text-center group">
-                    <div class="bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
-                        <div class="aspect-[9/16] bg-gradient-to-br from-[#02B0D5] to-blue-400 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-map-marked-alt text-4xl text-white/90"></i>
-                        </div>
-                    </div>
-                    <h4 class="font-semibold text-gray-900">Rutas Optimizadas</h4>
-                    <p class="text-gray-600 text-sm">Navegación interior</p>
-                </div>
-                <div class="text-center group">
-                    <div class="bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
-                        <div class="aspect-[9/16] bg-gradient-to-br from-[#FFD100] to-yellow-400 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-list-ul text-4xl text-gray-900/90"></i>
-                        </div>
-                    </div>
-                    <h4 class="font-semibold text-gray-900">Lista Inteligente</h4>
-                    <p class="text-gray-600 text-sm">Organización por pasillo</p>
-                </div>
+               <div class="text-center group">
+    <div class="bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
+        <div class="aspect-[9/16] rounded-lg flex items-center justify-center bg-cover bg-center" style="background-image: url('assets/images/rutasoptimizadas.jpg');">
+            <i class="fas fa-map-marked-alt text-4xl text-white/90"></i>
+        </div>
+    </div>
+    <h4 class="font-semibold text-gray-900">Rutas Optimizadas</h4>
+    <p class="text-gray-600 text-sm">Navegación interior</p>
+
+</div><div class="text-center group">
+    <div class="bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
+        <div class="aspect-[9/16] rounded-lg flex items-center justify-center bg-cover bg-center" style="background-image: url('assets/images/CreateList.png');">
+            <i class="fas fa-list-ul text-4xl text-gray-900/90"></i>
+        </div>
+    </div>
+    <h4 class="font-semibold text-gray-900">Lista Inteligente</h4>
+    <p class="text-gray-600 text-sm">Organización por pasillo</p>
+</div>
                 <div class="text-center group">
                     <div class="bg-white rounded-xl shadow-xl p-3 mb-4 transition-transform group-hover:scale-105 duration-300">
                         <div class="aspect-[9/16] bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
@@ -937,85 +1064,84 @@
         </div>
     </section>
 
-    <!-- Team Section -->
-    <section id="team" class="py-20 lg:py-32">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gradient-animated mb-6">
-                    Los ShelfHackers
-                </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-                    El equipo que creó SirenaMap en 30 días de innovación intensa
-                </p>
-            </div>
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-                <div class="card text-center">
-                    <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-code text-2xl text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Emil Echavarria</h3>
-                    <p class="text-blue-600 font-semibold mb-3">Desarrollador Full Stack</p>
-                    <p class="text-gray-600 text-sm mb-4">Arquitecto técnico y líder backend.</p>
-                    <div class="flex justify-center space-x-3">
-                        <a href="https://github.com/EmilEchavarria" target="_blank" class="text-gray-400 hover:text-blue-500">
-                            <i class="fab fa-github text-xl"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/emil-echavarria/" target="_blank" class="text-gray-400 hover:text-blue-500">
-                            <i class="fab fa-linkedin text-xl"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="card text-center">
-                    <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-palette text-2xl text-gray-800"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Luis Alburquerque</h3>
-                    <p class="text-yellow-600 font-semibold mb-3">Diseñador UI/UX</p>
-                    <p class="text-gray-600 text-sm mb-4">Creador de interfaces intuitivas.</p>
-                    <div class="flex justify-center space-x-3">
-                        <a href="https://github.com/LuisAlburquerque" target="_blank" class="text-gray-400 hover:text-yellow-500">
-                            <i class="fab fa-github text-xl"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/luis-alburquerque/" target="_blank" class="text-gray-400 hover:text-yellow-500">
-                            <i class="fab fa-linkedin text-xl"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="card text-center">
-                    <div class="w-20 h-20 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-shield-alt text-2xl text-white"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Israel Gomez</h3>
-                    <p class="text-blue-600 font-semibold mb-3">Especialista en Seguridad</p>
-                    <p class="text-gray-600 text-sm mb-4">Experto en interfaces móviles.</p>
-                    <div class="flex justify-center space-x-3">
-                        <a href="https://github.com/IsraelGomez" target="_blank" class="text-gray-400 hover:text-blue-500">
-                            <i class="fab fa-github text-xl"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/israel-gomez/" target="_blank" class="text-gray-400 hover:text-blue-500">
-                            <i class="fab fa-linkedin text-xl"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="card text-center">
-                    <div class="w-20 h-20 bg-gradient-accent rounded-full flex items-center justify-center mx-auto mb-6">
-                        <i class="fas fa-brain text-2xl text-gray-800"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Alan Tubert</h3>
-                    <p class="text-yellow-600 font-semibold mb-3">Ingeniero de IA</p>
-                    <p class="text-gray-600 text-sm mb-4">Experto en algoritmos inteligentes.</p>
-                    <div class="flex justify-center space-x-3">
-                        <a href="https://github.com/AlanTubert" target="_blank" class="text-gray-400 hover:text-yellow-500">
-                            <i class="fab fa-github text-xl"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/alan-tubert/" target="_blank" class="text-gray-400 hover:text-yellow-500">
-                            <i class="fab fa-linkedin text-xl"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+<!-- Team Section -->
+<!-- Team Section -->
+<section id="team" class="py-20 lg:py-32">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl sm:text-4xl lg:text-6xl font-bold font-display text-gradient-animated mb-6">
+                Los ShelfHackers
+            </h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                El equipo que creó SirenaMap en 30 días de innovación intensa
+            </p>
         </div>
-    </section>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div class="card text-center">
+                <img src="assets/images/participantes/emil.jpeg" alt="Emil Echavarria" class="w-40 h-40 rounded-full object-cover mx-auto mb-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Emil Echavarria</h3>
+                <p class="text-blue-600 font-semibold mb-3">Tecnólogo en Desarrollo de Software</p>
+                <p class="text-gray-600 text-sm mb-4">Full Stack Developer • Creative Solutions • Always Shipping.</p>
+                <div class="flex justify-center space-x-3">
+                    <a href="https://github.com/EmilEchavarria" target="_blank" class="text-gray-400 hover:text-blue-500">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/emil-echavarria/" target="_blank" class="text-gray-400 hover:text-blue-500">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="https://emilechavarria.vercel.app" target="_blank" class="text-gray-400 hover:text-blue-500">
+                        <i class="fas fa-briefcase text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="card text-center">
+                <img src="assets/images/participantes/Alan.jpg" alt="Alan Tubert" class="w-40 h-40 rounded-full object-cover mx-auto mb-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Alan Tubert</h3>
+                <p class="text-yellow-600 font-semibold mb-3">Tecnólogo en Desarrollo de Software</p>
+                <p class="text-gray-600 text-sm mb-4">Full Stack Developer.</p>
+                <div class="flex justify-center space-x-3">
+                    <a href="https://github.com/AlanTubert" target="_blank" class="text-gray-400 hover:text-yellow-500">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/alan-tubert-aa319a1b2" target="_blank" class="text-gray-400 hover:text-yellow-500">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+           
+            <div class="card text-center">
+                <img src="assets/images/participantes/israel.jpeg" alt="Israel Gomez" class="w-40 h-40 rounded-full object-cover mx-auto mb-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Israel Gomez</h3>
+                <p class="text-blue-600 font-semibold mb-3">Tecnólogo en Seguridad Informática</p>
+                <p class="text-gray-600 text-sm mb-4">Cybersecutity Enthusiast • Blueteam • Vibe Coding</p>
+                <div class="flex justify-center space-x-3">
+                    <a href="https://github.com/IsraelGomez" target="_blank" class="text-gray-400 hover:text-blue-500">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/juan-gómezt/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="text-gray-400 hover:text-blue-500">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card text-center">
+                <img src="path/to/luis-alburquerque.jpg" alt="Luis Alburquerque" class="w-40 h-40 rounded-full object-cover mx-auto mb-6">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Luis Alburquerque</h3>
+                <p class="text-yellow-600 font-semibold mb-3">Tecnólogo en Desarrollo de Software</p>
+                <p class="text-gray-600 text-sm mb-4">Web Developer</p>
+                <div class="flex justify-center space-x-3">
+                    <a href="https://github.com/LuisAlburquerque" target="_blank" class="text-gray-400 hover:text-yellow-500">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/luis-alburquerque/" target="_blank" class="text-gray-400 hover:text-yellow-500">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+</section>
 
     <!-- Únete a la Revolución -->
     <section id="contact" class="py-20 lg:py-32 bg-gradient-hero">
@@ -1049,66 +1175,105 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                <div>
-                    <div class="text-2xl font-bold font-display text-gradient-primary mb-4">
-                        SirenaMap
-                    </div>
-                    <p class="text-gray-600 mb-6 leading-relaxed">
-                        Revolucionando las compras con tecnología inteligente.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-colors">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-colors">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 hover:bg-yellow-600 hover:text-white transition-colors">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
+  <!-- Footer -->
+<footer class="bg-gradient-to-br from-gray-50 to-white border-t border-gray-200 py-12 md:py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Grid Principal -->
+        <div class="mb-10 md:mb-12">
+            <!-- Columna Principal - Separada -->
+            <div class="text-center mb-10 pb-8 border-b border-gray-200 md:text-left md:mb-12">
+                <div class="text-3xl font-bold font-display text-gradient-primary mb-4">
+                    SirenaMap
                 </div>
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-4">Producto</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#how-it-works" class="text-gray-600 hover:text-blue-600">Cómo Funciona</a></li>
-                        <li><a href="#how-it-works" class="text-gray-600 hover:text-blue-600">Demo</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Documentación</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-4">Empresa</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#mission" class="text-gray-600 hover:text-blue-600">Nuestra Misión</a></li>
-                        <li><a href="#team" class="text-gray-600 hover:text-blue-600">Equipo</a></li>
-                        <li><a href="#contact" class="text-gray-600 hover:text-blue-600">Contacto</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-gray-900 mb-4">Recursos</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Blog</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Soporte</a></li>
-                        <li><a href="#" class="text-gray-600 hover:text-blue-600">Términos</a></li>
-                    </ul>
+                <p class="text-gray-600 mb-6 leading-relaxed max-w-md mx-auto md:mx-0">
+                    Revolucionando las compras con tecnología inteligente.
+                </p>
+                <div class="flex justify-center md:justify-start space-x-3">
+                    <a href="#" class="w-11 h-11 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="w-11 h-11 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-600 hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="w-11 h-11 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 hover:bg-yellow-600 hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-lg">
+                        <i class="fab fa-github"></i>
+                    </a>
                 </div>
             </div>
-            <div class="border-t border-gray-200 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-500 mb-4 md:mb-0">
-                    © 2025 ShelfHackers. Creado en República Dominicana.
-                </p>
-                <div class="flex items-center space-x-2">
-                    <span class="text-gray-500">Hecho en</span>
-                    <span class="text-2xl">🇩🇴</span>
-                    <span class="text-gray-500">con</span>
-                    <span class="text-red-500">❤️</span>
+
+            <!-- 2 Columnas en móvil, 4 en desktop -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 gap-y-10 lg:gap-12">
+                <!-- Producto -->
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4 text-base md:text-lg">Producto</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm md:text-base block">
+                            Cómo Funciona
+                        </a></li>
+                        <li><a href="#how-it-works" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm md:text-base block">
+                            Demo
+                        </a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm md:text-base block">
+                            Documentación
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <!-- Empresa -->
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4 text-base md:text-lg">Empresa</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#mission" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm md:text-base block">
+                            Nuestra Misión
+                        </a></li>
+                        <li><a href="#team" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm md:text-base block">
+                            Equipo
+                        </a></li>
+                        <li><a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm md:text-base block">
+                            Contacto
+                        </a></li>
+                    </ul>
+                </div>
+                
+                <!-- Recursos -->
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4 text-base md:text-lg">Recursos</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm md:text-base block">
+                            Blog
+                        </a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm md:text-base block">
+                            Soporte
+                        </a></li>
+                        <li><a href="#" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm md:text-base block">
+                            Términos
+                        </a></li>
+                    </ul>
+                </div>
+
+                <!-- Contacto -->
+                <div>
+                    <h4 class="font-bold text-gray-900 mb-4 text-base md:text-lg">Contacto</h4>
+                    <ul class="space-y-3">
+                        <li class="text-gray-600 text-sm md:text-base">
+                            Santo Domingo, RD
+                        </li>
+                        <li><a href="mailto:info@sirenamap.com" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 text-sm md:text-base block">
+                            info@sirenamap.com
+                        </a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </footer>
+        
+        <!-- Bottom Bar -->
+        <div class="border-t border-gray-200 pt-6 md:pt-8">
+            <p class="text-gray-500 text-sm text-center">
+                © 2025 ShelfHackers. Todos los derechos reservados.
+            </p>
+        </div>
+    </div>
+</footer>
 
     <script>
         // Mobile menu functionality
