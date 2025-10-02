@@ -2,8 +2,14 @@
    ShelfHackers - Hackathon 2025 Styles
    Clean, Modern, Friendly Design
    ========================================== */
+
+
 .font-sugar {
     font-family: 'More Sugar', cursive;
+  font-weight: bold;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased; /* mejora el render en móviles */
+  -moz-osx-font-smoothing: grayscale;
 }
 /* Variables CSS personalizadas */
 :root {
